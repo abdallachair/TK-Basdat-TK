@@ -1,6 +1,7 @@
 <?php	
 	session_start();
-    $_SESSION['role'] = 'pengguna';
+    include("functions/add_jasa_kirim.php");
+    $_SESSION['role'] = 'admin';
 	function connectDB() {
 		/*$servername = "localhost";
 		$username = "root";
@@ -15,64 +16,6 @@
 			die("Connection failed: " + mysqli_connect_error());
 		}
 		return $conn;*/
-	}
-
-	function submitPromo(){
-		/*$conn = connectDB();*/
-
-		$deskripsi = $_POST['isiDeskripsi'];
-		$periodeAwal = $_POST['periodeAwal'];
-		$periodeAkhir = $_POST['periodeAwal'];
-		$kodePromo = $_POST['kodePromo'];
-		$kategoriUtama = $_POST['kategoriUtama'];
-		$subKategori = $_POST['subKategori']; 
-		$idPromo;
-
-		$sql4 = "SELECT id FROM PROMO";
-
-		if(!$result4 = mysqli_query($conn, $sql4)) {
-			die("Error: $sql");
-		}
-
-		while ($row = mysqli_fetch_row($result4)) {
-			$idPromo = $row[0];
-		}
-
-		echo $idPromo;
-
-		$idPromo += 1;
-
-		echo $idPromo;
-
-		$sql = "INSERT into PROMO (id, deskripsi, periode_awal, periode_akhir, kode) values ('$idPromo','$deskripsi', '$periodeAwal', '$periodeAkhir', '$kodePromo')";
-
-		if(!$result1 = mysqli_query($conn, $sql1)) {
-			die("Error: $sql");
-		}
-
-		$sql2 = "SELECT * FROM SHIPPED_PRODUK WHERE kategori = $subKategori";
-
-		if(!$result2 = mysqli_query($conn, $sql2)) {
-			die("Error: $sql");
-		}
-
-		while ($row = mysqli_fetch_row($result2)) {
-			$kode_produk = $row[0];
-			$sql3 = "INSERT INTO PROMO_PRODUK (id_promo, kode_produk) values ('$idPromo', '$kode_produk')";
-
-			if(!$result3 = mysqli_query($conn, $sql3)) {
-				die("Error: $sql3");
-			}
-		}
-
-		header("Location: index.php");
-
-	}
-
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		if($_POST['command'] === 'submit') {
-			submitPromo();
-		}
 	}
 ?>
 
@@ -201,26 +144,32 @@
         <button data-toggle="collapse" data-target="#demo-jasa" style="width: 100%; text-align: left;" class="btn btn-info">Buat Jasa Kirim<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
 
         <div id="demo-jasa" class="collapse">
-        <div class="container">
-             <fieldset>
-	  <h2>Add Jasa Kirim</h2>
-	  <form action="jasa_kirim.php">
-	    <div class="form-group">
-	      <label for="namajasakirim">Nama : </label>
-	      <input type="text" class="form-control" id="nama_jasa_kirim" placeholder="Masukkan nama" name="nama_jasa_kirim" required>
-	    </div>
-	    <div class="form-group">
-	      <label for="lamakirim">Lama Kirim : </label>
-	      <input type="text" class="form-control" id="lama_kirim" placeholder="Masukkan lama kirim" name="lama_kirim" required>
-	    </div>
-	    <div class="form-group">
-	      <label for="tarif">Tarif : </label>
-	      <input type="number" class="form-control" id="tarif_jasa_kirim" placeholder="Masukkan tarif" name="tarif_jasa_kirim" required>
-	    </div>
-	    <button type="submit" class="btn btn-default">Submit</button>
-	  </form>
-            </fieldset>
-	</div>
+        <div class="container" style="padding-left: 20%; padding-right: 20%">
+          <div class="konten-header text-center">
+                <span class="header-text"> ADD JASA KIRIM </span>
+          </div>
+          <div>
+            <span class="required" style="color: red">*required</span>
+          </div>
+          <form action="index.php" method="POST">
+            <div class="form-group">
+              <label for="namajasakirim">Nama : <span style="color: red">*</span></label>
+              <input type="text" class="form-control" id="nama_jasa_kirim" placeholder="Masukkan nama" name="nama_jasa_kirim">
+              <span style="color: red">'; ?><?php echo $echoNamaJasa; echo'</span>
+            </div>
+            <div class="form-group">
+              <label for="lamakirim">Lama Kirim : <span class="required" style="color: red">*</span></label>
+              <input type="text" class="form-control" id="lama_kirim" placeholder="Masukkan lama kirim" name="lama_kirim">
+              <span style="color: red">';?><?php echo $echoLamaKirim; echo'</span>
+            </div>
+            <div class="form-group">
+              <label for="tarif">Tarif : <span class="required" style="color: red">*</span></label>
+              <input type="text" class="form-control" id="tarif_jasa_kirim" placeholder="Masukkan tarif" name="tarif_jasa_kirim">
+              <span style="color: red">';?><?php echo $echoTarif; echo'</span>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div>
         </div>
         
         <button data-toggle="collapse" data-target="#demo-promo" style="width: 100%; text-align: left;" class="btn btn-info">Add Promo<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
