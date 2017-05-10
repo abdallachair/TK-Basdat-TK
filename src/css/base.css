@@ -1,0 +1,92 @@
+/* THIS SECTION IS TO DEFINE FONTS */
+
+@font-face {
+	font-family: bubblebody-light;
+	src: url(../fonts/Bobbleboddy_light.ttf);
+}
+
+@font-face {
+	font-family: bubblebody-fat;
+	src: url(../fonts/Bobbleboddy.ttf);
+}
+
+@font-face {
+	font-family: berlin-sans-fb-regular;
+	src: url(../fonts/BRLNSR.TTF);
+}
+
+/* ---------------- End of Font Section----------------- */
+
+/* THIS SECTION IS TO DEFINE THE WEB COMPONENT STYLE */
+
+html, body {
+	height: 100%;
+}
+
+.navbar-default {
+	/* Navigation Bar */
+	background: #2e3092;
+	color: white;
+	font-size: large;
+	width: 100%;
+}
+
+.content {
+	/* http://stackoverflow.com/questions/14123999/center-a-div-horizontally-and-vertically */
+	/* Bagian tengah yang bisa dipakai untuk konten */
+	position:absolute;
+	left:0; right:0;
+	top:10%; bottom:5%;
+	margin:10px;
+	
+	max-width:100%;
+	max-height:100%;
+	overflow:auto;
+}
+
+.konten-header {
+	/* Judul dari konten */
+	background: #2e3092;
+	color: white;
+}
+
+.konten-isi {
+	/* Isi dari konten */
+	padding: 10px;
+	font-size: 120%;
+}
+
+.konten-border {
+	/* Border disekitar konten */	
+	border-style: solid;
+	border-width: 2px;
+	border-color: #2e3092;
+}
+
+.footer {
+	/* Footer */
+	position:absolute; 
+	bottom:0; 
+	width:100%; 
+	background: #2e3092; 
+	padding-top: 0.5%;
+	padding-bottom: 0.5%;
+}
+
+/* ---------------- End of Web Component Style Section----------------- */
+
+/* You can use this section to set the text on predetermined style */
+/* You can also use: lead, small, body, etc for more magic text stuffs (check http://getbootstrap.com/2.3.2/base-css.html) */
+/* Using Glyphicons is also recommended for some a e s t e t h i c s (check http://getbootstrap.com/components/) */
+
+.big-text {
+	font-family: bubblebody-light;
+	font-size: 200%;
+}
+
+.header-text {
+	font-family: berlin-sans-fb-regular;
+	font-size: 150%;
+}
+
+/* ---------------- End of Custom Text Style Section----------------- */
