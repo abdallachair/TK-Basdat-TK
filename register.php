@@ -1,5 +1,14 @@
 <?php
+	// define variables and set to empty values
+	$ErrMsg = "";
+	$email = $pass = $repass = $nama = $sex = $notelp = $alamat = "";
 
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	  if (empty($_POST["email"]) || empty($_POST["uname"]) || empty($_POST["pass"]) || empty($_POST["repass"]) || empty($_POST["sex"]) || empty($_POST["notelp"]) || empty($_POST["pass"])) {
+	    $ErrMsg = "Semua data harus diisi"; 
+	  } 
+
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,7 +56,7 @@
 		}
 		#register-btn {
 			position: relative;
-			top: 5px;
+			top: 20px;
 			left: 90px;
 			width: 500px;
 			margin-bottom: 10px;
@@ -55,7 +64,7 @@
 		}
 		#register-footer-text {
 			position: relative;
-			top: 5px;
+			top: 9px;
 			left: 425px;
 			font-size: 12px;
 		}
@@ -64,7 +73,7 @@
 <body>
 <div class="container">
     <div class="row">
-    	<button id="home-btn" class="btn btn-lg btn-primary">
+    	<button id="home-btn" class="btn btn-lg btn-primary"  onclick="location.href='index.php';">
 			<span class="glyphicon glyphicon-home"></span>
 		</button>
         <div class="col-md-4 col-md-offset-4">
@@ -77,32 +86,40 @@
                         <fieldset>
                             <div class="form-group ">
                                 <input id="email-input" class="form-control" placeholder="Email" name="email" type="text" autofocus>
+                                <span class="error">* <?php echo $ErrMsg;?></span>
                             </div>
                              <div class="form-group">
-                                <input id="name-input" class="form-control" placeholder="Nama kamu" name="uname" type="text" value="">
+                                <input id="name-input" class="form-control" placeholder="Nama kamu" name="uname" type="text" 
+                                value="">
+                                <span class="error">* <?php echo $ErrMsg;?></span>
                             </div>
                             <div class="form-group">
                                 <input id="pass-input" class="form-control" placeholder="Password" name="pass" type="password" value="">
+                                <span class="error">* <?php echo $ErrMsg;?></span>
                             </div>
                             <div class="form-group">
                                 <input id="pass-input-repeat" class="form-control" placeholder="Konfirmasi Password" name="repass" type="password" autofocus>
+                                <span class="error">* <?php echo $ErrMsg;?></span>
                             </div>
                             <div class="form-group">
                                <select id="sex-input" class="selectpicker form-control">
 								  <option>Laki-laki</option>
 								  <option>Perempuan</option>
 								</select>
+								<span class="error">* <?php echo $ErrMsg;?></span>
                             </div>
                             <div class="form-group">
                                 <input id="notelp-input" class="form-control" placeholder="Nomor Telfon" name="notelp" type="text" value="">
+                                <span class="error">* <?php echo $ErrMsg;?></span>
                             </div>
                             <div class="form-group">
                                 <input id="alamat-input" class="form-control" placeholder="Alamat" name="alamat" type="text" autofocus>
+                                <span class="error">* <?php echo $ErrMsg;?></span>
                             </div class="form-group">
                                 <input id="register-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="register" name="register">
                         </fieldset>
                     </form>
-                    <div class="register-footer"><a  id="register-footer-text">Sudah gabung TokoKeren?</a></div>
+                    <div class="register-footer"><a id="register-footer-text" href="login.php">Sudah gabung TokoKeren?</a></div>
                 </div>
 
             </div>

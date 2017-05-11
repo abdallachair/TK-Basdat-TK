@@ -1,3 +1,53 @@
+
+<?php 
+session_start();
+
+//isi host, dbname, user, pass database
+$db_connection = pg_connect("host=localhost dbname=DBNAME user=USERNAME password=PASSWORD");
+
+
+function loginUser($usern, $pass){
+	//disesuaikan querynya
+	$query_email = "SELECT email FROM pengguna WHERE email='".$email."' and password='".$pass."' ";
+	$query_role = "SELECT role FROM pengguna WHERE email='".$email."' and password='".$pass."' "
+	$query_is_penjual = "SELECT is_penjual FROM pelanggan WHERE email='".$email."' ";
+	$result_email = pg_query($db_connection, $query_email); 
+	$result_role = pg_query($db_connection, $query_role);
+	$result_is_penjual = pg_query($db_connection, $query_is_penjual));
+
+	if(!is_null($result)){
+		$_SESSION['email'] = $result_email;
+		//admin
+		if($_SESSION['email'] == 'cdowdle0@nps.gov' 
+		|| $_SESSION['email'] == 'ascibsey1@icq.com' 
+		|| $_SESSION['email'] == 'wmaroney2@yale.edu' 
+		|| $_SESSION['email'] == 'brobbs3@g.co' 
+		|| $_SESSION['email'] == 'brentoll4@wsj.com')
+			$_SESSION['role'] = 'admin';
+			echo "$_SESSION['role']";
+		else 
+			//cek apakah is_penjual = true
+			$_SESSION['penjual'] = $result_is_penjual;
+			if($_SESSION['penjual'] == true)
+				$_SESSION['role'] = 'penjual'
+			else
+				$_SESSION['role'] = 'pembeli'
+	}
+	else echo "<p>Username atau password salah!</p>";
+
+	header("Location:index.php");
+
+}
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+	if($_POST['command'] === 'login') {
+		loginUser($_POST['email'], $_POST['pass']);
+	}
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -71,7 +121,7 @@
                             <div class="form-group">
                                 <input id="pass-input" class="form-control" placeholder="Password" name="pass" type="password" value="">
                             </div>
-                                <input id="login-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Login" name="login" href="index.php">
+                                <input id="login-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Login" name="login">
                         </fieldset>
                     </form>
                     <div class="login-footer"><a  id="login-footer-text">Belom gabung TokoKeren?</a></div>
