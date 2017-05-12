@@ -10,17 +10,54 @@
     }
     
     function insertToko(){
-
+        $DBConnection = pg_connect('host=localhost dbname=farhanramadhan username=postgres password=gold28197');
         $nama_toko = $_POST['nama_toko'];
         $deskripsi = $_POST['deskripsi'];
         $slogan = $_POST['slogan'];
         $lokasi = $_POST['lokasi'];
         $email = $_SESSION['email_pengguna'];
         
-        $sql = "INSERT into TOKOKEREN.TOKO (nama, deskripsi, slogan, lokasi, email_penjual) values ('$nama_toko','$deskripsi', '$slogan', '$lokasi', '$email')";
+        $errorMSG = "";
         
+        $query = "SELECT * FROM TOKOKEREN.TOKO WHERE nama_toko = $nama_toko";
+        $result = pg_query($DBConnection, $query);
         
-        $result = pg_query($db_connection, $sql);
+        if(pg_fetch_row($result) >= 1){
+            $errorMSG = "UDAH ADA NAMA TOKOKNYA GBLG";
+        } else{
+            $sql = "INSERT into TOKOKEREN.TOKO (nama, deskripsi, slogan, lokasi, email_penjual) values ('$nama_toko','$deskripsi', '$slogan', '$lokasi', '$email')";
+            $sql3 = "UPDATE PELANGGAN SET is_penjual = TRUE WHERE email = $email";
+            
+            $result = pg_query($DBConnection, $sql3);
+            
+            $kirim = $_POST['no_jasa_kirim_1'];
+            $sql1 = "SELECT * FROM TOKOKEREN.TOKO_JASA_KIRIM WHERE nama_toko = $nama_toko AND jasa_kirim = $kirim";
+        
+            $result1 = pg_query($DBConnection, $sql1);
+        
+            if(pg_fetch_row($result1) >= 1){
+                $loop = $_SESSION['no_jasa_kirim'];
+        
+                while($loop > 0){
+                    $text = "no_jasa_kirim_".$loop;
+                    $kirim = $_POST[$text];
+                    $sql2 = "INSERT into TOKOKEREN.TOKO_JASA_KIRIM (nama_toko, jasa_kirim) values ('$nama_toko','$kirim')";
+                    $loop = $loop - 1;
+                }
+            } else{
+                $sql2 = "INSERT into TOKOKEREN.TOKO_JASA_KIRIM (nama_toko, jasa_kirim) values ('$nama_toko','$kirim')";
+            
+                $loop = $_SESSION['no_jasa_kirim'];
+        
+                while($loop > 0){
+                    $text = "no_jasa_kirim_".$loop;
+                    $kirim = $_POST[$text];
+                    $sql2 = "INSERT into TOKOKEREN.TOKO_JASA_KIRIM (nama_toko, jasa_kirim) values ('$nama_toko','$kirim')";
+                    $loop = $loop - 1;
+                }
+            }
+        }
+        
         
         
         
@@ -43,6 +80,7 @@
         <link href="rating/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="jquery/jquery.js"></script>
         <script src="rating/js/star-rating.js" type="text/javascript"></script>
 	   </head>
 	<body>
@@ -70,6 +108,27 @@
                             <input type="text" class="form-control" id="insert-lokasi" name="lokasi" placeholder="masukkan lokasi dari toko mu" required>
                         </div>
                         <div class="form-group">
+                            <label for="harga">Jasa Kirim 1</label>
+                            <?php   
+                                    $_SESSION['no_jasa_kirim'] = 1;
+                                    $jasa = selectAllFromTable("JASA_KIRIM");
+                                    while($row = mysqli_fetch_row($jasa)){
+                                        echo '<option name="jasa_kirim_id_'+.$_SESSION['no_jasa_kirim'].+'" value="'.$row['nama'].'">'.$row['nama'].'</option>';
+                                    }
+                            ?>
+                            
+                            <div id="jasaKirim">
+                            
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="addJasaKirim">Tambah Jasa Kirim</button>
+                        </div>
+                        <div class="col-md-7">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="addJasaKirim">Tambah Jasa Kirim</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                            
                             <?php
                             $nomor = 1
                             
@@ -92,12 +151,7 @@
                           //  <input type="submit" value="Tambah Jasa">';
                           //  ?> 
                             <select>
-                                <?php
-                                    $jasa = selectAllFromTable("JASA_KIRIM");
-                                    while($row = mysqli_fetch_row($jasa)){
-                                        echo '<option name="jasa_kirim_id" value="'.$row['nama'].'">'.$row['nama'].'</option>';
-                                    }
-                                ?>
+                                
                             </select><br>
                             <input type="submit" value="Tambah Jasa">
                         </div>
