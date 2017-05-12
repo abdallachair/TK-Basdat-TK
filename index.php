@@ -4,7 +4,6 @@
 		session_unset($_SESSION['loginError']);
 	}
 
-    $_SESSION['role'] = 'admin';
     include("add_jasa_kirim.php");
 ?>
 

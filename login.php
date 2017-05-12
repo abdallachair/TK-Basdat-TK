@@ -4,55 +4,56 @@ session_start();
 
 
 function loginUser($email, $pass){
-	if(empty($_POST['email']) || empty($_POST['pass'])){
-		//echo("<p class='loginErr'>Email dan Password harus diisi!</p>");
-		$_SESSION['loginError'] = "Email dan Password harus diisi!";
-	}
-	else{
-		$conn = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
-		//disesuaikan querynya
-		$query_email = "SELECT email FROM TOKOKEREN.PENGGUNA WHERE email='".$email."' and password='".$pass."' ";
-		$result_email = pg_query($conn, $query_email); 
-		$count = pg_num_rows($result_email);
-		if($count > 0){
-			$query_is_admin = "SELECT * FROM TOKOKEREN.PENGGUNA WHERE email NOT IN (SELECT email FROM TOKOKEREN.PELANGGAN);";
-			$result_is_admin = pg_query($conn, $query_is_admin);
-			$row_admin = pg_fetch_assoc($result_is_admin);
-			$count_row_admin = pg_num_rows($result_is_admin);
-			$isAdmin = false;
-
-			while($count_row_admin > 0){
-				if($row_admin['email'] == $email){
-					$_SESSION['role'] = 'admin';
-					$isAdmin = true;
-
-					break;
-				}
-				$count_row_admin -= 1;
-			}
-
-			if(!$isAdmin){
-				$query_is_penjual = "SELECT is_penjual FROM TOKOKEREN.PELANGGAN WHERE email='".$email."' ";
-				$result_is_penjual = pg_query($conn, $query_is_penjual);
-				$row_penjual = pg_fetch_assoc($result_is_penjual);
-
-				if($row_penjual['is_penjual'] === true){
-					$_SESSION['role'] = 'penjual';
-					//header("Location: index.php");
-				}
-				else{
-					$_SESSION['role'] = 'pembeli';
-					//header("Location: index.php");
-				}
-			}
-			
-			header("Location: index.php");
-			
+	$_SESSION['loggedIn'] = false;
+	if($_SESSION['loggedIn'] === false){
+		if(empty($_POST['email']) || empty($_POST['pass'])){
+			//echo("<p class='loginErr'>Email dan Password harus diisi!</p>");
+			$_SESSION['loginError'] = "Email dan Password harus diisi!";
 		}
 		else{
-			$_SESSION['loginError'] = "Email atau password salah!";
+			$conn = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+			//disesuaikan querynya
+			$query_email = "SELECT email FROM TOKOKEREN.PENGGUNA WHERE email='".$email."' and password='".$pass."' ";
+			$result_email = pg_query($conn, $query_email); 
+			$count = pg_num_rows($result_email);
+			if($count > 0){
+				$query_is_admin = "SELECT * FROM TOKOKEREN.PENGGUNA WHERE email NOT IN (SELECT email FROM TOKOKEREN.PELANGGAN);";
+				$result_is_admin = pg_query($conn, $query_is_admin);
+				$row_admin = pg_fetch_assoc($result_is_admin);
+				$count_row_admin = pg_num_rows($result_is_admin);
+				$isAdmin = false;
+
+				while($count_row_admin > 0){
+					if($row_admin['email'] == $email){
+						$_SESSION['role'] = 'admin';
+						$isAdmin = true;
+						break;
+					}
+					$count_row_admin -= 1;
+				}
+
+				if(!$isAdmin){
+					$query_is_penjual = "SELECT is_penjual FROM TOKOKEREN.PELANGGAN WHERE email='".$email."' ";
+					$result_is_penjual = pg_query($conn, $query_is_penjual);
+					$row_penjual = pg_fetch_assoc($result_is_penjual);
+
+					if($row_penjual['is_penjual'] === true){
+						$_SESSION['role'] = 'penjual';
+					}
+					else{
+						$_SESSION['role'] = 'pembeli';
+					}
+				}
+				$_SESSION['loggedIn'] = true;
+				header("Location: index.php");
+				
+			}
+			else{
+				$_SESSION['loginError'] = "Email atau password salah!";
+			}
 		}
 	}
+	else {header("Location: index.php");}
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){

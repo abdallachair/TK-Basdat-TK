@@ -4,7 +4,8 @@
 	$echoTarif = "";
 	$echoBerhasil = "";
 	$validate = true;
-
+	
+	$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
 	function submit(){
 	 	$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
 
@@ -25,6 +26,7 @@
 	 }
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
 	  if (strlen($_POST["nama_jasa_kirim"]) == 0) {
 		   $echoNamaJasa = "Nama jasa kirim harus diisi";
 		   $validate = false;
