@@ -1,5 +1,4 @@
 <?php
-/**
     function selectAllFromTable($table) {
 
         $query = "SELECT * FROM $table";
@@ -20,7 +19,7 @@
         if($_POST['command'] === 'membuat_produk_pulsa'){
             insertProdukPulsa();
         } 
-    } **/
+    }
 ?>
 <?php session_start(); ?>
 <!DOCTYPE html>
