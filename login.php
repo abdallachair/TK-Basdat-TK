@@ -1,52 +1,58 @@
-
 <?php 
+//isi host, dbname, user, pass fbsql_database(link_identifier)
 session_start();
 
 
-
-//isi host, dbname, user, pass database
-
-
 function loginUser($email, $pass){
-
-	$conn = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
-	//disesuaikan querynya
-	$query_email = "SELECT email FROM tokokeren.pengguna WHERE email='".$email."' and password='".$pass."' ";
-	$query_is_penjual = "SELECT is_penjual FROM tokokeren.pelanggan WHERE email='".$email."' ";
-
-	$result_email = pg_query($conn, $query_email); 
-	$result_is_penjual = pg_query($conn, $query_is_penjual);
-
-	$count = pg_num_rows($result_email);
-
-	echo $count;
-	if($count == 1){
-		$_SESSION['email'] = $result_email;
-		ECHO('MASUK');
-		//admin
-		if($_SESSION['email'] == 'cdowdle0@nps.gov' 
-		|| $_SESSION['email'] == 'ascibsey1@icq.com' 
-		|| $_SESSION['email'] == 'wmaroney2@yale.edu' 
-		|| $_SESSION['email'] == 'brobbs3@g.co' 
-		|| $_SESSION['email'] == 'brentoll4@wsj.com'){
-			$_SESSION['role'] = 'admin';
-		}
-		else {
-			//cek apakah is_penjual = true
-			$_SESSION['penjual'] = $result_is_penjual;
-			if($_SESSION['penjual'] == true){
-				$_SESSION['role'] = 'penjual';
-			}
-			else{
-				$_SESSION['role'] = 'pembeli';
-			}
-		}
-		//header("Location:index.php");
+	if(empty($_POST['email']) || empty($_POST['pass'])){
+		//echo("<p class='loginErr'>Email dan Password harus diisi!</p>");
+		$_SESSION['loginError'] = "Email dan Password harus diisi!";
 	}
-	else echo "<p>Email atau password salah!</p>";
+	else{
+		$conn = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+		//disesuaikan querynya
+		$query_email = "SELECT email FROM TOKOKEREN.PENGGUNA WHERE email='".$email."' and password='".$pass."' ";
+		$result_email = pg_query($conn, $query_email); 
+		$count = pg_num_rows($result_email);
+		if($count > 0){
+			$query_is_admin = "SELECT * FROM TOKOKEREN.PENGGUNA WHERE email NOT IN (SELECT email FROM TOKOKEREN.PELANGGAN);";
+			$result_is_admin = pg_query($conn, $query_is_admin);
+			$row_admin = pg_fetch_assoc($result_is_admin);
+			$count_row_admin = pg_num_rows($result_is_admin);
+			$isAdmin = false;
 
-	
+			while($count_row_admin > 0){
+				if($row_admin['email'] == $email){
+					$_SESSION['role'] = 'admin';
+					$isAdmin = true;
 
+					break;
+				}
+				$count_row_admin -= 1;
+			}
+
+			if(!$isAdmin){
+				$query_is_penjual = "SELECT is_penjual FROM TOKOKEREN.PELANGGAN WHERE email='".$email."' ";
+				$result_is_penjual = pg_query($conn, $query_is_penjual);
+				$row_penjual = pg_fetch_assoc($result_is_penjual);
+
+				if($row_penjual['is_penjual'] === true){
+					$_SESSION['role'] = 'penjual';
+					//header("Location: index.php");
+				}
+				else{
+					$_SESSION['role'] = 'pembeli';
+					//header("Location: index.php");
+				}
+			}
+			
+			header("Location: index.php");
+			
+		}
+		else{
+			$_SESSION['loginError'] = "Email atau password salah!";
+		}
+	}
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -99,15 +105,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		#login-footer-text {
 			position: relative;
-			top: 15px;
+			top: 2px;
 			left: 162px;
 			font-size: 12px;
 		}
 		.login-panel {
 			background-color: #F7F7F7;
-			height: 430px;
+			height: 450px;
 			border-style: none;
 			box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+		}
+		.loginErr{
+			position: relative;
+			color: red;
+			top: 14px;
+			left: 20%;
 		}
 	</style>
 </head>
@@ -133,6 +145,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                             </div>
                             	<input type="hidden" name="command" value="login">
                                 <input id="login-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Login" name="login">
+                            <p class="loginErr">
+                            <?php 
+                            if(isset($_SESSION['loginError']))
+                            	echo $_SESSION['loginError']; 
+                        	?></p>
                         </fieldset>
                     </form>
                     <div class="login-footer"><a href='register.php' id="login-footer-text">Belom gabung TokoKeren?</a></div>

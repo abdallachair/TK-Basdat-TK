@@ -1,11 +1,13 @@
 <?php
 	// define variables and set to empty values
+	session_start();
+	if(isset($_SESSION['loginError'])){
+		session_unset($_SESSION['loginError']);
+	}
+
 	$ErrMsg = "";
 	$email = $pass = $repass = $nama = $sex = $notelp = $alamat = "";
 
-<<<<<<< HEAD
-?>  
-=======
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  if (empty($_POST["email"]) || empty($_POST["uname"]) || empty($_POST["pass"]) || empty($_POST["repass"]) || empty($_POST["sex"]) || empty($_POST["notelp"]) || empty($_POST["pass"])) {
 	    $ErrMsg = "Semua data harus diisi"; 
@@ -13,7 +15,6 @@
 
 }
 ?>
->>>>>>> 14c5ee64ce7c2506cf704e786bf3fc8d70727dd7
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -119,7 +120,7 @@
                             <div class="form-group">
                                 <input id="alamat-input" class="form-control" placeholder="Alamat" name="alamat" type="text" autofocus>
                                 <span class="error">* <?php echo $ErrMsg;?></span>
-                            </div>
+                            </div class="form-group">
                                 <input id="register-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="register" name="register">
                         </fieldset>
                     </form>

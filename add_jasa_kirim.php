@@ -4,14 +4,15 @@
 	$echoTarif = "";
 	$validate = true;
 
+	$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
 	function submit(){
-	 	$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");; 
+	 	$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
 
         $nama_jasa_kirim = pg_escape_string($_POST['nama_jasa_kirim']); 
         $lama_kirim = pg_escape_string($_POST['lama_kirim']); 
         $tarif_jasa_kirim = pg_escape_string($_POST['tarif_jasa_kirim']); 
 
-        $query = "INSERT INTO JASA_KIRIM VALUES('" . $nama_jasa_kirim . "', '" . $lama_kirim . "', '" . $tarif_jasa_kirim . "')";
+        $query = "INSERT INTO TOKOKEREN.JASA_KIRIM VALUES('" . $nama_jasa_kirim . "', '" . $lama_kirim . "', '" . $tarif_jasa_kirim . "')";
         $result = pg_query($db, $query); 
         if (!$result) { 
             $errormessage = pg_last_error(); 
@@ -24,20 +25,20 @@
 	 }
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	  if (strlen($_POST["nama_jasa_kirim"])) {
+	  if (strlen($_POST["nama_jasa_kirim"]) == 0) {
 		   $echoNamaJasa = "Nama jasa kirim harus diisi";
 		   $validate = false;
 	  }
 	  else {
 		  	$nameExist = false;
-		  	$query = "SELECT nama FROM JASA_KIRIM";
-		  	$result = pg_query($query);
+		  	$query = "SELECT nama FROM TOKOKEREN.JASA_KIRIM";
+		  	$result = pg_query($db, $query);
 			if(!$result) {
 			    die("Error: $query");
 			}
 
 			while ($row = pg_fetch_row($result)) {
-			  	if($_POST["nama"] == $row[0]){
+			  	if($_POST["nama_jasa_kirim"] == $row[0]){
 			     	$nameExist = true;
 			 	}
 			}

@@ -1,6 +1,10 @@
 <?php	
 	session_start();
-	$_SESSION['role'] = 'admin';
+	if(isset($_SESSION['loginError'])){
+		session_unset($_SESSION['loginError']);
+	}
+
+
     include("add_jasa_kirim.php");
 ?>
 
@@ -82,7 +86,7 @@
                     		echo '<li><a href="login.php" class="btn btn-round btn-default">Sign in</a></li>';
                     		echo '<li><a href="register.php">Register</a></li>';
                     	} else{
-                    		echo $_SESSION['email'];
+                    		echo $_SESSION['role'];
                     		echo '<li><a href="signout.php" class="btn btn-round btn-default">Sign out</a></li>';
                     	}
                     ?>
@@ -149,7 +153,7 @@
             <div class="form-group">
               <label for="namajasakirim">Nama : <span style="color: red">*</span></label>
               <input type="text" class="form-control" id="nama_jasa_kirim" placeholder="Masukkan nama" name="nama_jasa_kirim">
-              <span style="color: red">'; ?><?php echo $echoNamaJasa; echo'</span>
+              <span style="color: red">';?><?php echo $echoNamaJasa; echo'</span>
             </div>
             <div class="form-group">
               <label for="lamakirim">Lama Kirim : <span class="required" style="color: red">*</span></label>
@@ -160,7 +164,6 @@
               <label for="tarif">Tarif : <span class="required" style="color: red">*</span></label>
               <input type="text" class="form-control" id="tarif_jasa_kirim" placeholder="Masukkan tarif" name="tarif_jasa_kirim">
               <span style="color: red">';?><?php echo $echoTarif; echo'</span>
-              <span style="color: green">';?><?php echo $echoBerhasil; echo'</span>
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
           </form>
