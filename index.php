@@ -1,7 +1,7 @@
 <?php	
 	session_start();
 	$_SESSION['role'] = 'admin';
-    include("functions/add_jasa_kirim.php");
+    include("add_jasa_kirim.php");
 ?>
 
 <!doctype html>
@@ -160,6 +160,7 @@
               <label for="tarif">Tarif : <span class="required" style="color: red">*</span></label>
               <input type="text" class="form-control" id="tarif_jasa_kirim" placeholder="Masukkan tarif" name="tarif_jasa_kirim">
               <span style="color: red">';?><?php echo $echoTarif; echo'</span>
+              <span style="color: green">';?><?php echo $echoBerhasil; echo'</span>
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
           </form>
