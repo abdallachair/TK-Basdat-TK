@@ -2,9 +2,9 @@
 	$echoNamaJasa = "";
 	$echoLamaKirim = "";
 	$echoTarif = "";
+	$echoBerhasil = "";
 	$validate = true;
 
-	$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
 	function submit(){
 	 	$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
 
@@ -93,6 +93,7 @@
 
 	  if($validate == true){
 	  	 	submit();
+	  	 	$echoBerhasil = "Data berhasil dimasukkan";
 	  }
 	}
 ?>

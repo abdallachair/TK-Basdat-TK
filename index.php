@@ -4,7 +4,7 @@
 		session_unset($_SESSION['loginError']);
 	}
 
-
+    $_SESSION['role'] = 'admin';
     include("add_jasa_kirim.php");
 ?>
 
@@ -164,6 +164,7 @@
               <label for="tarif">Tarif : <span class="required" style="color: red">*</span></label>
               <input type="text" class="form-control" id="tarif_jasa_kirim" placeholder="Masukkan tarif" name="tarif_jasa_kirim">
               <span style="color: red">';?><?php echo $echoTarif; echo'</span>
+              <span style="color: red">';?><?php echo $echoBerhasil; echo'</span>
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
           </form>
