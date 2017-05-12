@@ -1,3 +1,13 @@
+<?php
+    if(isset($_POST['shipped_dibeli'])) {
+        $_SESSION['no_invoice'] = $_POST['shipped_dibeli'];
+        if(isset($_SESSION['no_invoice'])) {
+            $_SESSION['liat_product'] = $_SESSION['no_invoice'];
+            header('location: melihat_transaksi_shipped.php');
+        }
+
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -52,7 +62,7 @@
                                 <td> '.$q['total_bayar'].' </td>
                                 <td> '.$q['nominal'].' </td>
                                 <td> '.$q['nomor'].' </td>
-                                <td> <form method="get" action="ulasan.php"><button type="submit" name="ulas"> ULAS </button></form> </td>
+                                <td> <form method="get" action="ulasan.php"><button type="submit" name="shipped_dibeli" value='.$q['no_invoice'].'> ULAS </button></form> </td>
                                 </tr>';
                             }
                         }
@@ -87,7 +97,7 @@
                         $db = pg_connect('host=localhost dbname=contacts user=contacts password=firstphp'); 
                         $user_email = $_SESSION['email'];
 
-                        $query = "SELECT TS.no_invoice, TS.nama_toko, TS.tanggal, TS.status, TS.total_bayar, TS.alamat_kirim, TS.biaya_kirim, TS.no_resi, TP.nama_jasa_kirim, TS.email_pembeli
+                        $query = "SELECT TS.no_invoice, TS.nama_toko, TS.tanggal, TS.status, TS.total_bayar, TS.alamat_kirim, TS.biaya_kirim, TS.no_resi, TS.nama_jasa_kirim, TS.email_pembeli
                                 FROM TOKOKEREN.TRANSAKSI_SHIPPED TS, TOKOKEREN.TOKO T, TOKOKEREN.PELANGGAN PL, TOKOKEREN.TOKO_JASA_KIRIM TJK
                                 WHERE TS.kode_produk = P.kode_produk AND TS.nama_jasa_kirim = TJK.nama_jasa_kirim AND TS.nama_toko = T.nama AND TS.email_pembeli = '".$user_email."';";
                         $result = pg_query($query); 
@@ -108,7 +118,7 @@
                                 <td> '.$q['biaya_kirim'].' </td>
                                 <td> '.$q['no_resi'].' </td>
                                 <td> '.$q['nama_jasa_kirim'].' </td>
-                                <td> <form method="get" action="ulasan.php"><button type="submit" name="shipped_dibeli"> DAFTAR PRODUK </button></form> </td>
+                                <td> <form method="post" action="melihat_transaksi.php"><button type="submit" name="shipped_dibeli"> DAFTAR PRODUK </button></form> </td>
                                 </tr>';
                             }
                         }
