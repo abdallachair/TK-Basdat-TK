@@ -1,6 +1,7 @@
 <?php
-    
+    $_SESSION['no_jasa_kirim'] = 1;
     $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+
     function selectAllFromTable($table) {
         $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
         $query = "SELECT * FROM $table";
