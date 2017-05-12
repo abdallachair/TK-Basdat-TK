@@ -1,13 +1,13 @@
 <?php
     
-    $DBConnection = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+    $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
     function selectAllFromTable($table) {
-        $DBConnection = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+        $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
         $query = "SELECT * FROM $table";
         $result = pg_query($DBConnection, $query);
 
         return $result;   
-    }
+    }   
     
     function insertToko(){
         $DBConnection = pg_connect('host=localhost dbname=farhanramadhan username=postgres password=gold28197');
@@ -39,7 +39,7 @@
                 $loop = $_SESSION['no_jasa_kirim'];
         
                 while($loop > 0){
-                    $text = "no_jasa_kirim_".$loop;
+                    $text = "no_jasa_kirim_".$loop; 
                     $kirim = $_POST[$text];
                     $sql2 = "INSERT into TOKOKEREN.TOKO_JASA_KIRIM (nama_toko, jasa_kirim) values ('$nama_toko','$kirim')";
                     $loop = $loop - 1;
@@ -80,7 +80,6 @@
         <link href="rating/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="jquery/jquery.js"></script>
         <script src="rating/js/star-rating.js" type="text/javascript"></script>
 	   </head>
 	<body>
@@ -108,46 +107,25 @@
                             <input type="text" class="form-control" id="insert-lokasi" name="lokasi" placeholder="masukkan lokasi dari toko mu" required>
                         </div>
                         <div class="form-group">
-                            <label for="harga">Jasa Kirim 1</label>
-                            <select name="jasa_kirim_1">
+                            <label for="harga">Jasa Kirim 1</label><br>
                             <?php   
+                                    echo '<select name="jasa_kirim_1">';
                                     $_SESSION['no_jasa_kirim'] = 1;
                                     $jasa = selectAllFromTable("TOKOKEREN.JASA_KIRIM");
                                     while($row = pg_fetch_row($jasa)){
                                         echo '<option value="'.$row[0].'">'.$row[0].'</option>';
                                     }
+                                    echo '</select>';
                             ?>
-                            </select>
-                            <div id="jasaKirim">
+                                    
+                                    <div id="jasaKirim">
+                                        <?php
+                                        ?>
+                                    </div>
+                            <br>
                             
-                            </div>
                             <button type="button" class="btn btn-default" data-dismiss="modal" id="addJasaKirim">Tambah Jasa Kirim</button>
                         </div>
-                            <?php
-                            $nomor = 1;
-                            
-                                echo '<label name="jasa_'.$nomor.'">Jasa Kirim '.$nomor.'</label><br>';
-                            $nomor = $nomor + 1;
-                            
-                           //     $noJasaKirim = 1;
-                           //     echo'<label for="harga">Jasa Kirim '.$noJasaKirim.'</label>
-                           // <select>
-                           //     <option>-------</option>';
-
-                            //    $jasa = selectAllFromTable("JASA_KIRIM");
-                             //   $value = 1;
-                             //   while ($row = mysqli_fetch_row($jasa)){
-                             //       echo'<option value="'.$value.'"></option>';
-                             //       $value = value + 1;
-                             //   }
-                          
-                           // echo'</select>
-                          //  <input type="submit" value="Tambah Jasa">';
-                          //  ?> 
-                            <select>
-                                
-                            </select><br>
-                            <input type="submit" value="Tambah Jasa">
                         </div>
                         <input type="hidden" id="insert-userid" name="userid">
                         <input type="hidden" id="insert-command" name="command" value="membuat_toko">
@@ -155,5 +133,25 @@
                     </form>
                 </div>
             </div>
+        <script>
+            $(document).ready(function(){
+               var i = 1;
+                $('#addJasaKirim').click(function(){
+                    i++;
+                    $('#jasaKirim').append('<label for="harga">Jasa Kirim '+i+'</label><br>');
+                    $('#jasaKirim').append(<?php
+                        echo '"<select name=" + "jasa_kirim_" + i + ">" + ';
+                        $jasa = selectAllFromTable("TOKOKEREN.JASA_KIRIM");
+                        $count = 1;
+                        while($row = pg_fetch_row($jasa)){  
+                            echo '"<option value=" + " '.$row[0].'" + ">" + "'.$row[0].'" + "</option>"'; 
+                            if($count < pg_num_rows($jasa)){echo '+';} 
+                            $count++;
+                        }
+                        $_SESSION['no_jasa_kirim'] = $_SESSION['no_jasa_kirim'] + 1;
+                     echo '+"</select>" + "<br>"'; ?>);
+                });
+            });
+        </script>
 	</body>
 </html>
