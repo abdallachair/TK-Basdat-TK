@@ -1,8 +1,8 @@
 <?php
     
-    $DBConnection = pg_connect('host=localhost dbname=farhanramadhan username=postgres password=gold28197');
+    $DBConnection = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
     function selectAllFromTable($table) {
-        $DBConnection = pg_connect('host=localhost dbname=farhanramadhan username=postgres password=gold28197');
+        $DBConnection = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
         $query = "SELECT * FROM $table";
         $result = pg_query($DBConnection, $query);
 
@@ -109,28 +109,22 @@
                         </div>
                         <div class="form-group">
                             <label for="harga">Jasa Kirim 1</label>
+                            <select name="jasa_kirim_1">
                             <?php   
                                     $_SESSION['no_jasa_kirim'] = 1;
-                                    $jasa = selectAllFromTable("JASA_KIRIM");
-                                    while($row = mysqli_fetch_row($jasa)){
-                                        echo '<option name="jasa_kirim_id_'+.$_SESSION['no_jasa_kirim'].+'" value="'.$row['nama'].'">'.$row['nama'].'</option>';
+                                    $jasa = selectAllFromTable("TOKOKEREN.JASA_KIRIM");
+                                    while($row = pg_fetch_row($jasa)){
+                                        echo '<option value="'.$row[0].'">'.$row[0].'</option>';
                                     }
                             ?>
-                            
+                            </select>
                             <div id="jasaKirim">
                             
                             </div>
                             <button type="button" class="btn btn-default" data-dismiss="modal" id="addJasaKirim">Tambah Jasa Kirim</button>
                         </div>
-                        <div class="col-md-7">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="addJasaKirim">Tambah Jasa Kirim</button>
-                        </div>
-                        <div class="col-md-1">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                            
                             <?php
-                            $nomor = 1
+                            $nomor = 1;
                             
                                 echo '<label name="jasa_'.$nomor.'">Jasa Kirim '.$nomor.'</label><br>';
                             $nomor = $nomor + 1;

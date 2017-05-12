@@ -1,22 +1,7 @@
 <?php	
 	session_start();
+	$_SESSION['role'] = 'admin';
     include("functions/add_jasa_kirim.php");
-    $_SESSION['role'] = 'admin';
-	function connectDB() {
-		/*$servername = "localhost";
-		$username = "root";
-		$password = "";
-		$dbname = "tokokeren";
-		
-		// Create connection
-		$conn = mysqli_connect($servername, $username, $password, $dbname);
-		
-		// Check connection
-		if (!$conn) {
-			die("Connection failed: " + mysqli_connect_error());
-		}
-		return $conn;*/
-	}
 ?>
 
 <!doctype html>
@@ -91,9 +76,17 @@
                  </div> 
               </form>
               <ul class="nav navbar-nav navbar-right">
-                    <li><a href="register.php">Register</a></li>
                     
-                    <li><button href="login.php" class="btn btn-round btn-default">Sign in</button></li>
+                    <?php
+                    	if(!isset($_SESSION['role'])){
+                    		echo '<li><a href="login.php" class="btn btn-round btn-default">Sign in</a></li>';
+                    		echo '<li><a href="register.php">Register</a></li>';
+                    	} else{
+                    		echo $_SESSION['email'];
+                    		echo '<li><a href="signout.php" class="btn btn-round btn-default">Sign out</a></li>';
+                    	}
+                    ?>
+                    
                </ul>
               
             </div><!-- /.navbar-collapse -->
@@ -108,6 +101,7 @@
 <div class="main">
     <div class="container tim-container" style="max-width:800px; padding-top:100px">
        <h1 class="text-center">Providing you the most honest, authentic, quality in every store has to offer</h1>
+
         
         <?php
             if(isset($_SESSION["role"])){

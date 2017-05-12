@@ -2,21 +2,27 @@
 <?php 
 session_start();
 
+
+
 //isi host, dbname, user, pass database
-$db_connection = pg_connect("host=localhost dbname=DBNAME user=USERNAME password=PASSWORD");
 
 
-function loginUser($usern, $pass){
+function loginUser($email, $pass){
+
+	$conn = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
 	//disesuaikan querynya
-	$query_email = "SELECT email FROM pengguna WHERE email='".$email."' and password='".$pass."' ";
-	$query_role = "SELECT role FROM pengguna WHERE email='".$email."' and password='".$pass."' ";
-	$query_is_penjual = "SELECT is_penjual FROM pelanggan WHERE email='".$email."' ";
-	$result_email = pg_query($db_connection, $query_email); 
-	$result_role = pg_query($db_connection, $query_role);
-	$result_is_penjual = pg_query($db_connection, $query_is_penjual);
+	$query_email = "SELECT email FROM tokokeren.pengguna WHERE email='".$email."' and password='".$pass."' ";
+	$query_is_penjual = "SELECT is_penjual FROM tokokeren.pelanggan WHERE email='".$email."' ";
 
-	if(!is_null($result)){
+	$result_email = pg_query($conn, $query_email); 
+	$result_is_penjual = pg_query($conn, $query_is_penjual);
+
+	$count = pg_num_rows($result_email);
+
+	echo $count;
+	if($count == 1){
 		$_SESSION['email'] = $result_email;
+		ECHO('MASUK');
 		//admin
 		if($_SESSION['email'] == 'cdowdle0@nps.gov' 
 		|| $_SESSION['email'] == 'ascibsey1@icq.com' 
@@ -25,17 +31,21 @@ function loginUser($usern, $pass){
 		|| $_SESSION['email'] == 'brentoll4@wsj.com'){
 			$_SESSION['role'] = 'admin';
 		}
-		else 
+		else {
 			//cek apakah is_penjual = true
 			$_SESSION['penjual'] = $result_is_penjual;
-			if($_SESSION['penjual'] == true)
+			if($_SESSION['penjual'] == true){
 				$_SESSION['role'] = 'penjual';
-			else
+			}
+			else{
 				$_SESSION['role'] = 'pembeli';
+			}
+		}
+		//header("Location:index.php");
 	}
-	else echo "<p>Username atau password salah!</p>";
+	else echo "<p>Email atau password salah!</p>";
 
-	header("Location:index.php");
+	
 
 }
 
@@ -121,6 +131,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                             <div class="form-group">
                                 <input id="pass-input" class="form-control" placeholder="Password" name="pass" type="password" value="">
                             </div>
+                            	<input type="hidden" name="command" value="login">
                                 <input id="login-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Login" name="login">
                         </fieldset>
                     </form>
