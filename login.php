@@ -4,8 +4,6 @@ session_start();
 
 
 function loginUser($email, $pass){
-	$_SESSION['loggedIn'] = false;
-	if($_SESSION['loggedIn'] === false){
 		if(empty($_POST['email']) || empty($_POST['pass'])){
 			//echo("<p class='loginErr'>Email dan Password harus diisi!</p>");
 			$_SESSION['loginError'] = "Email dan Password harus diisi!";
@@ -44,7 +42,6 @@ function loginUser($email, $pass){
 						$_SESSION['role'] = 'pembeli';
 					}
 				}
-				$_SESSION['loggedIn'] = true;
 				header("Location: index.php");
 				
 			}
@@ -52,8 +49,6 @@ function loginUser($email, $pass){
 				$_SESSION['loginError'] = "Email atau password salah!";
 			}
 		}
-	}
-	else {header("Location: index.php");}
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
