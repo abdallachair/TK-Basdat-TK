@@ -33,7 +33,7 @@
                        </thead>
                        <?php
                         $db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
-                        $user_email = 'afarlow79@state.tx.us';
+                        $user_email = $_SESSION['email'];
                         $query = "SELECT P.nama, LI.berat, LI.kuantitas, LI.sub_total, LI.harga, P.kode_produk
                             FROM TOKOKEREN.PRODUK P, TOKOKEREN.LIST_ITEM LI
                             WHERE LI.kode_produk = P.kode_produk AND LI.no_invoice = '".$_SESSION['liat_product']."';";
