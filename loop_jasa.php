@@ -1,5 +1,7 @@
 <?php
-    $jasa = selectAllFromTable("TOKOKEREN.JASA_KIRIM");
-    while($row = pg_fetch_row($jasa)){
-        echo '<option value="'.$row[0].'">'.$row[0].'</option>';
-    }?>
+    
+        $ses = $_SESSION['no_jasa_kirim'];
+        $ses = $ses + 1;
+        $_SESSION['no_jasa_kirim'] = $ses;
+    
+    ?>
