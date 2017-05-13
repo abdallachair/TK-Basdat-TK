@@ -1,5 +1,6 @@
 <?php	
 	session_start();
+    $_SESSION['role'] = 'penjual';
 	if(isset($_SESSION['loginError'])){
 		session_unset($_SESSION['loginError']);
 	}
@@ -104,14 +105,22 @@
 <div class="main">
     <div class="container tim-container" style="max-width:800px; padding-top:100px">
        <h1 class="text-center">Providing you the most honest, authentic, quality in every store has to offer</h1>
-
+        
+    
         
         <?php
             if(isset($_SESSION["role"])){
                 if($_SESSION["role"] === 'admin'){
-                    echo'<button data-toggle="collapse" data-target="#demo" style="width: 100%; text-align: left;" class="btn btn-info">Buat Kategori<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
-        
-        <div id="demo" class="collapse">
+                    echo'<button data-toggle="modal" data-target="#kategori" style="width: 100%; text-align: left;" class="btn btn-info">Buat Kategori<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+        <div id="kategori" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Buat Kategori</h4>
+      </div>
+      <div class="modal-body">
         <div class="">
 	       <h1>Menambahkan Kategori dan Subkategori</h1>
 	       <fieldset>
@@ -131,18 +140,34 @@
 	       </div>
 	       </ul>
 	    
-	    <button id="add-subkategori-btn" class="btn btn-lg btn-primary btn-block">Tambah subkategori</button>
-   		<input id="add-kategori-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Tambah Kategori" name="add-kategori">
-    </fieldset>
+	    
+    
     
 </div>
-        </div>
-        <br>
-        <button data-toggle="collapse" data-target="#demo-jasa" style="width: 100%; text-align: left;" class="btn btn-info">Buat Jasa Kirim<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+      </div>
+      <div class="modal-footer">
+        <button id="add-subkategori-btn" class="btn btn-lg btn-primary btn-block">Tambah subkategori</button>
+   		<input id="add-kategori-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Tambah Kategori" name="add-kategori">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+      </fieldset>
+    </div>
 
-        <div id="demo-jasa" class="collapse">
-        <div class="container" style="padding-left: 20%; padding-right: 20%">
-          <div class="konten-header text-center">
+  </div>
+</div>
+        <br>
+        <button data-toggle="modal" data-target="#jasa" style="width: 100%; text-align: left;" class="btn btn-info">Buat Jasa Kirim<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+        
+        <div id="jasa" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Buat Jasa Kirim</h4>
+      </div>
+      <div class="modal-body">
+          <div class="text-center">
                 <span class="header-text"> ADD JASA KIRIM </span>
           </div>
           <div>
@@ -165,16 +190,28 @@
               <span style="color: red">';?><?php echo $echoTarif; echo'</span>
               <span style="color: red">';?><?php echo $echoBerhasil; echo'</span>
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-          </form>
-        </div>
-        </div>
         
-        <button data-toggle="collapse" data-target="#demo-promo" style="width: 100%; text-align: left;" class="btn btn-info">Add Promo<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
 
-        <div id="demo-promo" class="collapse">
-        <div class="container">
-	  <h2>Add Promo</h2>
+  </div>
+</div>  
+        <button data-toggle="modal" data-target="#promo" style="width: 100%; text-align: left;" class="btn btn-info">Add Promo<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+        
+        <div id="promo" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tambah Promo</h4>
+      </div>
+      <div class="modal-body">
+        <h2>Add Promo</h2>
 	  <div class="konten-isi" style="text-align: justify; text-justify: inter-word;">
 						<form action="index.php" method="post">
 							<div class="form-group">
@@ -205,20 +242,33 @@
 									<option>Select Sub-Kategori</option>
 								</select>
 							</div>
-						  	<button type="submit" class="btn btn-default">Submit</button>
-						</form>
+						  	
 					</div>
-	  </form>
 	</div>
-        </div>
-    
-    <button data-toggle="collapse" data-target="#demo-produk" style="width: 100%; text-align: left;" class="btn btn-info">Tambah Produk<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    <div class="modal-footer">
+    <button type="submit" class="btn btn-default">Submit</button>
+						</form>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+      
+      
+    </div>
 
-        <div id="demo-produk" class="collapse">
-            <button data-toggle="collapse" data-target="#demo-pulsa" style="width: 100%; text-align: left;" class="btn btn-info">Produk Pulsa<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
-            <div id="demo-pulsa" class="collapse">
-                <div class="container">
-                <h2>FORM MEMBUAT PRODUK PULSA</h2>
+  </div>
+    
+    <button data-toggle="modal" data-target="#produk" style="width: 100%; text-align: left;" class="btn btn-info">Tambah Produk<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+    <div id="produk" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tambah Produk</h4>
+      </div>
+      <div class="modal-body">
+        <h2>FORM MEMBUAT PRODUK PULSA</h2>
                 <form action="page.php" method="post">
                         <div class="form-group">
                             <label for="nama_paket">Kode_produk</label>
@@ -240,15 +290,32 @@
                             <label for="harga">Nominal</label>
                             <input type="text" class="form-control" id="insert-nominal" name="nominal" placeholder="masukkan harga dari toko mu" required>
                         </div>
-                        <input type="hidden" id="insert-userid" name="userid">
+                        
+      </div>
+      <div class="modal-footer">
+      <input type="hidden" id="insert-userid" name="userid">
                         <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
-                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>            
-            </div>
-            </div>
-            <button data-toggle="collapse" data-target="#demo-shipped" style="width: 100%; text-align: left;" class="btn btn-info">Produk Shipped<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
-            <div id="demo-shipped" class="collapse">
-                <div class="container">
-                <h2>FORM MEMBUAT PRODUK PULSA</h2>
+                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
+                        </form>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+            
+            
+            <button data-toggle="modal" data-target="#shipped" style="width: 100%; text-align: left;" class="btn btn-info">Produk Shipped<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+            
+            <div id="shipped" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tambahkan Produk Shipped</h4>
+      </div>
+      <div class="modal-body">
+        <h2>FORM MEMBUAT PRODUK PULSA</h2>
                 <form action="page.php" method="post">
                         <div class="form-group">
                             <label for="nama_paket">Kode_produk</label>
@@ -307,13 +374,128 @@
                             <label for="harga">Foto</label><span class="required" style="color: red">*</span></label>
                             <input class="lagi " type="file" name="image_produk" id="image"/>
                         </div>
-                        <input type="hidden" id="insert-userid" name="userid">
+                        
+      </div>
+      <div class="modal-footer">
+      <input type="hidden" id="insert-userid" name="userid">
                         <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
-                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>  
-            </div>
-            </div>
+                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
         </div>';
-                } else{
+                } else if ($_SESSION['role'] = 'penjual') {
+                    echo '<button data-toggle="modal" data-target="#produk" style="width: 100%; text-align: left;" class="btn btn-info">Tambah Produk<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+                    <div id="produk" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Tambah Produk</h4>
+                      </div>
+                      <div class="modal-body">
+                        <h2>FORM MEMBUAT PRODUK PULSA</h2>
+                                <form action="page.php" method="post">
+                                        <div class="form-group">
+                                            <label for="nama_paket">Kode_produk</label>
+                                            <input type="text" class="form-control" id="insert-kode_produk" name="kode_produk" placeholder="masukkan kode produk" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nama_paket">Nama produk</label>
+                                            <input type="text" class="form-control" id="insert-nama_produk" name="nama_produk" placeholder="tuliskan nama produk mu" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fitur">Harga</label>
+                                            <input type="text" class="form-control" id="insert-harga" name="harga" placeholder="masukkan harga dari produk mu" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="harga">Deskripsi</label>
+                                            <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi dari produk mu" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="harga">Nominal</label>
+                                            <input type="text" class="form-control" id="insert-nominal" name="nominal" placeholder="masukkan harga dari toko mu" required>
+                                        </div>
+
+                      </div>
+                      <div class="modal-footer">
+                      <input type="hidden" id="insert-userid" name="userid">
+                                        <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
+                                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
+                                        </form>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
+                    
+                    echo '<button data-toggle="modal" data-target="#produk" style="width: 100%; text-align: left;" class="btn btn-info">Tambah Toko<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+                    <div id="produk" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Tambah Toko</h4>
+                      </div>
+                      <div class="modal-body">
+                        <h2>FORM MEMBUAT PRODUK PULSA</h2>
+                                <form action="membuat_toko.php" method="post">
+                        <div class="form-group">
+                            <label for="nama_paket">Nama Toko</label>
+                            <input type="text" class="form-control" id="insert-nama_toko" name="nama_toko" placeholder="masukkan nama toko yang kamu inginkan">
+                        </div>
+                        <div class="form-group">
+                            <label for="nama_paket">Deskripsi Toko</label>
+                            <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi toko mu">
+                        </div>
+                        <div class="form-group">
+                            <label for="fitur">Slogan</label>
+                            <input type="text" class="form-control" id="insert-slogan" name="slogan" placeholder="masukkan slogan toko mu">
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Lokasi</label>
+                            <input type="text" class="form-control" id="insert-lokasi" name="lokasi" placeholder="masukkan lokasi dari toko mu">
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Jasa Kirim 1</label><br>';
+                            <?php   
+                                    echo '<select name="jasa_kirim_1" required>';
+                                    echo '<option>PILIH JASA ANDA</option>';
+                                    $jasa = selectAllFromTable("TOKOKEREN.JASA_KIRIM");
+                                    while($row = pg_fetch_row($jasa)){
+                                        echo '<option>'.$row[0].'</option>';
+                                    }
+                                    echo '</select>';
+                        
+                                    
+                            echo '<div id="jasaKirim">
+                                        
+                                    </div>
+                            <br>
+                            
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="addJasaKirim">Tambah Jasa Kirim</button>
+                        </div>
+                        <input type="hidden" id="insert-userid" name="userid">
+                        <input type="hidden" id="insert-command" name="command" value="membuat_toko">
+                        <input id="loop" type="hidden" name="jml_loop" value="1">
+                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
+                    </form>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
+                    
                     echo'<button data-toggle="collapse" data-target="#demo10" style="width: 100%; text-align: left;" class="btn btn-info">Buat Ulasan<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
         
         <div id="demo10" class="collapse">
@@ -347,7 +529,69 @@
 <!-- end container -->
 </div>
 <!-- end main -->
+<style>
+    /* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+</style>
     
+<script>
+    function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+    
+</script>
 
 </body>
 

@@ -5,9 +5,9 @@
 	$echoBerhasil = "";
 	$validate = true;
 	
-	$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+	$db = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
 	function submit(){
-	 	$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+	 	$db = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
 
         $nama_jasa_kirim = pg_escape_string($_POST['nama_jasa_kirim']); 
         $lama_kirim = pg_escape_string($_POST['lama_kirim']); 

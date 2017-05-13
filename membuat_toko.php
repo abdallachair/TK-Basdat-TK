@@ -248,7 +248,7 @@
                     if(isset($_SESSION['buat_toko_sukses'])){
                         echo '<h3 style="color: red;">Pembuatan Toko Sukses!</h3>';
                         unset($_SESSION['buat_toko_sukses']);
-                    unset($_SESSION['errorMSG']);
+                        unset($_SESSION['errorMSG']);
                     }
                     
                 ?>
