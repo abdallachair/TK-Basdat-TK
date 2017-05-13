@@ -93,6 +93,7 @@
                         $loop = $loop - 1;
                     }
                     unset($_SESSION['errorMSG']);
+                    $_SESSION['buat_toko_sukses'] = 'x';
                 }
                 
             } else{
@@ -155,6 +156,7 @@
                         $loop = $loop - 1;
                     }
                     unset($_SESSION['errorMSG']);
+                    $_SESSION['buat_toko_sukses'] = 'x';
                 }
         }
             /*$sql = "INSERT into TOKOKEREN.TOKO (nama, deskripsi, slogan, lokasi, email_penjual) values ('$nama_toko','$deskripsi', '$slogan', '$lokasi', '$email')";
@@ -242,6 +244,14 @@
         <div class="membuat_toko">
             <div class="container">
                 <h2>Buat Toko</h2>
+                <?php
+                    if(isset($_SESSION['buat_toko_sukses'])){
+                        echo '<h3 style="color: red;">Pembuatan Toko Sukses!</h3>';
+                        unset($_SESSION['buat_toko_sukses']);
+                    unset($_SESSION['errorMSG']);
+                    }
+                    
+                ?>
                 <form action="membuat_toko.php" method="post">
                         <div class="form-group">
                             <label for="nama_paket">Nama Toko</label>
