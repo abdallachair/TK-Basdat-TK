@@ -24,7 +24,7 @@
         $result = pg_query($DBConnection, $query);
         
         if(pg_fetch_row($result) >= 1){
-            $errorMSG = "UDAH ADA NAMA TOKOKNYA GBLG";
+            $_SESSION['errorMSG'] = "Nama toko sudah ada!";
         } else{
           //  echo'nama toko blm ada!';
             $kirim = $_POST['jasa_kirim_1'];
