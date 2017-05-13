@@ -215,10 +215,6 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($_POST['nama_toko'] == ""){
             $_SESSION['errorMSG'] = 'nama toko tidak boleh kosong!';
-        } else if($_POST['deskripsi'] == ""){
-            $_SESSION['errorMSG'] = 'deskripsi tidak boleh kosong!';
-        } else if($_POST['slogan'] == ""){
-            $_SESSION['errorMSG'] = 'slogan tidak boleh kosong!';
         } else if($_POST['lokasi'] == ""){
             $_SESSION['errorMSG'] = 'lokasi toko tidak boleh kosong!';
         } else if($_POST['command'] === 'membuat_toko'){
@@ -314,13 +310,6 @@
                      echo '+"</select>" + "<br>"'; ?>);
                     
                 $('#loop').val(parseInt($('#loop').val()) + 1);
-                });
-                $('#addJasaKirim').click(function() {
-                    $.ajax({
-                        type: "POST",
-                        url: "loop_jasa.php"
-                    }).done(function( msg ) {
-                    });    
                 });
             });
             
