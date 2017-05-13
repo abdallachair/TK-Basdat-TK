@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php session_start()?>
 <html lang="en">
     <head>
         <title>MEMBUAT TOKO</title>
@@ -31,10 +32,9 @@
                               </tr>
                        </thead>
                        <?php
-                        $db = pg_connect('host=localhost dbname=contacts user=contacts password=firstphp'); 
-                        $user_email = $_SESSION['email'];
-
-                        $query = "SELECT P.nama, LI.berat, LI.kuantitas, LI.sub_total
+                        $db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
+                        $user_email = 'afarlow79@state.tx.us';
+                        $query = "SELECT P.nama, LI.berat, LI.kuantitas, LI.sub_total, LI.harga, P.kode_produk
                             FROM TOKOKEREN.PRODUK P, TOKOKEREN.LIST_ITEM LI
                             WHERE LI.kode_produk = P.kode_produk AND LI.no_invoice = '".$_SESSION['liat_product']."';";
                         $result = pg_query($query); 
@@ -43,15 +43,14 @@
                             echo "Error with query: " . $errormessage; 
                             exit(); 
                         } else {
-                            $row = pg_fetch_all($result)
-                            foreach($row as $q) {
+                            while($q = pg_fetch_array($result)) {
                                 echo '<tr>
                                 <td> '.$q['nama'].' </td>
                                 <td> '.$q['berat'].' </td>
                                 <td> '.$q['kuantitas'].' </td>
                                 <td> '.$q['harga'].' </td>
                                 <td> '.$q['sub_total'].' </td>
-                                <td> <form method="post" action="ulasan.php"><button type="submit" name="shipped_dibeli"> ULAS </button></form> </td>
+                                <td> <form method="post" action="ulasan.php"><button type="submit" name="shipped_dibeli" value='.$q['kode_produk'].'> ULAS </button></form> </td>
                                 </tr>';
                             }
                         }

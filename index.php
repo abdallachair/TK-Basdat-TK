@@ -387,47 +387,144 @@
   </div>
 </div>
         </div>';
-                } else if ($_SESSION['role'] = 'penjual') {
-                    echo '<button data-toggle="modal" data-target="#produk" style="width: 100%; text-align: left;" class="btn btn-info">Tambah Produk<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+                } else if ($_SESSION['role'] == 'penjual') {
+                    echo '<button data-toggle="modal" data-target="#beli_produk" style="width: 100%; text-align: left;" class="btn btn-info">Beli Produk<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
     
-                    <div id="produk" class="modal fade" role="dialog">
+                    <div id="beli_produk" class="modal fade" role="dialog">
                   <div class="modal-dialog">
 
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Tambah Produk</h4>
+                        <h4 class="modal-title">Membeli produk</h4>
                       </div>
                       <div class="modal-body">
-                        <h2>FORM MEMBUAT PRODUK PULSA</h2>
-                                <form action="page.php" method="post">
-                                        <div class="form-group">
-                                            <label for="nama_paket">Kode_produk</label>
-                                            <input type="text" class="form-control" id="insert-kode_produk" name="kode_produk" placeholder="masukkan kode produk" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="nama_paket">Nama produk</label>
-                                            <input type="text" class="form-control" id="insert-nama_produk" name="nama_produk" placeholder="tuliskan nama produk mu" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="fitur">Harga</label>
-                                            <input type="text" class="form-control" id="insert-harga" name="harga" placeholder="masukkan harga dari produk mu" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="harga">Deskripsi</label>
-                                            <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi dari produk mu" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="harga">Nominal</label>
-                                            <input type="text" class="form-control" id="insert-nominal" name="nominal" placeholder="masukkan harga dari toko mu" required>
-                                        </div>
+                        
 
                       </div>
                       <div class="modal-footer">
-                      <input type="hidden" id="insert-userid" name="userid">
-                                        <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
-                                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
-                                        </form>
+                      
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
+                
+                    echo '<a href="membuat_toko.php"><button style="width: 100%; text-align: left;" class="btn btn-info">Buka Toko<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button></a>';
+
+                    echo '<button data-toggle="modal" data-target="#lihat_transaksi" style="width: 100%; text-align: left;" class="btn btn-info">Lihat Transaksi<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+                    <div id="lihat_transaksi" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Lihat transaksi</h4>
+                      </div>
+                      <div class="modal-body">
+                        
+
+                      </div>
+                      <div class="modal-footer">
+                      
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
+
+                 echo '<button data-toggle="modal" data-target="#lihat_cart" style="width: 100%; text-align: left;" class="btn btn-info">Lihat keranjang belanja<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+                    <div id="lihat_cart" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Lihat Cart</h4>
+                      </div>
+                      <div class="modal-body">
+                        
+
+                      </div>
+                      <div class="modal-footer">
+                      
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
+
+                 echo '<button data-toggle="modal" data-target="#tambah_produk" style="width: 100%; text-align: left;" class="btn btn-info">Tambah Produk<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+                    <div id="tambah_produk" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Tambah produkk</h4>
+                      </div>
+                      <div class="modal-body">
+                        
+
+                      </div>
+                      <div class="modal-footer">
+                      
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
+
+                echo '<button data-toggle="modal" data-target="#tambah_produk_toko" style="width: 100%; text-align: left;" class="btn btn-info">Tambah Produk toko<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+                    <div id="tambah_produk_toko" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Tambah produk toko</h4>
+                      </div>
+                      <div class="modal-body">
+                        
+
+                      </div>
+                      <div class="modal-footer">
+                      
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
+
+
+                }
+                else {
+                   echo '<button data-toggle="modal" data-target="#beli_produk" style="width: 100%; text-align: left;" class="btn btn-info">Beli Produk<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+                    <div id="beli_produk" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Membeli produk</h4>
+                      </div>
+                      <div class="modal-body">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Pulsa</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Barang</button>
+
+                      </div>
+                      <div class="modal-footer">
+                      
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                       </div>
                     </div>
@@ -436,29 +533,101 @@
                 </div>';
                 
                     
-                    echo'<button data-toggle="collapse" data-target="#demo10" style="width: 100%; text-align: left;" class="btn btn-info">Buat Ulasan<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
-        
-        <div id="demo10" class="collapse">
-        <div class="container">
-	  <h2>Buat Ulasan</h2>
-	  <form action="add_ulasan.php">
-	    <div class="form-group">
-	      <label for="namajasakirim">Kode Produk : </label>
-	    </div>
-	    <div class="form-group">
-	      <label for="lamakirim">Rating : </label>
-	      <input type="text" data-min=0 data-max=5 data-step=0.2 class="rating" id="rating-input" name="rating" data-size="xs" required>
-	    </div>
-	    <div class="form-group">
-	      <label for="tarif">Komentar : </label>
-	      <input type="number" class="form-control" id="komentar" placeholder="Masukkan komentar anda" name="komentar" required>
-	    </div>
-	    <button type="submit" class="btn btn-default">Submit</button>
-	  </form>
-	</div>
-        </div>
-        <br>';
+                    echo '<button data-toggle="modal" data-target="#lihat_transaksi" style="width: 100%; text-align: left;" class="btn btn-info">Lihat Transaksi<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+                    <div id="lihat_transaksi" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Lihat transaksi</h4>
+                      </div>
+                      <div class="modal-body">
+                        
+
+                      </div>
+                      <div class="modal-footer">
+                      
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
+
+                 echo '<button data-toggle="modal" data-target="#lihat_cart" style="width: 100%; text-align: left;" class="btn btn-info">Lihat keranjang belanja<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+                    <div id="lihat_cart" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Lihat Cart</h4>
+                      </div>
+                      <div class="modal-body">
+                        
+
+                      </div>
+                      <div class="modal-footer">
+                      
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
+
+                 echo '<button data-toggle="modal" data-target="#buka_toko" style="width: 100%; text-align: left;" class="btn btn-info">Membuka toko<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+                    <div id="buka_toko" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Buka toko</h4>
+                      </div>
+                      <div class="modal-body">
+                        
+
+                      </div>
+                      <div class="modal-footer">
+                      
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
+
+                 echo '<button data-toggle="modal" data-target="#tambah_produk" style="width: 100%; text-align: left;" class="btn btn-info">Tambah Produk<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+    
+                    <div id="tambah_produk" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Tambah produkk</h4>
+                      </div>
+                      <div class="modal-body">
+                        
+
+                      </div>
+                      <div class="modal-footer">
+                      
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
+
+                
                 }
+
             }
         ?>
        

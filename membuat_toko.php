@@ -1,10 +1,9 @@
 <?php
     session_start();
-    $_SESSION['email_pengguna'] = 'barbaraanne127@gmail.com';
-    $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+    $DBConnection = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
     $no_jasa_kirim = 1;
     function selectAllFromTable($table) {
-        $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+        $DBConnection = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
         $query = "SELECT * FROM $table";
         $result = pg_query($DBConnection, $query);
 
@@ -12,12 +11,12 @@
     }   
     
     function insertToko(){
-        $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+        $DBConnection = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
         $nama_toko = $_POST['nama_toko'];
         $deskripsi = $_POST['deskripsi'];
         $slogan = $_POST['slogan'];
         $lokasi = $_POST['lokasi'];
-        $email = $_SESSION['email_pengguna'];
+        $email = $_SESSION['email'];
         $loop = $_POST['jml_loop'];
         
         $query = "SELECT * FROM TOKOKEREN.TOKO WHERE nama = '$nama_toko'";
@@ -83,9 +82,10 @@
                   //  echo 'track-3';
                     $sql = "INSERT into TOKOKEREN.TOKO (nama, deskripsi, slogan, lokasi, email_penjual) values ('$nama_toko','$deskripsi', '$slogan', '$lokasi', '$email')";
                     $sql3 = "UPDATE TOKOKEREN.PELANGGAN SET is_penjual = TRUE WHERE email = '$email'";
-            
-                    $resultz = pg_query($DBConnection, $sql);
+                    
+
                     $result = pg_query($DBConnection, $sql3);
+                    $resultz = pg_query($DBConnection, $sql);
                     while($loop > 0){
                         $kirim = $_POST['jasa_kirim_'.$loop];
                         $sql2 = "INSERT into TOKOKEREN.TOKO_JASA_KIRIM (nama_toko, jasa_kirim) values ('$nama_toko','$kirim')";
@@ -146,9 +146,9 @@
                 //    echo 'track-6';
                     $sql = "INSERT into TOKOKEREN.TOKO (nama, deskripsi, slogan, lokasi, email_penjual) values ('$nama_toko','$deskripsi', '$slogan', '$lokasi', '$email')";
                     $sql3 = "UPDATE TOKOKEREN.PELANGGAN SET is_penjual = TRUE WHERE email = '$email'";
-            
-                    $resultz = pg_query($DBConnection, $sql);
+                    
                     $result = pg_query($DBConnection, $sql3);
+                    $resultz = pg_query($DBConnection, $sql);
                     while($loop > 0){
                         $kirim = $_POST['jasa_kirim_'.$loop];
                         $sql2 = "INSERT into TOKOKEREN.TOKO_JASA_KIRIM (nama_toko, jasa_kirim) values ('$nama_toko','$kirim')";

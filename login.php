@@ -9,7 +9,7 @@ function loginUser($email, $pass){
 			$_SESSION['loginError'] = "Email dan Password harus diisi!";
 		}
 		else{
-			$conn = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+			$conn = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
 			//disesuaikan querynya
 			$query_email = "SELECT email FROM TOKOKEREN.PENGGUNA WHERE email='".$email."' and password='".$pass."' ";
 			$result_email = pg_query($conn, $query_email); 
@@ -35,12 +35,13 @@ function loginUser($email, $pass){
 					$query_is_penjual = "SELECT is_penjual FROM TOKOKEREN.PELANGGAN WHERE email='".$email."' ";
 					$result_is_penjual = pg_query($conn, $query_is_penjual);
 					$row_penjual = pg_fetch_assoc($result_is_penjual);
-
-					if($row_penjual['is_penjual'] === true){
+					
+	
+					if($row_penjual['is_penjual'] === 't'){
 						$_SESSION['role'] = 'penjual';
 					}
 					else{
-						$_SESSION['role'] = 'pembeli';
+						$_SESSION['role'] = 'pelanggan';
 					}
 				}
 				header("Location: index.php");
