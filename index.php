@@ -1,6 +1,5 @@
 <?php	
 	session_start();
-    $_SESSION['role'] = 'penjual';
 	if(isset($_SESSION['loginError'])){
 		session_unset($_SESSION['loginError']);
 	}
@@ -435,66 +434,7 @@
 
                   </div>
                 </div>';
-                    
-                    echo '<button data-toggle="modal" data-target="#produk" style="width: 100%; text-align: left;" class="btn btn-info">Tambah Toko<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
-    
-                    <div id="produk" class="modal fade" role="dialog">
-                  <div class="modal-dialog">
-
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Tambah Toko</h4>
-                      </div>
-                      <div class="modal-body">
-                        <h2>FORM MEMBUAT PRODUK PULSA</h2>
-                                <form action="membuat_toko.php" method="post">
-                        <div class="form-group">
-                            <label for="nama_paket">Nama Toko</label>
-                            <input type="text" class="form-control" id="insert-nama_toko" name="nama_toko" placeholder="masukkan nama toko yang kamu inginkan">
-                        </div>
-                        <div class="form-group">
-                            <label for="nama_paket">Deskripsi Toko</label>
-                            <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi toko mu">
-                        </div>
-                        <div class="form-group">
-                            <label for="fitur">Slogan</label>
-                            <input type="text" class="form-control" id="insert-slogan" name="slogan" placeholder="masukkan slogan toko mu">
-                        </div>
-                        <div class="form-group">
-                            <label for="harga">Lokasi</label>
-                            <input type="text" class="form-control" id="insert-lokasi" name="lokasi" placeholder="masukkan lokasi dari toko mu">
-                        </div>
-                        <div class="form-group">
-                            <label for="harga">Jasa Kirim 1</label><br>';
-                            <?php   
-                                    echo '<select name="jasa_kirim_1" required>';
-                                    echo '<option>PILIH JASA ANDA</option>';
-                                    $jasa = selectAllFromTable("TOKOKEREN.JASA_KIRIM");
-                                    while($row = pg_fetch_row($jasa)){
-                                        echo '<option>'.$row[0].'</option>';
-                                    }
-                                    echo '</select>';
-                        
-                                    
-                            echo '<div id="jasaKirim">
-                                        
-                                    </div>
-                            <br>
-                            
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="addJasaKirim">Tambah Jasa Kirim</button>
-                        </div>
-                        <input type="hidden" id="insert-userid" name="userid">
-                        <input type="hidden" id="insert-command" name="command" value="membuat_toko">
-                        <input id="loop" type="hidden" name="jml_loop" value="1">
-                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
-                    </form>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>';
+                
                     
                     echo'<button data-toggle="collapse" data-target="#demo10" style="width: 100%; text-align: left;" class="btn btn-info">Buat Ulasan<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
         

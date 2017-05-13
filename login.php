@@ -9,13 +9,14 @@ function loginUser($email, $pass){
 			$_SESSION['loginError'] = "Email dan Password harus diisi!";
 		}
 		else{
-			$conn = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+			$conn = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
 			//disesuaikan querynya
 			$query_email = "SELECT email FROM TOKOKEREN.PENGGUNA WHERE email='".$email."' and password='".$pass."' ";
 			$result_email = pg_query($conn, $query_email); 
 			$count = pg_num_rows($result_email);
 			if($count > 0){
-				$query_is_admin = "SELECT * FROM TOKOKEREN.PENGGUNA WHERE email NOT IN (SELECT email FROM TOKOKEREN.PELANGGAN);";
+				$_SESSION['email'] = $email;
+                $query_is_admin = "SELECT * FROM TOKOKEREN.PENGGUNA WHERE email NOT IN (SELECT email FROM TOKOKEREN.PELANGGAN);";
 				$result_is_admin = pg_query($conn, $query_is_admin);
 				$row_admin = pg_fetch_assoc($result_is_admin);
 				$count_row_admin = pg_num_rows($result_is_admin);
