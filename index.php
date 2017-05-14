@@ -5,6 +5,7 @@
 	}
 
     include("add_jasa_kirim.php");
+    include("promo.php");
 ?>
 
 <!doctype html>
@@ -211,41 +212,63 @@
       </div>
       <div class="modal-body">
         <h2>Add Promo</h2>
-	  <div class="konten-isi" style="text-align: justify; text-justify: inter-word;">
+        <div>
+            <span class="required" style="color: red">*required</span>
+        </div>
+	      <div class="konten-isi" style="text-align: justify; text-justify: inter-word;">
 						<form action="index.php" method="post">
 							<div class="form-group">
-								<label for="deskripsi">Deskripsi<span class="required" style="color: red">*</span></label>
-								<input type="text" class="form-control" id="deskripsi">
-							</div>
+                <label for="deskripsi">Deskripsi<span class="required" style="color: red">*</span></label>
+                <input type="text" class="form-control" id="deskripsi" name="deskripsi">
+                <span style="color: red"><?php echo $echoDeskripsi; ?></span>
+              </div>
+              <div class="form-group">
+                <label for="periodeAwal">Periode Awal<span class="required" style="color: red">*</span></label>
+                <input type="date" class="form-control" id="periodeAwal" name="periodeAwal">
+                <span style="color: red"><?php echo $echoPeriodeAwal; ?></span>
+              </div>
+              <div class="form-group">
+                <label for="periodeAkhir">Periode Akhir<span class="required" style="color: red">*</span></label>
+                <input type="date" class="form-control" id="periodeAkhir" name="periodeAkhir">
+                <span style="color: red"><?php echo $echoPeriodeAkhir; ?></span>
+                <span style="color: red"><?php echo $echoError; ?></span>
+              </div>
+              <div class="form-group">
+                <label for="kodePromo">Kode Promo<span class="required" style="color: red">*</span></label>
+                <input type="text" class="form-control" id="kodePromo" name="kodePromo">
+                <span style="color: red"><?php echo $echoKodePromo; ?></span>
+              </div>
 							<div class="form-group">
-								<label for="periodeAwal">Periode Awal<span class="required" style="color: red">*</span></label>
-								<input type="date" class="form-control" id="periodeAwal">
-							</div>
-							<div class="form-group">
-								<label for="periodeAkhir">Periode Akhir<span class="required" style="color: red">*</span></label>
-								<input type="date" class="form-control" id="periodeAkhir">
-							</div>
-							<div class="form-group">
-								<label for="kodePromo">Kode Promo<span class="required" style="color: red">*</span></label>
-								<input type="text" class="form-control" id="kodePromo">
-							</div>
-							<div class="form-group">
-								<label for="kategori">Pilih Kategori<span class="required" style="color: red">*</span></label>
-								<select class="form-control" name="kategoriUtama" onchange="getId(this.value);">
-									<option>Select Kategori Utama</option>
-									
+                <label for="kategori">Pilih Kategori<span class="required" style="color: red">*</span></label>
+                <select class="form-control" name="kategoriUtama" onchange="getId(this.value);">
+                <span style="color: red"><?php echo $echoKategoriUtama; ?></span>
+									<option value="kosong">Select Kategori Utama</option>';?>
+                  <?php
+                    $conn = connectDB();
+                    $sql = "SELECT * FROM tokokeren.KATEGORI_UTAMA";
+
+                    if(!$result = pg_query($conn, $sql)) {
+                      die("Error: $sql");
+                    }
+
+                    while ($row = pg_fetch_row($result)) {
+                      $noKategori = $row[0];
+                      $namaKategori = $row[1];
+                      echo '<option value='.$noKategori.'>'. $namaKategori.'</option>';
+                    }
+                echo'
 								</select>
 							</div>
 							<div class="form-group">
-								<select class="form-control" name="subKategori" id="subKategori">
-									<option>Select Sub-Kategori</option>
-								</select>
-							</div>
-						  	
+                <select class="form-control" name="subKategori" id="subKategori">
+                  <option value="kosong">Select Sub-Kategori</option>
+                </select>
+                <span style="color: red"><?php echo $echoSubkategori; ?></span>
+              </div>
 					</div>
 	</div>
     <div class="modal-footer">
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" name="command" id="command" class="btn btn-default">Submit</button>
 						</form>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
@@ -702,9 +725,22 @@ function closeNav() {
     
 </script>
 
+<script type="text/javascript">
+      function getId(val){
+        $.ajax({
+          type: "POST",
+          url: "getdata.php",
+          data: "cid="+val,
+          success: function(data){
+            $("#subKategori").html(data);
+          }
+        });
+      }
+</script>
+
 </body>
 
-    <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
+  <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
 	<script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
 
 	<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
@@ -713,6 +749,6 @@ function closeNav() {
 	<script src="assets/js/gsdk-bootstrapswitch.js"></script>
 	<script src="assets/js/get-shit-done.js"></script>
 	
-    <script src="assets/js/custom.js"></script>
+  <script src="assets/js/custom.js"></script>
 
 </html>

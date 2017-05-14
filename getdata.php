@@ -1,16 +1,9 @@
 <?php
 	function connectDB() {
-		$servername = "localhost";
-		$username = "root";
-		$password = "";
-		$dbname = "tokokeren";
-		
-		// Create connection
-		$conn = mysqli_connect($servername, $username, $password, $dbname);
-		
-		// Check connection
+		$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+
 		if (!$conn) {
-			die("Connection failed: " + mysqli_connect_error());
+			die("Connection failed: " + pg_last_error());
 		}
 		return $conn;
 	}
@@ -29,6 +22,5 @@
 		<option value="<?php echo $row[0]; ?>"><?php echo $row[2];?></option>
 		<?php
 		}
-
 	}
 ?>
