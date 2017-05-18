@@ -62,7 +62,7 @@
 	    <div class="form-group">
 	      <label for="namajasakirim">Kode Produk : </label>
 	      	<?php
-				$kodeProduk = $_GET["kode-produk"];
+				$kodeProduk = $_GET["kode_produk"];
 				echo '<input type="text" class="form-control" id="kodeProduk" name="kodeProduk" readonly="readonly" ';
 				echo 'value='.$kodeProduk;
 				echo '>';
