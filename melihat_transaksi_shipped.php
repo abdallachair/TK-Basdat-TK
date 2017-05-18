@@ -1,5 +1,14 @@
 <!DOCTYPE html>
-<?php session_start()?>
+<?php 
+    session_start();
+    if(isset($_POST['shipped_dibeli'])) {
+        $_SESSION['kode_produk'] = $_POST['shipped_dibeli'];
+        if(isset($_SESSION['kode_produk'])) {
+            header('location: ulasan.php');
+        }
+
+    }
+?>
 <html lang="en">
     <head>
         <title>MEMBUAT TOKO</title>

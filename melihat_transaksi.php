@@ -6,7 +6,13 @@
             $_SESSION['liat_product'] = $_SESSION['no_invoice'];
             header('location: melihat_transaksi_shipped.php');
         }
+    }
 
+    if(isset($_POST['pulsa_dibeli'])) {
+        $_SESSION['kode_produk'] = $_POST['pulsa_dibeli'];
+        if(isset($_SESSION['kode_produk'])) {
+            header('location: ulasan.php');
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -47,7 +53,7 @@
                         $db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
                         $user_email = $_SESSION['email'];
 
-                        $query = "SELECT DISTINCT TP.no_invoice, P.nama, TP.tanggal, TP.status, TP.total_bayar, TP.nominal, TP.nomor, TP.email_pembeli
+                        $query = "SELECT DISTINCT TP.no_invoice, P.nama, TP.tanggal, TP.status, TP.total_bayar, TP.nominal, TP.nomor, TP.email_pembeli, TP.kode_produk
                                 FROM TOKOKEREN.TRANSAKSI_PULSA TP, TOKOKEREN.PRODUK P, TOKOKEREN.PELANGGAN PL
                                 WHERE TP.kode_produk = P.kode_produk AND TP.email_pembeli = '".$user_email."';";
                         $result = pg_query($db, $query); 
@@ -65,7 +71,7 @@
                                 <td> '.$q['total_bayar'].' </td>
                                 <td> '.$q['nominal'].' </td>
                                 <td> '.$q['nomor'].' </td>
-                                <td> <form method="get" action="ulasan.php"><button type="submit" name="pulsa_dibeli" value='.$q['no_invoice'].'> ULAS </button></form> </td>
+                                <td> <form method="get" action="ulasan.php"><button type="submit" name="pulsa_dibeli" value='.$q['kode_produk'].'> ULAS </button></form> </td>
                                 </tr>';
                             }
                         }
