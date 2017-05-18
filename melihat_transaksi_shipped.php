@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php 
+<?php
     session_start();
     if(isset($_POST['shipped_dibeli'])) {
         $_SESSION['kode_produk'] = $_POST['shipped_dibeli'];
