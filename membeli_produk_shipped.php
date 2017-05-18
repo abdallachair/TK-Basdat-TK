@@ -1,25 +1,11 @@
 <?php
+    session_start();
+    if(isset($_POST['beli_shipped'])) {
+        $_SESSION['kode_produk_shipped'] = $_POST['beli_shipped'];
+        if(isset($_SESSION['kode_produk_shipped'])) {
+            header('location: cart.php');
+        }
 
-    function selectAllFromTable($table) {
-
-        $query = "SELECT * FROM $table";
-
-        return $result;   
-    }
-    
-    function insertToko(){
-
-        $nama_toko = $_POST['nama_toko'];
-        $deskripsi = $_POST['deskripsi'];
-        $slogan = $_POST['slogan'];
-        $lokasi = $_POST['lokasi'];
-        $email = $_SESSION['email_pengguna'];
-    }
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if($_POST['command'] === 'membuat_toko'){
-            insertToko();
-        } 
     }
 ?>
 
@@ -82,6 +68,36 @@
                      <th></th>
                   </tr>
                </thead>
+               <?php
+                    //if-else dia ada sub-kategori ato engga
+                        $db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
+                        $user_email = $_SESSION['email'];
+
+                        $query = "SELECT DISTINCT P.kode_produk, P.nama, P.harga, P.deskripsi, SP.is_asuransi, SP.stok, SP.is_baru, SP.harga_grosir
+                                FROM TOKOKEREN.PRODUK P, TOKOKEREN.SHIPPED_PRODUK SP
+                                WHERE SP.kode_produk = P.kode_produk
+                                ORDER BY P.kode_produk";
+                        $result = pg_query($db, $query); 
+                        if (!$result) { 
+                            $errormessage = pg_last_error(); 
+                            echo "Error with query: " . $errormessage; 
+                            exit(); 
+                        } else {
+                            while($q = pg_fetch_array($result)) {
+                                echo '<tr>
+                                <td> '.$q['kode_produk'].' </td>
+                                <td> '.$q['nama'].' </td>
+                                <td> '.$q['harga'].' </td>
+                                <td> '.$q['deskripsi'].' </td>
+                                <td> '.$q['is_asuransi'].' </td>
+                                <td> '.$q['stok'].' </td>
+                                <td> '.$q['is_baru'].' </td>
+                                <td> '.$q['harga_grosir'].' </td>
+                                <td> <form method="get" action="cart.php"><button type="submit" name="beli_shipped" value='.$q['kode_produk'].'> BELI </button></form> </td>
+                                </tr>';
+                            }
+                        }
+                    ?>
             </div>
         </div>
     </div>

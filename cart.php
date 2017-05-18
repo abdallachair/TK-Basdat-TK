@@ -1,27 +1,5 @@
 <?php
-/**
-    function selectAllFromTable($table) {
-
-        $query = "SELECT * FROM $table";
-
-        return $result;   
-    }
-    
-    function insertToko(){
-
-        $nama_toko = $_POST['nama_toko'];
-        $deskripsi = $_POST['deskripsi'];
-        $slogan = $_POST['slogan'];
-        $lokasi = $_POST['lokasi'];
-        $email = $_SESSION['email_pengguna'];
-    }
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if($_POST['command'] === 'membuat_toko'){
-            insertToko();
-        } 
-    }
-    **/
+	session_start();
 ?>
 
 <!DOCTYPE html>

@@ -11,8 +11,11 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="rating/js/star-rating.js" type="text/javascript"></script>
        </head>
-    <body>    
-             <div class="melihat_product">
+    <body>  
+        <div class="navbar-default text-center">
+            <span class="lead big-text">Toko<b>Keren</b></span>
+        </div>  
+            <div class="melihat_product">
             <div class="container">
                 <h2>Lihat Product</h2>
                 <?php

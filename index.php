@@ -337,7 +337,7 @@
         <h4 class="modal-title">Tambahkan Produk Shipped</h4>
       </div>
       <div class="modal-body">
-        <h2>FORM MEMBUAT PRODUK PULSA</h2>
+        <h2>FORM MENAMBAH PRODUK SHIPPED</h2>
                 <form action="page.php" method="post">
                         <div class="form-group">
                             <label for="nama_paket">Kode_produk</label>

@@ -22,6 +22,9 @@
         <script src="rating/js/star-rating.js" type="text/javascript"></script>
        </head>
     <body>
+        <div class="navbar-default text-center">
+            <span class="lead big-text">Toko<b>Keren</b></span>
+        </div>
         <div class="melihat_pulsa">
             <div class="container">
                 <h2>Lihat Transaksi Pulsa</h2>
