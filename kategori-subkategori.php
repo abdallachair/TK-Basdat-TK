@@ -27,6 +27,9 @@
 	    </ul>
 	    
 	    <button id="add-subkategori-btn" class="btn btn-lg btn-primary btn-block">Tambah subkategori</button>
+	    <script>
+	    	$("#add-subkategori-btn").onclick()
+	    </script>
    		<input id="add-kategori-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Tambah Kategori" name="add-kategori">
     </fieldset>
     

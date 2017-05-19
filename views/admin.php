@@ -1,5 +1,5 @@
 <?php 
-  session_start();
+
 ?>
 
 <!doctype html>
@@ -370,6 +370,8 @@
     transition: margin-left .5s;
     padding: 20px;
 }
+
+  
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {

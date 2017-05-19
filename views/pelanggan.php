@@ -151,9 +151,6 @@
                   </div>
                 </div>
 
-
-                }
-                else {
                    <button data-toggle="modal" data-target="#beli_produk" style="width: 100%; text-align: left;" class="btn btn-info">Beli Produk<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
     
                     <div id="beli_produk" class="modal fade" role="dialog">

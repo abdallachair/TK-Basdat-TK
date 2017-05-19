@@ -7,7 +7,6 @@
 	$echoSubkategori = "";
 	$echoError = "";
 	$validate = true;
-	session_start();
 
 	function submitPromo(){
 		$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");

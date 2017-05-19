@@ -1,19 +1,84 @@
 <?php
 	// define variables and set to empty values
 	session_start();
+
 	if(isset($_SESSION['loginError'])){
 		session_unset($_SESSION['loginError']);
 	}
 
+	if(isset($_SESSION['role'])){
+		header("Location: index.php");
+	}
+
 	$ErrMsg = "";
-	$email = $pass = $repass = $nama = $sex = $notelp = $alamat = "";
 
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	  if (empty($_POST["email"]) || empty($_POST["uname"]) || empty($_POST["pass"]) || empty($_POST["repass"]) || empty($_POST["sex"]) || empty($_POST["notelp"]) || empty($_POST["pass"])) {
-	    $ErrMsg = "Semua data harus diisi"; 
-	  } 
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {	
+	  	//validasi data
+	  	if (!preg_match("/^([\w\-]+\@[\w\-]+\.[\w\-]+){1,50}$/", $_POST['email'])){
+			$ErrMsg = "Email tidak sesuai! (maksimal 50 karakter)";
+	  	}
+	  	else if (!preg_match("/^[a-zA-Z ]{1,100}$/", $_POST['uname'])){
+			$ErrMsg = "Nama tidak sesuai (maksimal 100 karakter)";
+	  	}
+		else if($_POST['sex'] == "kosong"){
+			$ErrMsg = "Isi jenis kelamin!";
+		}
+		else if(!preg_match("/^[\w\-]{6,20}$/", $_POST['pass'])){
+			$ErrMsg = "Password minimal terdiri dari 6 karakter dan maksimal 20 karakter!";
+		}
+		else if($_POST['pass'] != $_POST['repass']){
+			$ErrMsg = "Password dan konfirmasi password harus sama!";
+		}
+		else if(!preg_match("/^(?:08)(?:\d(?:-)?){8,20}$/", $_POST['notelp'])){
+			$ErrMsg = "Nomor telfon harus berupa angka! (minimal 8 digit maksimal 20 digit)";
+		}
+		else if(preg_match("/\d/", $_POST['alamat'])){
+			$ErrMsg = "Alamat tidak boleh terdiri dari angka saja!";
+		}
+		//kondisi data yang dimasukkan sudah sesuai format
+		else{
+			registerUser($_POST['email']);
+		}	
+	}	
+function registerUser($email){
+	//mengecek apakaah email sudah ada di dalam database
+	$conn = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
 
+	$query_email_pengguna = "SELECT * FROM TOKOKEREN.PENGGUNA where email = '".$email."'";
+	$query_email_pelanggan = "SELECT * FROM TOKOKEREN.PELANGGAN where email = '".$email."'";
+
+	$result_email_pengguna = pg_query($conn, $query_email_pengguna);
+	$result_email_pelanggan = pg_query($conn, $query_email_pelanggan);
+	$count = pg_num_rows($result_email_pengguna);
+	$count_admin = pg_num_rows($result_email_pelanggan);
+
+	//kondisi email sudah ada
+	if($count > 0 || $count_admin > 0){
+		$ErrMsg = "Email sudah tergabung sebelumnya";
+		header("Location: register.php");
+	}
+	//kondisi email belom ada di dalam database
+	else{
+		$uname = $_POST['uname'];
+		$tgllahir = $_POST['tgllahir'];
+		$sex = $_POST['sex'];
+		$pass = $_POST['pass'];
+		$notelp = $_POST['notelp'];
+		$alamat = $_POST['alamat'];	
+
+		$query_register_pengguna = "INSERT INTO TOKOKEREN.PENGGUNA VALUES('".$email."', '".$pass."', '".$uname."', '".$sex."', '".$tgllahir."', '".$notelp."', '".$alamat."')";
+		$query_register_pelanggan = "INSERT INTO TOKOKEREN.PELANGGAN VALUES('".$email."')";
+		pg_query($conn, $query_register_pengguna);
+		pg_query($conn, $query_register_pelanggan);
+
+		$_SESSION['role'] = 'pengguna';
+		$_SESSION['email'] = $email;
+		$_SESSION['baru'] = TRUE;
+		header("Location: index.php");
+	}
+	
 }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -73,6 +138,9 @@
 			left: 425px;
 			font-size: 12px;
 		}
+		.error{
+			color: red;
+		}
 	</style>
 </head>
 <body>
@@ -90,38 +158,43 @@
                     <form role="form" method="post" action="register.php">
                         <fieldset>
                             <div class="form-group ">
-                                <input id="email-input" class="form-control" placeholder="Email" name="email" type="text" autofocus>
+                                <input id="email-input" class="form-control" placeholder="Email" name="email" type="text" required>
                                 <span class="error">* <?php echo $ErrMsg;?></span>
                             </div>
                              <div class="form-group">
                                 <input id="name-input" class="form-control" placeholder="Nama kamu" name="uname" type="text" 
-                                value="">
+                                value="" required>
+                                <span class="error">* <?php echo $ErrMsg;?></span>
+                            </div>
+							<div class="form-group">
+							      <input type="date" class="form-control" name="tgllahir" value="" placeholder="Date of Birth" required>
+							</div>
+                            <div class="form-group">
+                                <input id="pass-input" class="form-control" placeholder="Password" name="pass" type="password" value="" required>
                                 <span class="error">* <?php echo $ErrMsg;?></span>
                             </div>
                             <div class="form-group">
-                                <input id="pass-input" class="form-control" placeholder="Password" name="pass" type="password" value="">
+                                <input id="pass-input-repeat" class="form-control" placeholder="Konfirmasi Password" name="repass" type="password" required>
                                 <span class="error">* <?php echo $ErrMsg;?></span>
                             </div>
                             <div class="form-group">
-                                <input id="pass-input-repeat" class="form-control" placeholder="Konfirmasi Password" name="repass" type="password" autofocus>
-                                <span class="error">* <?php echo $ErrMsg;?></span>
-                            </div>
-                            <div class="form-group">
-                               <select id="sex-input" class="selectpicker form-control">
-								  <option>Laki-laki</option>
-								  <option>Perempuan</option>
+                               <select id="sex-input" name="sex" class="selectpicker form-control" required>
+                               	  <option value="kosong">Jenis Kelamin</option>
+								  <option value="L">Laki-laki</option>
+								  <option value="P">Perempuan</option>
 								</select>
 								<span class="error">* <?php echo $ErrMsg;?></span>
                             </div>
                             <div class="form-group">
-                                <input id="notelp-input" class="form-control" placeholder="Nomor Telfon" name="notelp" type="text" value="">
+                                <input id="notelp-input" class="form-control" placeholder="Nomor Telfon" name="notelp" type="text" value="" required>
                                 <span class="error">* <?php echo $ErrMsg;?></span>
                             </div>
                             <div class="form-group">
-                                <input id="alamat-input" class="form-control" placeholder="Alamat" name="alamat" type="text" autofocus>
+                                <input id="alamat-input" class="form-control" placeholder="Alamat" name="alamat" type="text" autofocus required>
                                 <span class="error">* <?php echo $ErrMsg;?></span>
                             </div class="form-group">
-                                <input id="register-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="register" name="register">
+                            <input type="hidden" name="command" value="register">
+                            <input id="register-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="register" name="register">
                         </fieldset>
                     </form>
                     <div class="register-footer"><a id="register-footer-text" href="login.php">Sudah gabung TokoKeren?</a></div>

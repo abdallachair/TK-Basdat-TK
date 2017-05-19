@@ -1,6 +1,5 @@
 <?php	
 	session_start();
-  $_SESSION['role'] = "admin";
 	if(isset($_SESSION['loginError'])){
 		session_unset($_SESSION['loginError']);
 	}
@@ -55,7 +54,14 @@
               </button>
               <a class="navbar-brand" href="#gsdk">Toko<b>Keren</b></a>
             </div>
-        
+            <?php
+                  if(isset($_SESSION['baru'])){
+                     echo '<div class="alert alert-success">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Selamat!</strong> Kamu sudah tergabung dalam TokoKeren!
+                          </div>';
+                  }
+            ?>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
@@ -84,7 +90,12 @@
                     		echo '<li><a href="login.php" class="btn btn-round btn-default">Sign in</a></li>';
                     		echo '<li><a href="register.php">Register</a></li>';
                     	} else{
-                    		echo $_SESSION['role'];
+                        if($_SESSION['role'] == 'admin'){
+                          echo '<li><p id="email-user">admin</p></li>';
+                        }
+                        else{
+                    		  echo '<li><p id="email-user">'.$_SESSION['email'].' </p></li>';
+                        }
                     		echo '<li><a href="signout.php" class="btn btn-round btn-default">Sign out</a></li>';
                     	}
                     ?>
@@ -160,6 +171,13 @@
 #main {
     transition: margin-left .5s;
     padding: 20px;
+}
+
+#email-user{
+  color: white;
+  margin-top: 20pt;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
