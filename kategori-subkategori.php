@@ -29,12 +29,7 @@
 	    <button id="add-subkategori-btn" class="btn btn-lg btn-primary btn-block" onclick="tambahSubkategori()">Tambah subkategori</button>
 	    <script>
 	    	function tambahSubkategori(){
-	    		document.writeln(<div class="form-group">
-		    	<input id="kode-subkategori" class="form-control" placeholder="Kode Subkategori" name="id-subkategori" type="text" autofocus>
-		    </div>
-		    <div class="form-group">
-		    	<input id="nama-subkategori" class="form-control" placeholder="Nama Subkategori" name="name-subkategori" type="text" autofocus>
-		    </div>);
+	    		document.write("<button>HELLO</button>");
 	    	}
 	    </script>
    		<input id="add-kategori-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Tambah Kategori" name="add-kategori">
