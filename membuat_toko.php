@@ -1,9 +1,10 @@
 <?php
     session_start();
-    $DBConnection = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+    $_SESSION['email']="john793@gmail.com";
+    $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
     $no_jasa_kirim = 1;
     function selectAllFromTable($table) {
-        $DBConnection = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+        $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
         $query = "SELECT * FROM $table";
         $result = pg_query($DBConnection, $query);
 
@@ -11,7 +12,7 @@
     }   
     
     function insertToko(){
-        $DBConnection = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+        $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
         $nama_toko = $_POST['nama_toko'];
         $deskripsi = $_POST['deskripsi'];
         $slogan = $_POST['slogan'];
@@ -67,6 +68,7 @@
                         }
                         $y = $y + 1;
                     }
+                    $y = 1;
                     $x = $x + 1;
                 }
                 
@@ -100,6 +102,7 @@
                 
                 //echo 'track-4';
                 $num = $loop;
+                echo $num;
                 $x = 1;
                 $y = 1;
                 
@@ -110,6 +113,8 @@
                 $sama2 = 0;
                 
                 while($x <= $num){
+                    //echo ($x);
+                   // echo ($y);
                     $jasa_saat_ini = $_POST['jasa_kirim_'.$x];
                     if($jasa_saat_ini === "PILIH JASA ANDA"){
                    //     echo "tracktotr";
@@ -121,8 +126,10 @@
                         if($x == $y){
                             
                         } else{
+                          //  echo ($x);
+                          //  echo ($y);
                             if($jasa_saat_ini == $jasa_saat_ini2){
-                             //   echo "tracktotrsadas";
+                               echo "tracktotrsadas";
                                 $flag = FALSE;
                                 $sama1 = $x;
                                 $sama2 = $y;
@@ -130,10 +137,12 @@
                             }
                         }
                         $y = $y + 1;
+                        
                     }
+                    $y = 1;
                     $x = $x + 1;
                 }
-                
+                //die($jasa_saat_ini . " " . $jasa_saat_ini2 . " ". $flag . " ".$x." ".$y);
                 if($flag2 == FALSE){
                     $_SESSION['errorMSG'] = "Jasa Kirim ".$x." tidak boleh kosong!";
                     

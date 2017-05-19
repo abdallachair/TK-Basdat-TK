@@ -28,57 +28,58 @@
 </head>
 
 <body>
-    <div class="container tim-container" style="max-width:800px; padding-top:100px">
         <button data-toggle="modal" data-target="#kategori" style="width: 100%; text-align: left;" class="btn btn-info">Buat Kategori<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
-        <div id="kategori" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Buat Kategori</h4>
-      </div>
-      <div class="modal-body">
-        <div class="">
-         <h1>Menambahkan Kategori dan Subkategori</h1>
-         <fieldset>
-         <div class="form-group">
-            <input id="kode-kategori" class="form-control" placeholder="Kode Kategori" name="id-kategori" type="text" autofocus>
-         </div>
-         <div class="form-group">
-               <input id="nama-kategori" class="form-control" placeholder="Nama Kategori" name="name-kategori" type="text" autofocus>
-               </div>
-            <label>Subkategori</label>
-         <ul>
-                <div class="form-group">
-                  <input id="kode-subkategori" class="form-control" placeholder="Kode Subkategori" name="id-subkategori" type="text" autofocus>
-                </div>
-              <div class="form-group">
-                  <input id="nama-subkategori" class="form-control" placeholder="Nama Subkategori" name="name-subkategori" type="text" autofocus>
-              </div>
-         </ul>
-      
-      
-    
-    
-</div>
-      </div>
-      <div class="modal-footer">
-        <button id="add-subkategori-btn" class="btn btn-lg btn-primary btn-block">Tambah subkategori</button>
-      <input id="add-kategori-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Tambah Kategori" name="add-kategori">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-      </fieldset>
-    </div>
-
-  </div>
-</div>
         <br>
         <button data-toggle="modal" data-target="#jasa" style="width: 100%; text-align: left;" class="btn btn-info">Buat Jasa Kirim<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
-        
-        <div id="jasa" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+        <br>  
+        <button data-toggle="modal" data-target="#promo" style="width: 100%; text-align: left;" class="btn btn-info">Add Promo<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+        <br>
+        <button data-toggle="modal" data-target="#produk" style="width: 100%; text-align: left;" class="btn btn-info">Tambah Produk<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+        <br>
+        <button data-toggle="modal" data-target="#shipped" style="width: 100%; text-align: left;" class="btn btn-info">Produk Shipped<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
+        <br>
+    
+    
+<!-- modal kategori -->
+<div id="kategori" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Buat Kategori</h4>
+          </div>
+          <div class="modal-body">
+             <h1>Menambahkan Kategori dan Subkategori</h1>
+             <div class="form-group">
+                <input id="kode-kategori" class="form-control" placeholder="Kode Kategori" name="id-kategori" type="text" autofocus>
+             </div>
+             <div class="form-group">
+                <input id="nama-kategori" class="form-control" placeholder="Nama Kategori" name="name-kategori" type="text" autofocus>
+            </div>
+            <label>Subkategori</label>
+            <ul>
+            <div class="form-group">
+                <input id="kode-subkategori" class="form-control" placeholder="Kode Subkategori" name="id-subkategori" type="text" autofocus>
+            </div>
+            <div class="form-group">
+                <input id="nama-subkategori" class="form-control" placeholder="Nama Subkategori" name="name-subkategori" type="text" autofocus>
+            </div>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button id="add-subkategori-btn" class="btn btn-lg btn-primary btn-block">Tambah subkategori</button>
+            <input id="add-kategori-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Tambah Kategori" name="add-kategori">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    </div>
+</div>
 
+<!-- end modal kategori-->
+
+<!-- modal jasa -->
+<div id="jasa" class="modal fade" role="dialog">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -108,7 +109,6 @@
               <span style="color: red">';?><?php echo $echoTarif?></span>
               <span style="color: red">';?><?php echo $echoBerhasil;?></span>
             </div>
-        
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-default">Submit</button>
@@ -116,144 +116,67 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
-
   </div>
-</div>  
-        <button data-toggle="modal" data-target="#promo" style="width: 100%; text-align: left;" class="btn btn-info">Add Promo<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
-        
-        <div id="promo" class="modal fade" role="dialog">
+</div>
+<!-- end modal jasa-->
+
+<!-- modal promo-->
+
+<!-- end modal promo-->
+
+<!-- modal produk-->
+<div id="produk" class="modal fade" role="dialog">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Tambah Promo</h4>
-      </div>
-      <div class="modal-body">
-        <h2>Add Promo</h2>
-        <div>
-            <span class="required" style="color: red">*required</span>
-        </div>
-        <div class="konten-isi" style="text-align: justify; text-justify: inter-word;">
-            <form action="index.php" method="post">
-              <div class="form-group">
-                <label for="deskripsi">Deskripsi<span class="required" style="color: red">*</span></label>
-                <input type="text" class="form-control" id="deskripsi" name="deskripsi">
-                <span style="color: red"><?php echo $echoDeskripsi; ?></span>
-              </div>
-              <div class="form-group">
-                <label for="periodeAwal">Periode Awal<span class="required" style="color: red">*</span></label>
-                <input type="date" class="form-control" id="periodeAwal" name="periodeAwal">
-                <span style="color: red"><?php echo $echoPeriodeAwal; ?></span>
-              </div>
-              <div class="form-group">
-                <label for="periodeAkhir">Periode Akhir<span class="required" style="color: red">*</span></label>
-                <input type="date" class="form-control" id="periodeAkhir" name="periodeAkhir">
-                <span style="color: red"><?php echo $echoPeriodeAkhir; ?></span>
-                <span style="color: red"><?php echo $echoError; ?></span>
-              </div>
-              <div class="form-group">
-                <label for="kodePromo">Kode Promo<span class="required" style="color: red">*</span></label>
-                <input type="text" class="form-control" id="kodePromo" name="kodePromo">
-                <span style="color: red"><?php echo $echoKodePromo; ?></span>
-              </div>
-              <div class="form-group">
-                <label for="kategori">Pilih Kategori<span class="required" style="color: red">*</span></label>
-                <select class="form-control" name="kategoriUtama" onchange="getId(this.value);">
-                <span style="color: red"><?php echo $echoKategoriUtama; ?></span>
-                  <option value="kosong">Select Kategori Utama</option>';?>
-                  <?php
-                    $conn = connectDB();
-                    $sql = "SELECT * FROM tokokeren.KATEGORI_UTAMA";
-
-                    if(!$result = pg_query($conn, $sql)) {
-                      die("Error: $sql");
-                    }
-
-                    while ($row = pg_fetch_row($result)) {
-                      $noKategori = $row[0];
-                      $namaKategori = $row[1];
-                      echo '<option value='.$noKategori.'>'. $namaKategori.'</option>';
-                    } ?>
-                </select>
-              </div>
-              <div class="form-group">
-                <select class="form-control" name="subKategori" id="subKategori">
-                  <option value="kosong">Select Sub-Kategori</option>
-                </select>
-                <span style="color: red"><?php echo $echoSubkategori; ?></span>
-              </div>
-          </div>
-  </div>
-    <div class="modal-footer">
-    <button type="submit" name="command" id="command" class="btn btn-default">Submit</button>
-            </form>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-      </div>
-      
-      
-    </div>
-
-  </div>
-    
-    <button data-toggle="modal" data-target="#produk" style="width: 100%; text-align: left;" class="btn btn-info">Tambah Produk<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
-    
-    <div id="produk" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Tambah Produk</h4>
       </div>
-      <div class="modal-body">
+    <div class="modal-body">
         <h2>FORM MEMBUAT PRODUK PULSA</h2>
-                <form action="page.php" method="post">
-                        <div class="form-group">
-                            <label for="nama_paket">Kode_produk</label>
-                            <input type="text" class="form-control" id="insert-kode_produk" name="kode_produk" placeholder="masukkan kode produk" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama_paket">Nama produk</label>
-                            <input type="text" class="form-control" id="insert-nama_produk" name="nama_produk" placeholder="tuliskan nama produk mu" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fitur">Harga</label>
-                            <input type="text" class="form-control" id="insert-harga" name="harga" placeholder="masukkan harga dari produk mu" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="harga">Deskripsi</label>
-                            <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi dari produk mu" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="harga">Nominal</label>
-                            <input type="text" class="form-control" id="insert-nominal" name="nominal" placeholder="masukkan harga dari toko mu" required>
-                        </div>
-                        
+        <form action="page.php" method="post">
+            <div class="form-group">
+                <label for="nama_paket">Kode_produk</label>
+                <input type="text" class="form-control" id="insert-kode_produk" name="kode_produk" placeholder="masukkan kode produk" required>
+            </div>
+            <div class="form-group">
+                <label for="nama_paket">Nama produk</label>
+                <input type="text" class="form-control" id="insert-nama_produk" name="nama_produk" placeholder="tuliskan nama produk mu" required>
+            </div>
+            <div class="form-group">
+                <label for="fitur">Harga</label>
+                <input type="text" class="form-control" id="insert-harga" name="harga" placeholder="masukkan harga dari produk mu" required>
+            </div>
+            <div class="form-group">
+                <label for="harga">Deskripsi</label>
+                <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi dari produk mu" required>
+            </div>
+            <div class="form-group">
+                <label for="harga">Nominal</label>
+                <input type="text" class="form-control" id="insert-nominal" name="nominal" placeholder="masukkan harga dari toko mu" required>
+            </div>   
       </div>
       <div class="modal-footer">
-      <input type="hidden" id="insert-userid" name="userid">
-                        <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
-                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
-                        </form>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="hidden" id="insert-userid" name="userid">
+            <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
+            <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
+     </form>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
-
   </div>
 </div>
-            
-            
-            <button data-toggle="modal" data-target="#shipped" style="width: 100%; text-align: left;" class="btn btn-info">Produk Shipped<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
-            
-            <div id="shipped" class="modal fade" role="dialog">
+<!-- end modal produk-->
+
+<!-- modal shipped-->
+<div id="shipped" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Tambahkan Produk Shipped</h4>
       </div>
-      <div class="modal-body"></div>
+      <div class="modal-body">
         <h2>FORM MENAMBAH PRODUK SHIPPED</h2>
                 <form action="page.php" method="post">
                         <div class="form-group">
@@ -313,8 +236,7 @@
                             <label for="harga">Foto</label><span class="required" style="color: red">*</span></label>
                             <input class="lagi " type="file" name="image_produk" id="image"/>
                         </div>
-                        
-      </div>
+    </div>  
       <div class="modal-footer">
       <input type="hidden" id="insert-userid" name="userid">
                         <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
@@ -323,8 +245,10 @@
         </form>
       </div>
     </div>
-       
-        
+</div>
+</div>
+<!-- end modal shipped-->
+
 <!-- end main -->
 <style>
     /* The side navigation menu */
@@ -404,10 +328,7 @@ function closeNav() {
         });
       }
 </script>
-
-</body>
-
-  <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
   <script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
 
   <script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
@@ -417,5 +338,8 @@ function closeNav() {
   <script src="assets/js/get-shit-done.js"></script>
   
   <script src="assets/js/custom.js"></script>
+</body>
+
+  
 
 </html>

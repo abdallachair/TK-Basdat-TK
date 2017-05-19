@@ -1,11 +1,12 @@
-<?php	
+<?php
+    
 	session_start();
 	if(isset($_SESSION['loginError'])){
 		session_unset($_SESSION['loginError']);
 	}
 
-    include("add_jasa_kirim.php");
-    include("promo.php");
+   // include("add_jasa_kirim.php");
+    //include("promo.php");
 ?>
 
 <!doctype html>
@@ -55,6 +56,8 @@
               <a class="navbar-brand" href="#gsdk">Toko<b>Keren</b></a>
             </div>
             <?php
+               $_SESSION['role'] = 'admin';
+              //unset($_SESSION['role']);
                   if(isset($_SESSION['baru'])){
                      echo '<div class="alert alert-success">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -122,7 +125,7 @@
                     include_once 'views/pelanggan.php';
                 }
               }
-        ?> <!--     end extras -->        
+        ?> <!--     end extras -->  
     </div>
     <div class="space"></div>
 <!-- end container -->
