@@ -1,5 +1,7 @@
 <?php 
-
+    include('kategori-subkategori.php');
+    include('menambah_produk_pulsa.php');
+    include('membuat_produk_shipped.php');
 ?>
 
 <!doctype html>
@@ -49,27 +51,35 @@
             <h4 class="modal-title">Buat Kategori</h4>
           </div>
           <div class="modal-body">
-             <h1>Menambahkan Kategori dan Subkategori</h1>
-             <div class="form-group">
-                <input id="kode-kategori" class="form-control" placeholder="Kode Kategori" name="id-kategori" type="text" autofocus>
-             </div>
-             <div class="form-group">
-                <input id="nama-kategori" class="form-control" placeholder="Nama Kategori" name="name-kategori" type="text" autofocus>
-            </div>
-            <label>Subkategori</label>
-            <ul>
-            <div class="form-group">
-                <input id="kode-subkategori" class="form-control" placeholder="Kode Subkategori" name="id-subkategori" type="text" autofocus>
-            </div>
-            <div class="form-group">
-                <input id="nama-subkategori" class="form-control" placeholder="Nama Subkategori" name="name-subkategori" type="text" autofocus>
-            </div>
-            </ul>
+             <form role="form" method="post" action="index.php">
+			<span class="error"><?php echo $ErrMsg;?></span>
+		    <div class="form-group">
+		    	<input id="kode-kategori" class="form-control" placeholder="Kode Kategori" name="id-kategori" type="text" autofocus required>
+		    </div>
+		    <div class="form-group">
+		    	<input id="nama-kategori" class="form-control" placeholder="Nama Kategori" name="name-kategori" type="text" autofocus>
+		    </div>
+		    <label>Subkategori</label>
+		    <ul>
+		    	<div class="form-group">
+			    	<input id="kode-subkategori" class="form-control" placeholder="Kode Subkategori" name="id1" type="text" autofocus required>
+			    </div>
+			    <div class="form-group">
+			    	<input id="nama-subkategori" class="form-control" placeholder="Nama Subkategori" name="nm1" type="text" autofocus required>
+			    </div>
+		    </ul>
+		    <div id="subkategori_tambahan">
+	                                        
+                 </div>
+		    <button id="add-subkategori-btn" type="button" class="btn btn-lg btn-primary btn-block">Tambah subkategori</button>
           </div>
           <div class="modal-footer">
-            <button id="add-subkategori-btn" class="btn btn-lg btn-primary btn-block">Tambah subkategori</button>
-            <input id="add-kategori-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Tambah Kategori" name="add-kategori">
+            <input type="hidden" name="command" value="tambahKategori">
+	   		<input id="add-kategori-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Tambah Kategori" name="add-kategori">
+	    </form>
+              
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              
           </div>
         </div>
     </div>
@@ -120,10 +130,6 @@
 </div>
 <!-- end modal jasa-->
 
-<!-- modal promo-->
-
-<!-- end modal promo-->
-
 <!-- modal produk-->
 <div id="produk" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -134,33 +140,35 @@
       </div>
     <div class="modal-body">
         <h2>FORM MEMBUAT PRODUK PULSA</h2>
-        <form action="page.php" method="post">
-            <div class="form-group">
-                <label for="nama_paket">Kode_produk</label>
-                <input type="text" class="form-control" id="insert-kode_produk" name="kode_produk" placeholder="masukkan kode produk" required>
-            </div>
-            <div class="form-group">
-                <label for="nama_paket">Nama produk</label>
-                <input type="text" class="form-control" id="insert-nama_produk" name="nama_produk" placeholder="tuliskan nama produk mu" required>
-            </div>
-            <div class="form-group">
-                <label for="fitur">Harga</label>
-                <input type="text" class="form-control" id="insert-harga" name="harga" placeholder="masukkan harga dari produk mu" required>
-            </div>
-            <div class="form-group">
-                <label for="harga">Deskripsi</label>
-                <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi dari produk mu" required>
-            </div>
-            <div class="form-group">
-                <label for="harga">Nominal</label>
-                <input type="text" class="form-control" id="insert-nominal" name="nominal" placeholder="masukkan harga dari toko mu" required>
-            </div>   
-      </div>
+                <form action="index.php" method="post">
+                        <div class="form-group">
+                            <label for="nama_paket">Kode_produk</label>
+                            <input type="text" class="form-control" id="insert-kode_produk" name="kode_produk" placeholder="masukkan kode produk"  maxlength="8" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama_paket">Nama produk</label>
+                            <input type="text" class="form-control" id="insert-nama_produk" name="nama_produk" placeholder="tuliskan nama produk mu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fitur">Harga</label>
+                            <input type="text" class="form-control" id="insert-harga" name="harga" placeholder="masukkan harga dari produk mu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Deskripsi</label>
+                            <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi dari produk mu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Nominal</label>
+                            <input type="text" class="form-control" id="insert-nominal" name="nominal" placeholder="masukkan harga dari toko mu" required>
+                        </div>
+    </div>
       <div class="modal-footer">
             <input type="hidden" id="insert-userid" name="userid">
             <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
+            
             <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
      </form>
+      
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -177,11 +185,12 @@
         <h4 class="modal-title">Tambahkan Produk Shipped</h4>
       </div>
       <div class="modal-body">
-        <h2>FORM MENAMBAH PRODUK SHIPPED</h2>
-                <form action="page.php" method="post">
+        <div class="membuat_toko">
+                <h2>FORM MEMBUAT PRODUK PULSA</h2>
+                <form action="membuat_produk_shipped.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="nama_paket">Kode_produk</label>
-                            <input type="text" class="form-control" id="insert-kode_produk" name="kode_produk" placeholder="masukkan kode produk" required>
+                            <input type="text" class="form-control" id="insert-kode_produk" maxlength="8" name="kode_produk" placeholder="masukkan kode produk" required>
                         </div>
                         <div class="form-group">
                             <label for="nama_paket">Nama produk</label>
@@ -198,8 +207,14 @@
                         <div class="form-group">
                             <label for="harga">Sub Kategori</label>
                             <br>
-                            <select>
-                                <option>-----------------</option>
+                            <select name="kategori">
+                                <?php
+                                    echo '<option>PILIH SUB KATEGORI</option>';
+                                    $sub = selectAllFromTable("TOKOKEREN.SUB_KATEGORI");
+                                    while($row = pg_fetch_row($sub)){
+                                        echo '<option>'.$row[2].'</option>';
+                                    }
+                                ?>
                             </select><br>
                         </div>
                         <div class="form-group">
@@ -234,15 +249,20 @@
                         </div>
                         <div class="form-group">
                             <label for="harga">Foto</label><span class="required" style="color: red">*</span></label>
-                            <input class="lagi " type="file" name="image_produk" id="image"/>
+                                <input type="file" name="file" required>
+                            <span name="error"></span>
                         </div>
+                
+            </div>
+                        
     </div>  
       <div class="modal-footer">
-      <input type="hidden" id="insert-userid" name="userid">
-                        <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
+                        <input type="hidden" id="insert-userid" name="userid">
+                        <input type="hidden" id="insert-command" name="command" value="membuat_produk_shipped">
                         <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </form>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
       </div>
     </div>
 </div>
@@ -328,6 +348,7 @@ function closeNav() {
         });
       }
 </script>
+
 <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
   <script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
 

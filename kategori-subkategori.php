@@ -1,21 +1,22 @@
 <?php
-	session_start();
+	//session_start();
 
 	$ErrMsg = "";
 
 		
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
-		if(!preg_match("/^(K)\d{2}$/", $_POST['id-kategori'])){
-			echo "<span class='error'>*Id Kategori Utama harus diawali K diikuti 2 Angka</span>";
-		}
-		else if (!preg_match("/^.{1,100}$/", $_POST['name-kategori'])){
-			echo "<span class='error'>*Nama kategori maksimal terdiri 100 karakter</span>";
-		}
-		else{
-			tambahKategori($_POST['id-kategori'], $_POST['name-kategori']);
-		}
-		
+        if($_POST['command'] === 'tambahKategori'){
+            if(!preg_match("/^(K)\d{2}$/", $_POST['id-kategori'])){
+			     echo "<span class='error'>*Id Kategori Utama harus diawali K diikuti 2 Angka</span>";
+		      }
+            else if (!preg_match("/^.{1,100}$/", $_POST['name-kategori'])){
+                echo "<span class='error'>*Nama kategori maksimal terdiri 100 karakter</span>";
+            }
+            else{
+                tambahKategori($_POST['id-kategori'], $_POST['name-kategori']);
+            }
+        }
 	}
 
 	function tambahKategori($id_kat, $nama_kat){
@@ -82,31 +83,7 @@
 </head>
 <body>
 <div class="container">
-	<h1>Menambahkan Kategori dan Subkategori</h1>
-
-	<fieldset>
-		<form role="form" method="post" action="kategori-subkategori.php">
-			<span class="error"><?php echo $ErrMsg;?></span>
-		    <div class="form-group">
-		    	<input id="kode-kategori" class="form-control" placeholder="Kode Kategori" name="id-kategori" type="text" autofocus required>
-		    </div>
-		    <div class="form-group">
-		    	<input id="nama-kategori" class="form-control" placeholder="Nama Kategori" name="name-kategori" type="text" autofocus>
-		    </div>
-		    <label>Subkategori</label>
-		    <ul>
-		    	<div class="form-group">
-			    	<input id="kode-subkategori" class="form-control" placeholder="Kode Subkategori" name="id1" type="text" autofocus required>
-			    </div>
-			    <div class="form-group">
-			    	<input id="nama-subkategori" class="form-control" placeholder="Nama Subkategori" name="nm1" type="text" autofocus required>
-			    </div>
-		    </ul>
-		    <div id="subkategori_tambahan">
-	                                        
-	         </div>
-		    
-		    <button id="add-subkategori-btn" class="btn btn-lg btn-primary btn-block">Tambah subkategori</button>
+	
 		    <script>
 		    	$(document).ready(function(){
 	                var i = 1;
@@ -117,11 +94,6 @@
 	            	});
 	         	});
 		    </script>
-		    <input type="hidden" name="command" value="tambahKategori">
-	   		<input id="add-kategori-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Tambah Kategori" name="add-kategori">
-
-	    </form>
-    </fieldset>
     
 </div>
 </body>
