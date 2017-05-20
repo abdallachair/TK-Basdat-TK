@@ -155,6 +155,12 @@
 						}
 					}
 				?>
+				<button name="kembali" class="btn btn-default">Kembali Belanja</button>
+				<?php 
+					if (isset($_POST['kembali'])) {
+						header('location: pilih_toko.php');
+					}
+				?>
 			</div>
 		</div>
 	</body>
