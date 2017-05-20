@@ -34,9 +34,9 @@
 						  </tr>
 					   </thead>
 					<?php
-						$db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
+						$db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016'); 
 						$user_email = $_SESSION['email'];
-						$sql = "SELECT DISTINCT KB.kode_produk, P.nama, KB.berat, KB.kuantitas, KB.harga, KB.sub_total FROM TOKOKEREN.KERANJANG_BELANJA KB, TOKOKEREN.PRODUK P WHERE KB.pembeli = '$user_email' AND P.kode_produk = KB.kode_produk";
+						$sql = "SELECT DISTINCT KB.kode_produk, P.nama, KB.berat, KB.kuantitas, KB.harga, KB.sub_total FROM TOKOKEREN.KERANJANG_BELANJA KB, TOKOKEREN.PRODUK P WHERE KB.pembeli = '$user_email' AND P.kode_produk = KB.kode_produk;";
 						$result = pg_query($db, $sql);
 
 						if(!$result) {
@@ -65,9 +65,9 @@
 				<select class="form-control" name="jasa-kirim" onchange="getId(this.value);" required="">
 					<option>Select Jasa Kirim</option>
 					<?php
-						$db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
+						$db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016'); 
 						$sql = "SELECT DISTINCT TJK.nama_toko, TJK.jasa_kirim FROM TOKOKEREN.TOKO_JASA_KIRIM TJK, TOKOKEREN.TOKO T WHERE TJK.nama_toko = '
-    							$nama_toko'";
+    							$nama_toko';";
 						$result = pg_query($db, $sql);
 						if(!$result) {
 							die("Error: $sql");
@@ -82,7 +82,7 @@
 				<button name="checkout" type="checkout" class="btn btn-default">Checkout</button>
 				<?php 
 					if (isset($_POST['checkout'])) {
-						$db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197');
+						$db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016');
 						$alamat = $_POST['alamat_kirim'];
 						$jasa_kirim = $_POST['jasa_kirim'];
 						$nama_toko = $_SESSION['toko'];
@@ -92,19 +92,19 @@
 						$status = rand(1, 3);
 						$no_resi = 'IDN' . rand(8000000000000, 9999999999999);
 
-						$sub_total_query = "SELECT SUM(sub_total) AS sum_sub_total FROM TOKOKEREN.KERANJANG_BELANJA WHERE KB.pembeli = '$user_email'";
+						$sub_total_query = "SELECT SUM(sub_total) AS sum_sub_total FROM TOKOKEREN.KERANJANG_BELANJA WHERE KB.pembeli = '$user_email';";
 						$result = pg_query($db, $sub_total_query);
 						$sub_total = pg_query_row($result)[0];
 
-						$berat_query = "SELECT SUM(berat) AS sum_berat FROM TOKOKEREN.KERANJANG_BELANJA WHERE KB.pembeli = '$user_email'";
+						$berat_query = "SELECT SUM(berat) AS sum_berat FROM TOKOKEREN.KERANJANG_BELANJA WHERE KB.pembeli = '$user_email';";
 						$result1 = pg_query($db, $berat_query);
 						$berat = pg_query_row($result1)[0];
 
-						$tarif_query = "SELECT tarif AS sum_tarif FROM TOKOKEREN.JASA_KIRIM WHERE nama = '$jasa_kirim'";
+						$tarif_query = "SELECT tarif AS sum_tarif FROM TOKOKEREN.JASA_KIRIM WHERE nama = '$jasa_kirim';";
 						$result2 = pg_query($db, $tarif_query);
 						$tarif = pg_query_row($result2)[0];
 
-						$count_rows_query = "SELECT COUNT(*) AS count_rows FROM TOKOKEREN.TRANSAKSI_SHIPPED";
+						$count_rows_query = "SELECT COUNT(*) AS count_rows FROM TOKOKEREN.TRANSAKSI_SHIPPED;";
 						$result3 = pg_query($db, $count_rows_query);
 						$count_rows = pg_query_row($result3)[0];
 
@@ -122,9 +122,9 @@
 						$harga_total = $harga_kirim + $sub_total
 
 						$query_insert_TS = "INSERT INTO TOKOKEREN.TRANSAKSI_SHIPPED (no_invoice, tanggal, waktu_bayar, status, total_bayar, email_pembeli, nama_toko, alamat_kirim, biaya_kirim, no_resi, nama_jasa_kirim) values ('$no_invoice', '$curr_date', '$curr_time', '$status', '$harga_total', '$user_email', '$nama_toko', '$harga_kirim', '$tarif', '$no_resi', '$jasa_kirim')"; 
-						$result_insert = pg_query($db, $query_insert);
+						$result_insert = pg_query($db, $query_insert_TS);
 
-						$keranjang_belanja = "SELECT DISTINCT KB.kode_produk, KB.berat, KB.kuantitas, KB.harga, KB.sub_total FROM TOKOKEREN.KERANJANG_BELANJA KB WHERE KB.pembeli = '$user_email'";
+						$keranjang_belanja = "SELECT DISTINCT KB.kode_produk, KB.berat, KB.kuantitas, KB.harga, KB.sub_total FROM TOKOKEREN.KERANJANG_BELANJA KB WHERE KB.pembeli = '$user_email';";
 						$result4 = pg_query($db, $keranjang_belanja);
 
 						if (!result4) {
@@ -136,8 +136,8 @@
 								$kuantitas_list = $q['kuantitas'];
 								$harga_list = $q['harga'];
 								$sub_total_list = $q['sub_total'];
-								$query_insert_LI = "INSERT INTO LIST_ITEM (no_invoice, kode_produk, berat, kuantitas, harga, sub_total) values ('$no_invoice', '$kode_list', '$berat_list', '$kuantitas_list', '$harga_list', '$sub_total_list')"; 
-								$result_insert = pg_query($db, $query_insert);
+								$query_insert_LI = "INSERT INTO LIST_ITEM (no_invoice, kode_produk, berat, kuantitas, harga, sub_total) values ('$no_invoice', '$kode_list', '$berat_list', '$kuantitas_list', '$harga_list', '$sub_total_list');"; 
+								$result_insert = pg_query($db, $query_insert_LI);
 							}
 						}
 
@@ -148,7 +148,7 @@
 							echo '<script language="javascript">';
 							echo 'alert("Barang Berhasil dibeli!")';
 							echo '</script>';
-							$delete_rows_query = "DELETE FROM TOKOKEREN.KERANJANG_BELANJA KB WHERE KB.pembeli = '$user_email'";
+							$delete_rows_query = "DELETE FROM TOKOKEREN.KERANJANG_BELANJA KB WHERE KB.pembeli = '$user_email';";
 							$result_delete = pg_query($delete_rows_query);
 
 							header('location: index.php');

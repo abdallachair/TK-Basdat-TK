@@ -4,14 +4,14 @@
     if(isset($_POST['beli_shipped'])) {
         $_SESSION['kode_produk_shipped'] = $_POST['beli_shipped'];
         if(isset($_SESSION['kode_produk_shipped'])) {
-            $db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
+            $db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016'); 
             $user_email = $_SESSION['email'];
             $kode_produk = $_POST['beli_shipped'];
             $berat = $_POST['berat'];
             $kuantitas = $_POST['kuantitas'];
             $sub_total = $kuantitas * $harga;
             $query = "INSERT INTO TOKOKEREN.KERANJANG_BELANJA (pembeli, kode_produk, berat, kuantitas, harga, sub_total) 
-                      values('$user_email', '$kode_produk', '$berat', '$kuantitas', '$harga', '$sub_total')";
+                      values('$user_email', '$kode_produk', '$berat', '$kuantitas', '$harga', '$sub_total');";
             $result = pg_query($db, $query);
             if (!$result) { 
                 $errormessage = pg_last_error(); 
@@ -25,8 +25,8 @@
 
     if(isset($_POST['jumlah_berat'])) {
         $kode_produk = $_POST['jumlah_berat'];
-        $db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
-        $query = "SELECT P.harga FROM TOKOKEREN.PRODUK P WHERE P.kode_produk='$kode_produk' LIMIT 1";
+        $db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016'); 
+        $query = "SELECT P.harga FROM TOKOKEREN.PRODUK P WHERE P.kode_produk='$kode_produk' LIMIT 1;";
         $result = pg_query($db, $query);
         if (!$result) { 
             $errormessage = pg_last_error(); 
@@ -76,7 +76,7 @@
 	        <select class="form-control" name="kategoriUtama" onchange="getId(this.value);">
 				<option>Select Kategori Utama</option>
 				<?php
-					$db = pg_dbect('host=localhost dbname=farhanramadhan user=postgres password=gold28197');
+					$db = pg_dbect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016');
 					$sql = "SELECT * FROM KATEGORI_UTAMA";
 					if(!$result = pg_query($db, $sql)) {
 						die("Error: $sql");
@@ -93,7 +93,7 @@
 				<select class="form-control" name="subKategori" id="subKategori">
 					<option>Select Sub-Kategori</option>
                     <?php
-                        $db = pg_dbect('host=localhost dbname=farhanramadhan user=postgres password=gold28197');
+                        $db = pg_dbect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016');
                         $sql = "SELECT * FROM SUB_KATEGORI";
                         if(!$result = pg_query($db, $sql)) {
                             die("Error: $sql");
@@ -123,20 +123,20 @@
                   </tr>
                </thead>
                <?php
-                    $db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
+                    $db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016'); 
                     $query = "";
                     if (isset($_SESSION['main_category'])) {
                         if (isset($_SESSION['sub_category'])) {
                             $query = "SELECT DISTINCT P.kode_produk, P.nama, P.harga, P.deskripsi, SP.is_asuransi, SP.stok, SP.is_baru, SP.harga_grosir
                                 FROM TOKOKEREN.PRODUK P, TOKOKEREN.SHIPPED_PRODUK SP, TOKOKEREN.KATEGORI_UTAMA KU, TOKOKEREN.SUB_KATEGORI SK
                                 WHERE SP.kode_produk = P.kode_produk AND SP.kategori = '$_SESSION['sub_category']' AND KU.kode = SK.kode_kategori AND SP.nama_toko = '$nama_toko'
-                                ORDER BY P.kode_produk";
+                                ORDER BY P.kode_produk;";
                         }
                     } else {
                         $query = "SELECT DISTINCT P.kode_produk, P.nama, P.harga, P.deskripsi, SP.is_asuransi, SP.stok, SP.is_baru, SP.harga_grosir
                                 FROM TOKOKEREN.PRODUK P, TOKOKEREN.SHIPPED_PRODUK SP
                                 WHERE SP.kode_produk = P.kode_produk AND SP.nama_toko = '$nama_toko'
-                                ORDER BY P.kode_produk";
+                                ORDER BY P.kode_produk;";
                     }
                         $result = pg_query($db, $query); 
                         if (!$result) { 

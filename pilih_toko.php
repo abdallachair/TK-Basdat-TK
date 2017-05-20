@@ -32,8 +32,8 @@
     	        <select class="form-control" name="kategoriUtama" onchange="getId(this.value);">
     				<option>Select Toko</option>
     				<?php
-    					$db = pg_dbect('host=localhost dbname=farhanramadhan user=postgres password=gold28197');
-    					$sql = "SELECT * FROM TOKOKEREN.TOKO";
+    					$db = pg_dbect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016');
+    					$sql = "SELECT * FROM TOKOKEREN.TOKO;";
     					if(!$result = pg_query($db, $sql)) {
     						die("Error: $sql");
     					}

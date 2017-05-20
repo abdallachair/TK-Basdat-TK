@@ -41,13 +41,13 @@
                       </tr>
                    </thead>
                     <?php
-                        $db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
+                        $db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016'); 
                         $user_email = $_SESSION['email'];
 
                         $query = "SELECT DISTINCT P.kode_produk, P.nama, P.harga, P.deskripsi, PP.nominal
                                 FROM TOKOKEREN.PRODUK P, TOKOKEREN.PRODUK_PULSA PP
                                 WHERE PP.kode_produk = P.kode_produk
-                                ORDER BY P.kode_produk";
+                                ORDER BY P.kode_produk;";
                         $result = pg_query($db, $query); 
                         if (!$result) { 
                             $errormessage = pg_last_error(); 
