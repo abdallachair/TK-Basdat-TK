@@ -1,5 +1,4 @@
 <?php
-    $_SESSION['toko'] = "Abram's Electronic";
 
     function selectAllFromTable($table) {
         $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
@@ -13,15 +12,15 @@
         $kode_produk = $_POST['kode_produk'];
         $nama_produk = $_POST['nama_produk'];
         $toko = $_SESSION['toko'];
-        echo $toko;
+       // echo $toko;
         $nama_toko =  str_replace("'", "''", $toko);
-        echo $nama_toko;
+       // echo $nama_toko;
         $harga = $_POST['harga'];
         $deskripsi = $_POST['deskripsi'];
         $nominal = $_POST['nominal'];
         $foto = basename($_FILES['file']['name']);
         
-        echo $foto;
+       // echo $foto;
         
         if($_POST['asuransi'] === 'Ya'){
             $asuransi = TRUE;
