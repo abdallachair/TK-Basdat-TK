@@ -117,6 +117,8 @@
 <div class="main">
     <div class="container tim-container" style="max-width:800px; padding-top:100px">
        <h1 class="text-center">Providing you the most honest, authentic, quality in every store has to offer</h1>
+        <span style="color: red"><?php if(isset($_SESSION['errorMSG'])){echo $_SESSION['errorMSG']; unset($_SESSION['errorMSG']);} ?></span>
+        <span style="color: red"><?php if(isset($_SESSION['successMSG'])){echo $_SESSION['successMSG']; unset($_SESSION['successMSG']);} ?></span>
        <?php
             if(isset($_SESSION["role"])){
                 if($_SESSION["role"] === 'admin'){

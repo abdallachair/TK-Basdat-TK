@@ -1,5 +1,6 @@
 <?php 
     include('kategori-subkategori.php');
+    include('menambah_produk_pulsa.php');
 ?>
 
 <!doctype html>
@@ -49,7 +50,7 @@
             <h4 class="modal-title">Buat Kategori</h4>
           </div>
           <div class="modal-body">
-             <form role="form" method="post" action="admin.php">
+             <form role="form" method="post" action="index.php">
 			<span class="error"><?php echo $ErrMsg;?></span>
 		    <div class="form-group">
 		    	<input id="kode-kategori" class="form-control" placeholder="Kode Kategori" name="id-kategori" type="text" autofocus required>
@@ -138,33 +139,35 @@
       </div>
     <div class="modal-body">
         <h2>FORM MEMBUAT PRODUK PULSA</h2>
-        <form action="page.php" method="post">
-            <div class="form-group">
-                <label for="nama_paket">Kode_produk</label>
-                <input type="text" class="form-control" id="insert-kode_produk" name="kode_produk" placeholder="masukkan kode produk" required>
-            </div>
-            <div class="form-group">
-                <label for="nama_paket">Nama produk</label>
-                <input type="text" class="form-control" id="insert-nama_produk" name="nama_produk" placeholder="tuliskan nama produk mu" required>
-            </div>
-            <div class="form-group">
-                <label for="fitur">Harga</label>
-                <input type="text" class="form-control" id="insert-harga" name="harga" placeholder="masukkan harga dari produk mu" required>
-            </div>
-            <div class="form-group">
-                <label for="harga">Deskripsi</label>
-                <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi dari produk mu" required>
-            </div>
-            <div class="form-group">
-                <label for="harga">Nominal</label>
-                <input type="text" class="form-control" id="insert-nominal" name="nominal" placeholder="masukkan harga dari toko mu" required>
-            </div>   
-      </div>
+                <form action="index.php" method="post">
+                        <div class="form-group">
+                            <label for="nama_paket">Kode_produk</label>
+                            <input type="text" class="form-control" id="insert-kode_produk" name="kode_produk" placeholder="masukkan kode produk"  maxlength="8" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama_paket">Nama produk</label>
+                            <input type="text" class="form-control" id="insert-nama_produk" name="nama_produk" placeholder="tuliskan nama produk mu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fitur">Harga</label>
+                            <input type="text" class="form-control" id="insert-harga" name="harga" placeholder="masukkan harga dari produk mu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Deskripsi</label>
+                            <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi dari produk mu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Nominal</label>
+                            <input type="text" class="form-control" id="insert-nominal" name="nominal" placeholder="masukkan harga dari toko mu" required>
+                        </div>
+    </div>
       <div class="modal-footer">
             <input type="hidden" id="insert-userid" name="userid">
             <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
+            
             <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
      </form>
+      
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

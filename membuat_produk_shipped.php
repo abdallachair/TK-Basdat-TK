@@ -86,17 +86,18 @@
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
-        if($_POST['minimal_grosir'] > $_POST['maksimal_grosir']){
-            $_SESSION['errorMSG'] = "Minimal Grosir tidak boleh lebih besar dari Maksimal Grosir!";
-        } else if($_POST['kategori'] === 'PILIH SUB KATEGORI'){
-            $_SESSION['errorMSG'] = "Kategori tidak boleh kosong!";
-        } else if($_POST['command'] === 'membuat_produk_shipped'){
-            insertProdukShipped();
-        } 
+        if($_POST['command'] === 'membuat_produk_shipped'){
+            if($_POST['minimal_grosir'] > $_POST['maksimal_grosir']){
+                $_SESSION['errorMSG'] = "Minimal Grosir tidak boleh lebih besar dari Maksimal Grosir!";
+            } else if($_POST['kategori'] === 'PILIH SUB KATEGORI'){
+                $_SESSION['errorMSG'] = "Kategori tidak boleh kosong!";
+            } else {
+                insertProdukShipped();
+            } 
+        }
     }
 ?>
-<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
