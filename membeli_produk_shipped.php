@@ -94,7 +94,7 @@
 					<option>Select Sub-Kategori</option>
                     <?php
                         $db = pg_dbect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4');
-                        $sql = "SELECT * FROM SUB_KATEGORI";
+                        $sql = "SELECT * FROM SUB_KATEGORI WHERE kode_kategori = '$_SESSION['main_category']'";
                         if(!$result = pg_query($db, $sql)) {
                             die("Error: $sql");
                         }
