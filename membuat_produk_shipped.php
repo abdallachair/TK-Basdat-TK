@@ -13,10 +13,46 @@
         $harga = $_POST['harga'];
         $deskripsi = $_POST['deskripsi'];
         $nominal = $_POST['nominal'];
+        
+        $result1=is_numeric($harga);
+        $result2=is_numeric($nominal);
+        //echo "samimawon";
+        if ($result2 === FALSE && $nominal <= 0) {
+            //echo '1';
+            $_SESSION['errorMSG'] = "Nominal stok harus angka dan lebih besar dari 0";
+            //header("Location: menambah_produk_pulsa.php");
+        } else if($result1 === FALSE  && $harga <= 0) {
+            //echo '2';
+            $_SESSION['errorMSG'] = "Harga harus angka dan lebih besar dari 0";
+            //header("Location: menambah_produk_pulsa.php");
+        } else {
+            // echo '3';
+            $sql = "SELECT * FROM TOKOKEREN.SHIPPED_PRODUK SP, TOKOKEREN.PRODUK P WHERE SP.kode_produk = '$kode_produk' AND P.kode_produk = SP.kode_produk";
+            $result = pg_query($DBConnection, $sql);
+            
+            if(pg_fetch_row($result) >= 1){
+                $_SESSION['errorMSG'] = "Kode Produk sudah ada.";
+            } else{
+                $sql2 = "INSERT INTO TOKOKEREN.PRODUK (kode_produk, nama, harga, deskripsi) VALUES ('$kode_produk', '$nama_produk', '$harga', '$deskripsi')";
+                $result2 = pg_query($DBConnection, $sql2);
+            
+                $sql2 = "INSERT INTO TOKOKEREN.PRODUK_PULSA (kode_produk, nominal) VALUES ('$kode_produk', '$nominal')";
+                $result2 = pg_query($DBConnection, $sql2);
+            
+                $_SESSION['successMSG'] = "Berhasil membuat Produk!";
+            }
+           // header("Location: menambah_produk_pulsa.php");
+            
+        }
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if($_POST['command'] === 'membuat_produk_pulsa'){
+        
+        if($_POST['minimal_grosir'] > $_POST['maksimal_grosir']){
+            $_SESSION['errorMSG'] = "Minimal Grosir tidak boleh lebih besar dari Maksimal Grosir!";
+        } else if(){
+               
+        } else if($_POST['command'] === 'membuat_produk_pulsa'){
             insertProdukPulsa();
         } 
     }
@@ -62,21 +98,8 @@
                             <label for="harga">Sub Kategori</label>
                             <br> 
                             <?php
-                           //     $noJasaKirim = 1;
-                           //     echo'<label for="harga">Jasa Kirim '.$noJasaKirim.'</label>
-                           // <select>
-                           //     <option>-------</option>';
-
-                            //    $jasa = selectAllFromTable("JASA_KIRIM");
-                             //   $value = 1;
-                             //   while ($row = mysqli_fetch_row($jasa)){
-                             //       echo'<option value="'.$value.'"></option>';
-                             //       $value = value + 1;
-                             //   }
-                          
-                           // echo'</select>
-                          //  <input type="submit" value="Tambah Jasa">';
-                          //  ?> 
+                                
+                            ?> 
                             <select>
                                 <option>-----------------</option>
                             </select><br>
@@ -130,7 +153,10 @@
                         </div>
                         <input type="hidden" id="insert-userid" name="userid">
                         <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
-                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>  
+                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
+                </form>
             </div>
+            <span style="color: red"><?php if(isset($_SESSION['errorMSG'])){echo $_SESSION['errorMSG']; unset($_SESSION['errorMSG']);} ?></span>
+            <span style="color: red"><?php if(isset($_SESSION['successMSG'])){echo $_SESSION['successMSG']; unset($_SESSION['successMSG']);} ?></span>
 	</body>
 </html>
