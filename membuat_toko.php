@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    //session_start();
     $_SESSION['email']="john793@gmail.com";
     $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
     $no_jasa_kirim = 1;
@@ -77,7 +77,7 @@
                     
                 }
                 else if($flag == FALSE){
-                    echo 'track-2';
+                   // echo 'track-2';
                     $_SESSION['errorMSG'] = "Jasa Kirim ".$sama1." dan ".$sama2." Tidak Boleh Sama!";
                     
                 } else{
@@ -95,14 +95,14 @@
                         $loop = $loop - 1;
                     }
                     unset($_SESSION['errorMSG']);
-                    $_SESSION['buat_toko_sukses'] = 'x';
+                    $_SESSION['successMSG'] = 'Pembuatan toko SUKSES!';
                 }
                 
             } else{
                 
                 //echo 'track-4';
                 $num = $loop;
-                echo $num;
+               // echo $num;
                 $x = 1;
                 $y = 1;
                 
@@ -165,71 +165,21 @@
                         $loop = $loop - 1;
                     }
                     unset($_SESSION['errorMSG']);
-                    $_SESSION['buat_toko_sukses'] = 'x';
+                    $_SESSION['successMSG'] = 'Pembuatan toko SUKSES!';
                 }
-        }
-            /*$sql = "INSERT into TOKOKEREN.TOKO (nama, deskripsi, slogan, lokasi, email_penjual) values ('$nama_toko','$deskripsi', '$slogan', '$lokasi', '$email')";
-            $sql3 = "UPDATE TOKOKEREN.PELANGGAN SET is_penjual = TRUE WHERE email = '$email'";
-            
-            $resultz = pg_query($DBConnection, $sql);
-            $result = pg_query($DBConnection, $sql3);
-            
-            $kirim = $_POST['jasa_kirim_1'];
-            $sql1 = "SELECT * FROM TOKOKEREN.TOKO_JASA_KIRIM WHERE nama_toko = '$nama_toko' AND jasa_kirim = '$kirim'";
-        
-            $result1 = pg_query($DBConnection, $sql1);
-            
-            if(pg_fetch_row($result1) >= 1){ 
-                $loop = $_SESSION['no_jasa_kirim'];
-                $num = $loop;
-                $x = 1;
-                $y = 1;
-                
-                $flag = TRUE;
-                
-                while($x < $num){
-                    $jasa_saat_ini = $_POST['jasa_kirim_'.$x];
-                    while($y < $num){
-                        $jasa_saat_ini2 = $_POST['jasa_kirim_'.$y];
-                        if($x == $y){
-                            
-                        } else{
-                            if($jasa_saat_ini == $jasa_saat_ini2){
-                                $flag = FALSE;
-                                return;
-                            }
-                        }
-                        $y = $y + 1;
-                    }
-                    $x = $x + 1;
-                }
-                
-                if($flag == FALSE){
-                    $errorMSG = "Jasa Kirim Tidak Boleh Sama!";
-                } else{
-                    while($loop > 0){
-                        $text = "jasa_kirim_".$loop; 
-                        $kirim = $_POST[$text];
-                        $sql2 = "INSERT into TOKOKEREN.TOKO_JASA_KIRIM (nama_toko, jasa_kirim) values ('$nama_toko','$kirim')";
-                        $result = pg_query($DBConnection, $sql2);
-                        $loop = $loop - 1;
-                    }
-                }*/
-            
-        }
-        
-        
-        
-        
+        }  
     }
+}
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if($_POST['nama_toko'] == ""){
-            $_SESSION['errorMSG'] = 'nama toko tidak boleh kosong!';
-        } else if($_POST['lokasi'] == ""){
-            $_SESSION['errorMSG'] = 'lokasi toko tidak boleh kosong!';
-        } else if($_POST['command'] === 'membuat_toko'){
-            insertToko();
+        if($_POST['command'] === 'membuat_toko'){
+            if($_POST['nama_toko'] == ""){
+                $_SESSION['errorMSG'] = 'nama toko tidak boleh kosong!';
+            } else if($_POST['lokasi'] == ""){
+                $_SESSION['errorMSG'] = 'lokasi toko tidak boleh kosong!';
+            } else {
+                insertToko();
+            }
         } 
     }
 ?>
@@ -237,78 +187,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>MEMBUAT TOKO</title>
-	   <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel = "stylesheet" type = "text/css" href = "bootstrap-3.3.7-dist/css/bootstrap.min.css">
-        <link href="rating/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="rating/js/star-rating.js" type="text/javascript"></script>
-	   </head>
 	<body>
-        <div class="navbar-default text-center">
-			<span class="lead big-text">Toko<b>Keren</b>
-		</div>
-        <div class="membuat_toko">
-            <div class="container">
-                <h2>Buat Toko</h2>
-                <?php
-                    if(isset($_SESSION['buat_toko_sukses'])){
-                        echo '<h3 style="color: red;">Pembuatan Toko Sukses!</h3>';
-                        unset($_SESSION['buat_toko_sukses']);
-                        unset($_SESSION['errorMSG']);
-                    }
-                    
-                ?>
-                <form action="membuat_toko.php" method="post">
-                        <div class="form-group">
-                            <label for="nama_paket">Nama Toko</label>
-                            <input type="text" class="form-control" id="insert-nama_toko" name="nama_toko" placeholder="masukkan nama toko yang kamu inginkan">
-                        </div>
-                        <div class="form-group">
-                            <label for="nama_paket">Deskripsi Toko</label>
-                            <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi toko mu">
-                        </div>
-                        <div class="form-group">
-                            <label for="fitur">Slogan</label>
-                            <input type="text" class="form-control" id="insert-slogan" name="slogan" placeholder="masukkan slogan toko mu">
-                        </div>
-                        <div class="form-group">
-                            <label for="harga">Lokasi</label>
-                            <input type="text" class="form-control" id="insert-lokasi" name="lokasi" placeholder="masukkan lokasi dari toko mu">
-                        </div>
-                        <div class="form-group">
-                            <label for="harga">Jasa Kirim 1</label><br>
-                            <?php   
-                                    echo '<select name="jasa_kirim_1" required>';
-                                    echo '<option>PILIH JASA ANDA</option>';
-                                    $jasa = selectAllFromTable("TOKOKEREN.JASA_KIRIM");
-                                    while($row = pg_fetch_row($jasa)){
-                                        echo '<option>'.$row[0].'</option>';
-                                    }
-                                    echo '</select>';
-                            
-                            ?>
-                                    
-                                    <div id="jasaKirim">
-                                        
-                                    </div>
-                            <br>
-                            
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="addJasaKirim">Tambah Jasa Kirim</button>
-                        </div>
-                        </div>
-                        <input type="hidden" id="insert-userid" name="userid">
-                        <input type="hidden" id="insert-command" name="command" value="membuat_toko">
-                        <input id="loop" type="hidden" name="jml_loop" value="1">
-                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
-                    </form>
-                    <span style="color: red"><?php if(isset($_SESSION['errorMSG'])){echo $_SESSION['errorMSG']; unset($_SESSION['errorMSG']);} ?></span>
-                </div>
-            </div>
-        
-        
         <script>
             $(document).ready(function(){
                 var i = 1;
@@ -333,10 +212,5 @@
             });
             
         </script>
-        <style>
-            .error_area{
-                background-color: aquamarine;
-            }
-        </style>
 	</body>
 </html>

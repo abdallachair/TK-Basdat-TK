@@ -56,7 +56,8 @@
               <a class="navbar-brand" href="#gsdk">Toko<b>Keren</b></a>
             </div>
             <?php
-               $_SESSION['role'] = 'admin';
+              $_SESSION['email'] = "sdsa";
+               $_SESSION['role'] = 'penjual';
               //unset($_SESSION['role']);
                   if(isset($_SESSION['baru'])){
                      echo '<div class="alert alert-success">
