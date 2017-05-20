@@ -187,7 +187,7 @@
       <div class="modal-body">
         <div class="membuat_toko">
                 <h2>FORM MEMBUAT PRODUK PULSA</h2>
-                <form action="membuat_produk_shipped.php" method="post" enctype="multipart/form-data">
+                <form action="index.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="nama_paket">Kode_produk</label>
                             <input type="text" class="form-control" id="insert-kode_produk" maxlength="8" name="kode_produk" placeholder="masukkan kode produk" required>
