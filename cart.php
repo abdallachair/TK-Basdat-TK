@@ -34,7 +34,7 @@
 						  </tr>
 					   </thead>
 					<?php
-						$db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016'); 
+						$db = pg_connect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4'); 
 						$user_email = $_SESSION['email'];
 						$sql = "SELECT DISTINCT KB.kode_produk, P.nama, KB.berat, KB.kuantitas, KB.harga, KB.sub_total FROM TOKOKEREN.KERANJANG_BELANJA KB, TOKOKEREN.PRODUK P WHERE KB.pembeli = '$user_email' AND P.kode_produk = KB.kode_produk;";
 						$result = pg_query($db, $sql);
@@ -65,7 +65,7 @@
 				<select class="form-control" name="jasa-kirim" onchange="getId(this.value);" required="">
 					<option>Select Jasa Kirim</option>
 					<?php
-						$db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016'); 
+						$db = pg_connect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4'); 
 						$sql = "SELECT DISTINCT TJK.nama_toko, TJK.jasa_kirim FROM TOKOKEREN.TOKO_JASA_KIRIM TJK, TOKOKEREN.TOKO T WHERE TJK.nama_toko = '
     							$nama_toko';";
 						$result = pg_query($db, $sql);
@@ -82,7 +82,7 @@
 				<button name="checkout" type="checkout" class="btn btn-default">Checkout</button>
 				<?php 
 					if (isset($_POST['checkout'])) {
-						$db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016');
+						$db = pg_connect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4');
 						$alamat = $_POST['alamat_kirim'];
 						$jasa_kirim = $_POST['jasa_kirim'];
 						$nama_toko = $_SESSION['toko'];

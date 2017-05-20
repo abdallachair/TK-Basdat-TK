@@ -2,7 +2,7 @@
 	session_start();
 	$email = $_SESSION['email'];
 	if(isset($_POST['submit_pulsa'])) {
-		$db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016');
+		$db = pg_connect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4');
 		$kode_produk = $_SESSION['kode_produk_pulsa'];
 		$curr_date = date("d/m/Y");
 		$curr_time = date("h:i:sa");

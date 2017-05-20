@@ -32,7 +32,7 @@
     	        <select class="form-control" name="kategoriUtama" onchange="getId(this.value);">
     				<option>Select Toko</option>
     				<?php
-    					$db = pg_dbect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016');
+    					$db = pg_dbect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4');
     					$sql = "SELECT * FROM TOKOKEREN.TOKO;";
     					if(!$result = pg_query($db, $sql)) {
     						die("Error: $sql");
