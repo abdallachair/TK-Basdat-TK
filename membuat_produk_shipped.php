@@ -19,7 +19,7 @@
         $harga = $_POST['harga'];
         $deskripsi = $_POST['deskripsi'];
         $nominal = $_POST['nominal'];
-        $foto = basename($_FILES["file"]["name"]);
+        $foto = basename($_FILES['file']['name']);
         
         echo $foto;
         
@@ -116,7 +116,7 @@
         <div class="membuat_toko">
             <div class="container">
                 <h2>FORM MEMBUAT PRODUK PULSA</h2>
-                <form action="membuat_produk_shipped.php" method="post">
+                <form action="membuat_produk_shipped.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="nama_paket">Kode_produk</label>
                             <input type="text" class="form-control" id="insert-kode_produk" maxlength="8" name="kode_produk" placeholder="masukkan kode produk" required>
@@ -179,7 +179,7 @@
                         </div>
                         <div class="form-group">
                             <label for="harga">Foto</label><span class="required" style="color: red">*</span></label>
-                            <input class="lagi" type="file" name="file" id="file"/>
+                                <input type="file" name="file" required>
                             <span name="error"></span>
                         </div>
                         <input type="hidden" id="insert-userid" name="userid">
