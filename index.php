@@ -4,7 +4,7 @@
 	if(isset($_SESSION['loginError'])){
 		session_unset($_SESSION['loginError']);
 	}
-
+  $_SESSION['kode_produk'] = array();
    // include("add_jasa_kirim.php");
     //include("promo.php");
 ?>
@@ -72,7 +72,7 @@
                 <li class="dropdown">
                       <a href="#gsdk" class="dropdown-toggle" data-toggle="dropdown">Explore <b class="caret"></b></a>
                       <ul class="dropdown-menu">
-                        <li><a href="membeli_produk_shipped.php">Beli Produk</a></li>
+                        <li><a href="pilih_toko.php">Beli Produk</a></li>
                         <li><a href="membeli_produk_pulsa.php">Beli Pulsa</a></li>
                         <li><a href="melihat_transaksi.php">Lihat Transaksi</a></li>
                       </ul>

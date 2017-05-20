@@ -29,7 +29,7 @@
             <form action="index.php" method="POST">
 	            <div class="form-group">
 	              <label for="nomor_token">Nomor / Token Listrik : <span style="color: red">*</span></label>
-	              <input type="text" class="form-control" id="nomor_token" placeholder="Masukkan Nomor / Token Listrik" name="nomor_token">
+	              <input type="text" class="form-control" id="nomor_token" placeholder="Masukkan Nomor / Token Listrik" name="nomor_token" required>
 	            </div>
 	        	<?php echo '<button type="submit" class="btn btn-default" name="submit_pulsa" value='.$q['no_invoice'].'>Submit</button>'; ?>
 	        </form>
