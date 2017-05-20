@@ -121,8 +121,27 @@
 						$harga_kirim = $berat * $tarif;
 						$harga_total = $harga_kirim + $sub_total
 
-						$query_insert = "INSERT INTO TOKOKEREN.TRANSAKSI_SHIPPED (no_invoice, tanggal, waktu_bayar, status, total_bayar, email_pembeli, nama_toko, alamat_kirim, biaya_kirim, no_resi, nama_jasa_kirim) values ('$no_invoice', '$curr_date', '$curr_time', '$status', '$harga_total', '$user_email', '$nama_toko', '$harga_kirim', '$tarif', '$no_resi', '$jasa_kirim')"; 
+						$query_insert_TS = "INSERT INTO TOKOKEREN.TRANSAKSI_SHIPPED (no_invoice, tanggal, waktu_bayar, status, total_bayar, email_pembeli, nama_toko, alamat_kirim, biaya_kirim, no_resi, nama_jasa_kirim) values ('$no_invoice', '$curr_date', '$curr_time', '$status', '$harga_total', '$user_email', '$nama_toko', '$harga_kirim', '$tarif', '$no_resi', '$jasa_kirim')"; 
 						$result_insert = pg_query($db, $query_insert);
+
+						$keranjang_belanja = "SELECT DISTINCT KB.kode_produk, KB.berat, KB.kuantitas, KB.harga, KB.sub_total FROM TOKOKEREN.KERANJANG_BELANJA KB WHERE KB.pembeli = '$user_email'";
+						$result4 = pg_query($db, $keranjang_belanja);
+
+						if (!result4) {
+							die("Error: $keranjang_belanja");
+						} else {
+							while ($q = pg_fetch_array($result4)) {
+								$kode_list = $q['kode_produk'];
+								$berat_list = $q['berat'];
+								$kuantitas_list = $q['kuantitas'];
+								$harga_list = $q['harga'];
+								$sub_total_list = $q['sub_total'];
+								$query_insert_LI = "INSERT INTO LIST_ITEM (no_invoice, kode_produk, berat, kuantitas, harga, sub_total) values ('$no_invoice', '$kode_list', '$berat_list', '$kuantitas_list', '$harga_list', '$sub_total_list')"; 
+								$result_insert = pg_query($db, $query_insert);
+							}
+						}
+
+
 						if (!$result_insert) {
 							die("Error: $query_insert");
 						} else {
@@ -134,6 +153,12 @@
 
 							header('location: index.php');
 						}
+					}
+				?>
+				<button name="kembali" class="btn btn-default">Kembali Belanja</button>
+				<?php 
+					if (isset($_POST['kembali'])) {
+						header('location: pilih_toko.php');
 					}
 				?>
 			</div>
