@@ -1,5 +1,6 @@
 <?php	
-	session_start();
+	//session_start();
+    include('membuat_toko.php');
 	if(isset($_SESSION['loginError'])){
 		session_unset($_SESSION['loginError']);
 	}
@@ -56,8 +57,6 @@
 
                   </div>
                 </div>
-                
-                    <a href="membuat_toko.php"><button style="width: 100%; text-align: left;" class="btn btn-info">Buka Toko<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button></a>
 
                     <button data-toggle="modal" data-target="#lihat_transaksi" style="width: 100%; text-align: left;" class="btn btn-info">Lihat Transaksi<span class="glyphicon glyphicon-chevron-down" style="text-align: right"></span></button>
     
@@ -230,8 +229,51 @@
                         <h4 class="modal-title">Buka toko</h4>
                       </div>
                       <div class="modal-body">
+                          <div class="membuat_toko">
+                <form action="index.php" method="post">
+                        <div class="form-group">
+                            <label for="nama_paket">Nama Toko</label>
+                            <input type="text" class="form-control" id="insert-nama_toko" name="nama_toko" placeholder="masukkan nama toko yang kamu inginkan">
+                        </div>
+                        <div class="form-group">
+                            <label for="nama_paket">Deskripsi Toko</label>
+                            <input type="text" class="form-control" id="insert-deskripsi" name="deskripsi" placeholder="tuliskan deskripsi toko mu">
+                        </div>
+                        <div class="form-group">
+                            <label for="fitur">Slogan</label>
+                            <input type="text" class="form-control" id="insert-slogan" name="slogan" placeholder="masukkan slogan toko mu">
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Lokasi</label>
+                            <input type="text" class="form-control" id="insert-lokasi" name="lokasi" placeholder="masukkan lokasi dari toko mu">
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Jasa Kirim 1</label><br>
+                            <?php   
+                                    echo '<select name="jasa_kirim_1" required>';
+                                    echo '<option>PILIH JASA ANDA</option>';
+                                    $jasa = selectAllFromTable("TOKOKEREN.JASA_KIRIM");
+                                    while($row = pg_fetch_row($jasa)){
+                                        echo '<option>'.$row[0].'</option>';
+                                    }
+                                    echo '</select>';
+                            
+                            ?>
+                                    
+                                    <div id="jasaKirim">
+                                        
+                                    </div>
+                            <br>
+                            
+                            <button type="button" class="btn btn-primary" id="addJasaKirim">Tambah Jasa Kirim</button>
+                        </div>
                         
-
+                        <input type="hidden" id="insert-userid" name="userid">
+                        <input type="hidden" id="insert-command" name="command" value="membuat_toko">
+                        <input id="loop" type="hidden" name="jml_loop" value="1">
+                        <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
+                    </form>
+                </div>
                       </div>
                       <div class="modal-footer">
                       
