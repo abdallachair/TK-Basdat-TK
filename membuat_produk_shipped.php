@@ -46,7 +46,8 @@
         $kategori = pg_fetch_row($result);
         $kategori = $kategori[0];
         
-        $result1=is_numeric($harga);
+        $result1=is_numeri
+            c($harga);
         $result2=is_numeric($nominal);
         //echo "samimawon";
         if ($result2 === FALSE && $nominal <= 0) {

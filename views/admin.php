@@ -1,5 +1,5 @@
 <?php 
-
+    include('kategori-subkategori.php');
 ?>
 
 <!doctype html>
@@ -49,27 +49,35 @@
             <h4 class="modal-title">Buat Kategori</h4>
           </div>
           <div class="modal-body">
-             <h1>Menambahkan Kategori dan Subkategori</h1>
-             <div class="form-group">
-                <input id="kode-kategori" class="form-control" placeholder="Kode Kategori" name="id-kategori" type="text" autofocus>
-             </div>
-             <div class="form-group">
-                <input id="nama-kategori" class="form-control" placeholder="Nama Kategori" name="name-kategori" type="text" autofocus>
-            </div>
-            <label>Subkategori</label>
-            <ul>
-            <div class="form-group">
-                <input id="kode-subkategori" class="form-control" placeholder="Kode Subkategori" name="id-subkategori" type="text" autofocus>
-            </div>
-            <div class="form-group">
-                <input id="nama-subkategori" class="form-control" placeholder="Nama Subkategori" name="name-subkategori" type="text" autofocus>
-            </div>
-            </ul>
+             <form role="form" method="post" action="admin.php">
+			<span class="error"><?php echo $ErrMsg;?></span>
+		    <div class="form-group">
+		    	<input id="kode-kategori" class="form-control" placeholder="Kode Kategori" name="id-kategori" type="text" autofocus required>
+		    </div>
+		    <div class="form-group">
+		    	<input id="nama-kategori" class="form-control" placeholder="Nama Kategori" name="name-kategori" type="text" autofocus>
+		    </div>
+		    <label>Subkategori</label>
+		    <ul>
+		    	<div class="form-group">
+			    	<input id="kode-subkategori" class="form-control" placeholder="Kode Subkategori" name="id1" type="text" autofocus required>
+			    </div>
+			    <div class="form-group">
+			    	<input id="nama-subkategori" class="form-control" placeholder="Nama Subkategori" name="nm1" type="text" autofocus required>
+			    </div>
+		    </ul>
+		    <div id="subkategori_tambahan">
+	                                        
+                 </div>
+		    <button id="add-subkategori-btn" type="button" class="btn btn-lg btn-primary btn-block">Tambah subkategori</button>
           </div>
           <div class="modal-footer">
-            <button id="add-subkategori-btn" class="btn btn-lg btn-primary btn-block">Tambah subkategori</button>
-            <input id="add-kategori-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Tambah Kategori" name="add-kategori">
+            <input type="hidden" name="command" value="tambahKategori">
+	   		<input id="add-kategori-btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Tambah Kategori" name="add-kategori">
+	    </form>
+              
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              
           </div>
         </div>
     </div>
@@ -119,10 +127,6 @@
   </div>
 </div>
 <!-- end modal jasa-->
-
-<!-- modal promo-->
-
-<!-- end modal promo-->
 
 <!-- modal produk-->
 <div id="produk" class="modal fade" role="dialog">
@@ -328,6 +332,7 @@ function closeNav() {
         });
       }
 </script>
+
 <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
   <script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
 
