@@ -1,6 +1,7 @@
 <?php 
     include('kategori-subkategori.php');
     include('menambah_produk_pulsa.php');
+    include('membuat_produk_shipped.php');
 ?>
 
 <!doctype html>
@@ -184,11 +185,12 @@
         <h4 class="modal-title">Tambahkan Produk Shipped</h4>
       </div>
       <div class="modal-body">
-        <h2>FORM MENAMBAH PRODUK SHIPPED</h2>
-                <form action="page.php" method="post">
+        <div class="membuat_toko">
+                <h2>FORM MEMBUAT PRODUK PULSA</h2>
+                <form action="membuat_produk_shipped.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="nama_paket">Kode_produk</label>
-                            <input type="text" class="form-control" id="insert-kode_produk" name="kode_produk" placeholder="masukkan kode produk" required>
+                            <input type="text" class="form-control" id="insert-kode_produk" maxlength="8" name="kode_produk" placeholder="masukkan kode produk" required>
                         </div>
                         <div class="form-group">
                             <label for="nama_paket">Nama produk</label>
@@ -205,8 +207,14 @@
                         <div class="form-group">
                             <label for="harga">Sub Kategori</label>
                             <br>
-                            <select>
-                                <option>-----------------</option>
+                            <select name="kategori">
+                                <?php
+                                    echo '<option>PILIH SUB KATEGORI</option>';
+                                    $sub = selectAllFromTable("TOKOKEREN.SUB_KATEGORI");
+                                    while($row = pg_fetch_row($sub)){
+                                        echo '<option>'.$row[2].'</option>';
+                                    }
+                                ?>
                             </select><br>
                         </div>
                         <div class="form-group">
@@ -241,15 +249,20 @@
                         </div>
                         <div class="form-group">
                             <label for="harga">Foto</label><span class="required" style="color: red">*</span></label>
-                            <input class="lagi " type="file" name="image_produk" id="image"/>
+                                <input type="file" name="file" required>
+                            <span name="error"></span>
                         </div>
+                
+            </div>
+                        
     </div>  
       <div class="modal-footer">
-      <input type="hidden" id="insert-userid" name="userid">
-                        <input type="hidden" id="insert-command" name="command" value="membuat_produk_pulsa">
+                        <input type="hidden" id="insert-userid" name="userid">
+                        <input type="hidden" id="insert-command" name="command" value="membuat_produk_shipped">
                         <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </form>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
       </div>
     </div>
 </div>
