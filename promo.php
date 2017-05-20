@@ -1,5 +1,6 @@
 <?php	
-	$echoDeskripsi = "";
+	
+$echoDeskripsi = "";
 	$echoPeriodeAwal = "";
 	$echoPeriodeAkhir = "";
 	$echoKodePromo = "";
@@ -7,7 +8,6 @@
 	$echoSubkategori = "";
 	$echoError = "";
 	$validate = true;
-
 	function submitPromo(){
 		$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
 
@@ -75,7 +75,9 @@
 	}
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		 if (empty($_POST["deskripsi"])) {
+        
+        if($_POST['command'] === 'addPromo'){
+            if (empty($_POST["deskripsi"])) {
 			   $echoDeskripsi = "Deskripsi harus diisi";
 			   $validate = false;
 		  }
@@ -113,5 +115,27 @@
 		  if($validate == true){
 		   	   submit();
 		  }
+        }
+		 
 	}
 ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head></head>
+	<body>
+        <script>
+              function getId(val){
+                $.ajax({
+                  type: "POST",
+                  url: "getdata.php",
+                  data: "cid="+val,
+                  success: function(data){
+                    $("#subKategori").html(data);
+                  }
+                });
+              }
+        </script>
+	</body>
+</html>

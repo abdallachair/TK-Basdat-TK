@@ -76,8 +76,8 @@
 	        <select class="form-control" name="kategoriUtama" onchange="getId(this.value);">
 				<option>Select Kategori Utama</option>
 				<?php
-					$db = pg_dbect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4');
-					$sql = "SELECT * FROM KATEGORI_UTAMA";
+					$db = pg_connect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4');
+					$sql = "SELECT * FROM TOKOKEREN.KATEGORI_UTAMA;";
 					if(!$result = pg_query($db, $sql)) {
 						die("Error: $sql");
 					}
@@ -93,8 +93,9 @@
 				<select class="form-control" name="subKategori" id="subKategori">
 					<option>Select Sub-Kategori</option>
                     <?php
-                        $db = pg_dbect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4');
-                        $sql = "SELECT * FROM SUB_KATEGORI WHERE kode_kategori = '$_SESSION['main_category']'";
+                        $db = pg_connect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4');
+                        $main_cat = $_SESSION['main_category'];
+                        $sql = "SELECT * FROM TOKOKEREN.SUB_KATEGORI WHERE kode_kategori = '$main_cat';";
                         if(!$result = pg_query($db, $sql)) {
                             die("Error: $sql");
                         }
@@ -127,9 +128,10 @@
                     $query = "";
                     if (isset($_SESSION['main_category'])) {
                         if (isset($_SESSION['sub_category'])) {
+                            $sub_cat = $_SESSION['sub_category'];
                             $query = "SELECT DISTINCT P.kode_produk, P.nama, P.harga, P.deskripsi, SP.is_asuransi, SP.stok, SP.is_baru, SP.harga_grosir
                                 FROM TOKOKEREN.PRODUK P, TOKOKEREN.SHIPPED_PRODUK SP, TOKOKEREN.KATEGORI_UTAMA KU, TOKOKEREN.SUB_KATEGORI SK
-                                WHERE SP.kode_produk = P.kode_produk AND SP.kategori = '$_SESSION['sub_category']' AND KU.kode = SK.kode_kategori AND SP.nama_toko = '$nama_toko'
+                                WHERE SP.kode_produk = P.kode_produk AND SP.kategori = '$sub_cat' AND KU.kode = SK.kode_kategori AND SP.nama_toko = '$nama_toko'
                                 ORDER BY P.kode_produk;";
                         }
                     } else {

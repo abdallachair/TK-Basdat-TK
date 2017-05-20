@@ -50,7 +50,7 @@
                         </tr>
                      </thead>
                      <?php
-                        $db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
+                        $db = pg_connect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4'); 
                         $user_email = $_SESSION['email'];
 
                         $query = "SELECT DISTINCT TP.no_invoice, P.nama, TP.tanggal, TP.status, TP.total_bayar, TP.nominal, TP.nomor, TP.email_pembeli, TP.kode_produk
@@ -103,7 +103,7 @@
                               </tr>
                        </thead>
                        <?php
-                        $db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
+                        $db = pg_connect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4'); 
                         $user_email = $_SESSION['email'];
 
                         $query = "SELECT DISTINCT TS.no_invoice, TS.nama_toko, TS.tanggal, TS.status, TS.total_bayar, TS.alamat_kirim, TS.biaya_kirim, TS.no_resi, TS.nama_jasa_kirim, TS.email_pembeli FROM TOKOKEREN.TRANSAKSI_SHIPPED TS, TOKOKEREN.TOKO T, TOKOKEREN.LIST_ITEM LI, TOKOKEREN.TOKO_JASA_KIRIM TJK WHERE LI.no_invoice = TS.no_invoice AND TS.email_pembeli = '".$user_email."';";

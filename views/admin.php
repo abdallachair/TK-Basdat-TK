@@ -2,6 +2,16 @@
     include('kategori-subkategori.php');
     include('menambah_produk_pulsa.php');
     include('membuat_produk_shipped.php');
+    include('promo.php');
+
+    $echoDeskripsi = "";
+	$echoPeriodeAwal = "";
+	$echoPeriodeAkhir = "";
+	$echoKodePromo = "";
+	$echoKategoriUtama = "";
+	$echoSubkategori = "";
+	$echoError = "";
+	$validate = true;
 ?>
 
 <!doctype html>
@@ -86,6 +96,84 @@
 </div>
 
 <!-- end modal kategori-->
+    
+<!-- modal promo -->
+<div id="promo" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tambah Promo</h4>
+      </div>
+      <div class="modal-body">
+          <h2>Add Promo</h2>
+        <div>
+            <span class="required" style="color: red">*required</span>
+        </div>
+	      <div class="konten-isi" style="text-align: justify; text-justify: inter-word;">
+						<form action="index.php" method="post">
+							<div class="form-group">
+                <label for="deskripsi">Deskripsi<span class="required" style="color: red">*</span></label>
+                <input type="text" class="form-control" id="deskripsi" name="deskripsi">
+                <span style="color: red"><?php echo $echoDeskripsi; ?></span>
+              </div>
+              <div class="form-group">
+                <label for="periodeAwal">Periode Awal<span class="required" style="color: red">*</span></label>
+                <input type="date" class="form-control" id="periodeAwal" name="periodeAwal">
+                <span style="color: red"><?php echo $echoPeriodeAwal; ?></span>
+              </div>
+              <div class="form-group">
+                <label for="periodeAkhir">Periode Akhir<span class="required" style="color: red">*</span></label>
+                <input type="date" class="form-control" id="periodeAkhir" name="periodeAkhir">
+                <span style="color: red"><?php echo $echoPeriodeAkhir; ?></span>
+                <span style="color: red"><?php echo $echoError; ?></span>
+              </div>
+              <div class="form-group">
+                <label for="kodePromo">Kode Promo<span class="required" style="color: red">*</span></label>
+                <input type="text" class="form-control" id="kodePromo" name="kodePromo">
+                <span style="color: red"><?php echo $echoKodePromo; ?></span>
+              </div>
+            <div class="form-group">
+                <label for="kategori">Pilih Kategori<span class="required" style="color: red">*</span></label>
+                <select class="form-control" name="kategoriUtama" onchange="getId(this.value);">
+                <span style="color: red"><?php echo $echoKategoriUtama; ?></span>
+                    <option value="kosong">Select Kategori Utama</option>
+                  <?php
+                    $conn = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+                    $sql = "SELECT * FROM TOKOKEREN.KATEGORI_UTAMA";
+                    $result = pg_query($conn, $sql);
+                    
+                    if(!$result) {
+                      die("Error: $sql");
+                    }
+                    
+                    while ($row = pg_fetch_row($result)) {
+                      $noKategori = $row[0];
+                      $namaKategori = $row[1];
+                      echo '<option value='.$noKategori.'>'. $namaKategori.'</option>';
+                    }
+                    
+                    ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" name="subKategori" id="subKategori">
+                  <option value="kosong">Select Sub-Kategori</option>
+                </select>
+                <span style="color: red"><?php echo $echoSubkategori; ?></span>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+          <input type="hidden" name="command" value="addPromo">
+        <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end modal promo -->
 
 <!-- modal jasa -->
 <div id="jasa" class="modal fade" role="dialog">
@@ -186,7 +274,7 @@
       </div>
       <div class="modal-body">
         <div class="membuat_toko">
-                <h2>FORM MEMBUAT PRODUK PULSA</h2>
+                <h2>FORM MEMBUAT PRODUK</h2>
                 <form action="index.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="nama_paket">Kode_produk</label>

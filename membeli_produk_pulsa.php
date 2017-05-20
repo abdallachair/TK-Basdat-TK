@@ -1,11 +1,10 @@
 <?php
     session_start();
-    if(isset($_POST['beli_pulsa'])) {
-        $_SESSION['kode_produk_pulsa'] = $_POST['beli_pulsa'];
+    if(isset($_GET['beli_pulsa'])) {
+        $_SESSION['kode_produk_pulsa'] = $_GET['beli_pulsa'];
         if(isset($_SESSION['kode_produk_pulsa'])) {
             header('location: cart-pulsa.php');
         }
-
     }
 ?>
 
@@ -41,7 +40,7 @@
                       </tr>
                    </thead>
                     <?php
-                        $db = pg_connect('host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016'); 
+                        $db = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
                         $user_email = $_SESSION['email'];
 
                         $query = "SELECT DISTINCT P.kode_produk, P.nama, P.harga, P.deskripsi, PP.nominal
@@ -61,7 +60,7 @@
                                 <td> '.$q['harga'].' </td>
                                 <td> '.$q['deskripsi'].' </td>
                                 <td> '.$q['nominal'].' </td>
-                                <td> <form method="get" action="cart.php"><button type="submit" name="beli_pulsa" value='.$q['kode_produk'].'> ULAS </button></form> </td>
+                                <td> <form method="get" action="membeli_produk_pulsa.php"><button type="submit" name="beli_pulsa" value='.$q['kode_produk'].'> BELI </button></form> </td>
                                 </tr>';
                             }
                         }

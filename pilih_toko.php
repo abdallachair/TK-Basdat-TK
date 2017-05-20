@@ -1,8 +1,8 @@
 <?php
     session_start();
 
-    if (isset($_POST['nama_toko'])) {
-        $_SESSION['toko'] = $_POST['nama_toko'];
+    if (isset($_GET['kategoriUtama'])) {
+        $_SESSION['toko'] = $_GET['kategoriUtama'];
         if (isset($_SESSION['toko'])) {
             header('location: membeli_produk_shipped.php');
         }
@@ -29,21 +29,25 @@
             <h2>Pilih Toko</h2>
             <div class="form-group">
     			<label for="kategori">Pilih Kategori<span class="required" style="color: red">*</span></label>
-    	        <select class="form-control" name="kategoriUtama" onchange="getId(this.value);">
-    				<option>Select Toko</option>
-    				<?php
-    					$db = pg_dbect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4');
-    					$sql = "SELECT * FROM TOKOKEREN.TOKO;";
-    					if(!$result = pg_query($db, $sql)) {
-    						die("Error: $sql");
-    					}
+                <form method="GET" action="pilih_toko.php">
+    	        <select class="form-control" name="kategoriUtama">
+    				
+                        <option>Select Toko</option>
+                        <?php
+                            $db = pg_connect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4');
+                            $sql = "SELECT * FROM TOKOKEREN.TOKO;";
+                            if(!$result = pg_query($db, $sql)) {
+                                die("Error: $sql");
+                            }
 
-    					while ($row = pg_fetch_array($result)) {
-    						$namaToko = $row[0];
-    						echo '<option name="nama_toko" value='.$namaToko.'>'. $namaToko.'</option>';
-    					}
-    				?>
+                            while ($row = pg_fetch_array($result)) {
+                                $namaToko = $row[0];
+                                echo '<option name="nama_toko" value='.$namaToko.'>'. $namaToko.'</option>';
+                            }
+                        ?>         
     			</select>
+                <button type="submit" class="btn btn-primary brown lighten-3">Submit</button>
+                </form>
             </div>
         </div>
     </body>
