@@ -39,12 +39,18 @@ function loginUser($email, $pass){
 	
 					if($row_penjual['is_penjual'] === 't'){
 						$_SESSION['role'] = 'penjual';
+
+						$query_toko = "SELECT *	 FROM TOKOKEREN.TOKO WHERE email_penjual='".$email."'";
+						$result_toko = pg_query($conn, $query_toko);
+						$row_toko = pg_fetch_assoc($result_toko);
+
+						$_SESSION['toko'] = $row_toko['nama'];
 					}
 					else{
 						$_SESSION['role'] = 'pelanggan';
 					}
 				}
-				header("Location: index.php");
+				//header("Location: index.php");
 				
 			}
 			else{
