@@ -1,6 +1,11 @@
 <?php
     session_start();
 
+    session_start();
+    if (!isset($_SESSION['role'])) {
+        header('location: login.php');
+    }
+
     if (isset($_GET['kategoriUtama'])) {
         $_SESSION['toko'] = $_GET['kategoriUtama'];
         if (isset($_SESSION['toko'])) {

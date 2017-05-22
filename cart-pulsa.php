@@ -1,7 +1,9 @@
 <?php
 	session_start();
 	$email = $_SESSION['email'];
-
+	if (!isset($_SESSION['role'])) {
+		header('location: login.php');
+	}
 
 	if(isset($_POST['submit_pulsa'])) {
 		$db = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");

@@ -1,6 +1,8 @@
 <?php
 	session_start();
-    $nama_toko = $_SESSION['toko'];
+	if (!isset($_SESSION['role'])) {
+		header('location: login.php');
+	}
 ?>
 
 <!DOCTYPE html>
@@ -58,55 +60,58 @@
 				</div>
 			</div>
 
+			<form method="POST" action="cart.php">
 			<label for="alamat-kirim">Alamat Kirim:</label>
 			<input type="text" class="form-control" id="alamat-kirim" name="alamat-kirim" placeholder="Masukkan Alamatmu" required>
 			<div class="form-group">
 				<label for="kategori">Pilih Jasa Kirim</label>
-				<select class="form-control" name="jasa-kirim" onchange="getId(this.value);" required="">
+				<select class="form-control" name="jasa-kirim" required="">
 					<option>Select Jasa Kirim</option>
 					<?php
 						$db = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
-						$sql = "SELECT DISTINCT TJK.nama_toko, TJK.jasa_kirim FROM TOKOKEREN.TOKO_JASA_KIRIM TJK, TOKOKEREN.TOKO T WHERE TJK.nama_toko = '
-    							$nama_toko';";
-						$result = pg_query($db, $sql);
-						if(!$result) {
+						$nama_toko = $_SESSION['toko'];
+						$sql = "SELECT DISTINCT TJK.nama_toko, TJK.jasa_kirim 
+						FROM TOKOKEREN.TOKO_JASA_KIRIM TJK, TOKOKEREN.TOKO T 
+						WHERE TJK.nama_toko = '$nama_toko';";
+						if(!$result = pg_query($db, $sql)) {
 							die("Error: $sql");
-						}	
-
-						while ($row = pg_fetch_array($result)) {
-							$jasa_kirim = $row['jasa_kirim'];
-							echo '<option nama="jasa_kirim" value='.$jasa_kirim.'>'. $jasa_kirim.'</option>';
+						} else {
+							while ($q = pg_fetch_array($result)) {
+								echo $q['jasa_kirim'];
+								echo '<option nama="jasa_kirim" value='.$q['jasa_kirim'].'>'.$q['jasa_kirim'].'</option>';
+							}	
 						}
 					?>
 				</select>
-				<button name="checkout" type="checkout" class="btn btn-default">Checkout</button>
+				<button name="checkout" type="checkout" class="btn btn-default">Checkout</button></form>
 				<?php 
 					if (isset($_POST['checkout'])) {
 						$db = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
+    					$nama_toko = $_SESSION['toko'];
 						$alamat = $_POST['alamat_kirim'];
 						$jasa_kirim = $_POST['jasa_kirim'];
 						$nama_toko = $_SESSION['toko'];
 						$user_email = $_SESSION['email'];
 						$curr_date = date("d/m/Y");
-						$curr_time = date("h:i:sa");
+						$curr_time = date("d/m/Y h:i:sa");
 						$status = rand(1, 3);
 						$no_resi = 'IDN' . rand(8000000000000, 9999999999999);
 
 						$sub_total_query = "SELECT SUM(sub_total) AS sum_sub_total FROM TOKOKEREN.KERANJANG_BELANJA WHERE KB.pembeli = '$user_email';";
 						$result = pg_query($db, $sub_total_query);
-						$sub_total = pg_query_row($result)[0];
+						$sub_total = pg_fetch_row($result)[0];
 
 						$berat_query = "SELECT SUM(berat) AS sum_berat FROM TOKOKEREN.KERANJANG_BELANJA WHERE KB.pembeli = '$user_email';";
 						$result1 = pg_query($db, $berat_query);
-						$berat = pg_query_row($result1)[0];
+						$berat = pg_fetch_row($result1)[0];
 
 						$tarif_query = "SELECT tarif AS sum_tarif FROM TOKOKEREN.JASA_KIRIM WHERE nama = '$jasa_kirim';";
 						$result2 = pg_query($db, $tarif_query);
-						$tarif = pg_query_row($result2)[0];
+						$tarif = pg_fetch_row($result2)[0];
 
 						$count_rows_query = "SELECT COUNT(*) AS count_rows FROM TOKOKEREN.TRANSAKSI_SHIPPED;";
 						$result3 = pg_query($db, $count_rows_query);
-						$count_rows = pg_query_row($result3)[0];
+						$count_rows = pg_fetch_row($result3)[0];
 
 						$no_invoice = "V";
 
@@ -119,16 +124,16 @@
 						}
 
 						$harga_kirim = $berat * $tarif;
-						$harga_total = $harga_kirim + $sub_total
+						$harga_total = $harga_kirim + $sub_total;
 
-						$query_insert_TS = "INSERT INTO TOKOKEREN.TRANSAKSI_SHIPPED (no_invoice, tanggal, waktu_bayar, status, total_bayar, email_pembeli, nama_toko, alamat_kirim, biaya_kirim, no_resi, nama_jasa_kirim) values ('$no_invoice', '$curr_date', '$curr_time', '$status', '$harga_total', '$user_email', '$nama_toko', '$harga_kirim', '$tarif', '$no_resi', '$jasa_kirim')"; 
+						$query_insert_TS = "INSERT INTO TOKOKEREN.TRANSAKSI_SHIPPED (no_invoice, tanggal, waktu_bayar, status, total_bayar, email_pembeli, nama_toko, alamat_kirim, biaya_kirim, no_resi, nama_jasa_kirim) values ('$no_invoice', '$curr_date', '$curr_time', '$status', '$harga_total', '$user_email', '$nama_toko', '$harga_kirim', '$tarif', '$no_resi', '$jasa_kirim');"; 
 						$result_insert = pg_query($db, $query_insert_TS);
 
 						$keranjang_belanja = "SELECT DISTINCT KB.kode_produk, KB.berat, KB.kuantitas, KB.harga, KB.sub_total FROM TOKOKEREN.KERANJANG_BELANJA KB WHERE KB.pembeli = '$user_email';";
 						$result4 = pg_query($db, $keranjang_belanja);
 
-						if (!result4) {
-							die("Error: $keranjang_belanja");
+						if (!$result4) {
+							die("Error 1: $keranjang_belanja");
 						} else {
 							while ($q = pg_fetch_array($result4)) {
 								$kode_list = $q['kode_produk'];
@@ -136,31 +141,26 @@
 								$kuantitas_list = $q['kuantitas'];
 								$harga_list = $q['harga'];
 								$sub_total_list = $q['sub_total'];
-								$query_insert_LI = "INSERT INTO LIST_ITEM (no_invoice, kode_produk, berat, kuantitas, harga, sub_total) values ('$no_invoice', '$kode_list', '$berat_list', '$kuantitas_list', '$harga_list', '$sub_total_list');"; 
+								$query_insert_LI = "INSERT INTO TOKOKEREN.LIST_ITEM (no_invoice, kode_produk, berat, kuantitas, harga, sub_total) values ('$no_invoice', '$kode_list', $berat_list, $kuantitas_list, $harga_list, $sub_total_list);"; 
 								$result_insert = pg_query($db, $query_insert_LI);
+
+								if (!$result_insert) {
+									$errormessage = pg_last_error(); 
+		                            echo "Error with query: " . $errormessage; 
+		                            exit(); 
+								} else {
+									echo '<script language="javascript">';
+									echo 'alert("Barang Berhasil dibeli!")';
+									echo '</script>';
+									$delete_rows_query = "DELETE FROM TOKOKEREN.KERANJANG_BELANJA KB WHERE KB.pembeli = '$user_email';";
+									$result_delete = pg_query($delete_rows_query);
+									header('location: index.php');
+								}
 							}
-						}
-
-
-						if (!$result_insert) {
-							die("Error: $query_insert");
-						} else {
-							echo '<script language="javascript">';
-							echo 'alert("Barang Berhasil dibeli!")';
-							echo '</script>';
-							$delete_rows_query = "DELETE FROM TOKOKEREN.KERANJANG_BELANJA KB WHERE KB.pembeli = '$user_email';";
-							$result_delete = pg_query($delete_rows_query);
-
-							header('location: index.php');
-						}
+						}					
 					}
 				?>
-				<button name="kembali" class="btn btn-default">Kembali Belanja</button>
-				<?php 
-					if (isset($_POST['kembali'])) {
-						header('location: pilih_toko.php');
-					}
-				?>
+				<form method="get" action="pilih_toko.php"><button name="kembali" class="btn btn-default">Kembali Belanja</button></form>
 			</div>
 		</div>
 	</body>

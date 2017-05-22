@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if (!isset($_SESSION['role'])) {
+        header('location: login.php');
+    }
     if(isset($_GET['beli_pulsa'])) {
         $_SESSION['kode_produk_pulsa'] = $_GET['beli_pulsa'];
         if(isset($_SESSION['kode_produk_pulsa'])) {
@@ -40,7 +43,7 @@
                       </tr>
                    </thead>
                     <?php
-                        $db = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
+                        $db = pg_connect("host=localhost port=5432 dbname=luthfiaulia user=postgres password=dadada");
                         $user_email = $_SESSION['email'];
 
                         $query = "SELECT DISTINCT P.kode_produk, P.nama, P.harga, P.deskripsi, PP.nominal

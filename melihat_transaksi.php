@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if (!isset($_SESSION['role'])) {
+        header('location: login.php');
+    }
     if(isset($_POST['shipped_dibeli'])) {
         $_SESSION['no_invoice'] = $_POST['shipped_dibeli'];
         if(isset($_SESSION['no_invoice'])) {
