@@ -34,7 +34,7 @@
     				
                         <option>Select Toko</option>
                         <?php
-                            $db = pg_connect('host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4');
+                            $db = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
                             $sql = "SELECT * FROM TOKOKEREN.TOKO;";
                             if(!$result = pg_query($db, $sql)) {
                                 die("Error: $sql");

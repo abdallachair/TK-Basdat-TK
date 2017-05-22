@@ -6,15 +6,15 @@
 
 	session_start();
 	function submit(){
-		$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+		$db = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
 
         $kodeProduk = $_POST['kodeProduk']; 
         $komentar = $_POST['komentar']; 
         $rating = $_POST['rating'];
-        $date = date('m-d-Y');
+        $date = date('Y-m-d');
         $email_pembeli = $_SESSION['email']; 
 
-        $query = "INSERT into TOKOKEREN.ulasan (email_pembeli, kode_produk, tanggal, rating, komentar) values ('$email_pembeli', $kodeProduk', '$date', '$rating', '$komentar')";
+        $query = "INSERT into TOKOKEREN.ulasan (email_pembeli, kode_produk, tanggal, rating, komentar) values ('$email_pembeli', '$kodeProduk', '$date', '$rating', '$komentar')";
         $result = pg_query($db, $query); 
         if (!$result) { 
             $errormessage = pg_last_error(); 
@@ -62,7 +62,8 @@
 	    <div class="form-group">
 	      <label for="namajasakirim">Kode Produk : </label>
 	      	<?php
-				$kodeProduk = $_GET["kode_produk"];
+	      	    		$kodeProduk = 'S0000001';
+				//$kodeProduk = $_GET["kode_produk"];
 				echo '<input type="text" class="form-control" id="kodeProduk" name="kodeProduk" readonly="readonly" ';
 				echo 'value='.$kodeProduk;
 				echo '>';
@@ -70,7 +71,7 @@
 	    </div>
 	    <div class="form-group">
 	      <label for="lamakirim">Rating : </label>
-	      <input type="text" data-min=0 data-max=5 data-step=0.2 class="rating" id="rating-input" name="rating" data-size="xs">
+	      <input type="text" data-min=0 data-max=5 data-step=1 class="rating" id="rating-input" name="rating" data-size="xs">
 	      <span style="color: red"><?php echo $echoRating; ?></span>
 	    </div>
 	    <div class="form-group">

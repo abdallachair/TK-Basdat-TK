@@ -1,10 +1,10 @@
 <?php
     //session_start();
     //echo "oi"
-    $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+    $DBConnection = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
     function insertProdukPulsa(){
         //echo('WOY COKS');
-        $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+        $DBConnection = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
         $kode_produk = $_POST['kode_produk'];
         $nama_produk = $_POST['nama_produk'];
         $harga = $_POST['harga'];

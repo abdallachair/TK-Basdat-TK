@@ -1,6 +1,6 @@
 <?php	
 	
-$echoDeskripsi = "";
+	$echoDeskripsi = "";
 	$echoPeriodeAwal = "";
 	$echoPeriodeAkhir = "";
 	$echoKodePromo = "";
@@ -9,7 +9,7 @@ $echoDeskripsi = "";
 	$echoError = "";
 	$validate = true;
 	function submitPromo(){
-		$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+		$db = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
 
 		$deskripsi = $_POST['deskripsi'];
 		$periodeAwal = $_POST['periodeAwal'];
@@ -19,8 +19,6 @@ $echoDeskripsi = "";
 		$subKategori = $_POST['subKategori']; 
 		$idPromo;
         pg_close(); 
-
-		header("Location: index.php");
 
 		$sql4 = "SELECT id FROM TOKOKEREN.PROMO";
 
@@ -90,7 +88,7 @@ $echoDeskripsi = "";
 		  if (empty($_POST["periodeAkhir"])) {
 			   $echoPeriodeAkhir = "Periode akhir harus diisi";
 			   $validate = false;
-		  } elseif($_POST["periodeAwal"] <= $_POST["periodeAkhir"]) {
+		  } elseif($_POST["periodeAwal"] > $_POST["periodeAkhir"]) {
 				$echoError = "Periode awal harus lebih besar dari periode akhir";
 				$validate = false;
 		  }
@@ -113,29 +111,9 @@ $echoDeskripsi = "";
 		  }
 
 		  if($validate == true){
-		   	   submit();
+		   	   submitPromo();
 		  }
         }
 		 
 	}
 ?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-    <head></head>
-	<body>
-        <script>
-              function getId(val){
-                $.ajax({
-                  type: "POST",
-                  url: "getdata.php",
-                  data: "cid="+val,
-                  success: function(data){
-                    $("#subKategori").html(data);
-                  }
-                });
-              }
-        </script>
-	</body>
-</html>

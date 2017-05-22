@@ -4,10 +4,11 @@
 	$echoTarif = "";
 	$echoBerhasil = "";
 	$validate = true;
-	
-	$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+
+	session_start();
+
 	function submit(){
-	 	$db = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+	 	$db = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
 
         $nama_jasa_kirim = pg_escape_string($_POST['nama_jasa_kirim']); 
         $lama_kirim = pg_escape_string($_POST['lama_kirim']); 
@@ -20,9 +21,7 @@
             echo "Error with query: " . $errormessage; 
             exit(); 
         } 
-        printf ("Data-data ini sudah masuk ke dalam database - %s %s %s", $nama_jasa_kirim, $lama_kirim, $tarif_jasa_kirim); 
         pg_close(); 
-	  	header("Location: index.php");
 	 }
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -35,9 +34,9 @@
 		  	$nameExist = false;
 		  	$query = "SELECT nama FROM TOKOKEREN.JASA_KIRIM";
 		  	$result = pg_query($db, $query);
-			if(!$result) {
-			    die("Error: $query");
-			}
+			// if(!$result) {
+			//     die("Error: $query");
+			// }
 
 			while ($row = pg_fetch_row($result)) {
 			  	if($_POST["nama_jasa_kirim"] == $row[0]){

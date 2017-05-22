@@ -5,8 +5,6 @@
 		session_unset($_SESSION['loginError']);
 	}
   $_SESSION['kode_produk'] = array();
-   // include("add_jasa_kirim.php");
-    //include("promo.php");
 ?>
 
 <!doctype html>
@@ -56,7 +54,6 @@
               <a class="navbar-brand" href="#gsdk">Toko<b>Keren</b></a>
             </div>
             <?php
-               $_SESSION['role'] = 'admin';
               //unset($_SESSION['role']);
                   if(isset($_SESSION['baru'])){
                      echo '<div class="alert alert-success">
@@ -123,7 +120,7 @@
             if(isset($_SESSION["role"])){
                 if($_SESSION["role"] === 'admin'){
                   include 'views/admin.php';
-                } else if ($_SESSION['role'] === 'penjual') {
+                } else if ($_SESSION['role'] === 'pelanggan') {
                     include_once 'views/pelanggan.php';
                 }
               }
@@ -208,7 +205,7 @@ function closeNav() {
       function getId(val){
         $.ajax({
           type: "POST",
-          url: "getdata.php",
+          url:  "getdata.php",
           data: "cid="+val,
           success: function(data){
             $("#subKategori").html(data);

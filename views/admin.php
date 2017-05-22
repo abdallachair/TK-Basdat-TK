@@ -2,16 +2,8 @@
     include('kategori-subkategori.php');
     include('menambah_produk_pulsa.php');
     include('membuat_produk_shipped.php');
+    include('add_jasa_kirim.php');
     include('promo.php');
-
-    $echoDeskripsi = "";
-	$echoPeriodeAwal = "";
-	$echoPeriodeAkhir = "";
-	$echoKodePromo = "";
-	$echoKategoriUtama = "";
-	$echoSubkategori = "";
-	$echoError = "";
-	$validate = true;
 ?>
 
 <!doctype html>
@@ -139,7 +131,7 @@
                 <span style="color: red"><?php echo $echoKategoriUtama; ?></span>
                     <option value="kosong">Select Kategori Utama</option>
                   <?php
-                    $conn = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+                    $conn = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
                     $sql = "SELECT * FROM TOKOKEREN.KATEGORI_UTAMA";
                     $result = pg_query($conn, $sql);
                     
@@ -199,13 +191,13 @@
             <div class="form-group">
               <label for="lamakirim">Lama Kirim : <span class="required" style="color: red">*</span></label>
               <input type="text" class="form-control" id="lama_kirim" placeholder="Masukkan lama kirim" name="lama_kirim">
-              <span style="color: red">';?><?php echo $echoLamaKirim;?></span>
+              <span style="color: red"><?php echo $echoLamaKirim;?></span>
             </div>
             <div class="form-group">
               <label for="tarif">Tarif : <span class="required" style="color: red">*</span></label>
               <input type="text" class="form-control" id="tarif_jasa_kirim" placeholder="Masukkan tarif" name="tarif_jasa_kirim">
-              <span style="color: red">';?><?php echo $echoTarif?></span>
-              <span style="color: red">';?><?php echo $echoBerhasil;?></span>
+              <span style="color: red"><?php echo $echoTarif;?></span>
+              <span style="color: green"><?php echo $echoBerhasil;?></span>
             </div>
       </div>
       <div class="modal-footer">
@@ -437,7 +429,7 @@ function closeNav() {
       }
 </script>
 
-<script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
+  <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
   <script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
 
   <script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>

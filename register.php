@@ -42,7 +42,7 @@
 	}	
 function registerUser($email){
 	//mengecek apakaah email sudah ada di dalam database
-	$conn = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+	$conn = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
 
 	$query_email_pengguna = "SELECT * FROM TOKOKEREN.PENGGUNA where email = '".$email."'";
 	$query_email_pelanggan = "SELECT * FROM TOKOKEREN.PELANGGAN where email = '".$email."'";

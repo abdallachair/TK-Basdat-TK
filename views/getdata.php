@@ -11,7 +11,7 @@
 	$conn = connectDB();
 	if(!empty($_POST["cid"])){
 		$cid = $_POST["cid"];
-		$sql = "SELECT * FROM SUB_KATEGORI WHERE kode_kategori='$cid'";
+		$sql = "SELECT * FROM TOKOKEREN.SUB_KATEGORI WHERE kode_kategori='$cid'";
 
 		if(!$result = pg_query($conn, $sql)) {
 			die("Error: $sql");

@@ -1,10 +1,10 @@
 <?php
     //session_start();
     $_SESSION['email']="john793@gmail.com";
-    $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+    $DBConnection = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
     $no_jasa_kirim = 1;
     function selectAllFromTable($table) {
-        $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+        $DBConnection = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
         $query = "SELECT * FROM $table";
         $result = pg_query($DBConnection, $query);
 
@@ -12,7 +12,7 @@
     }   
     
     function insertToko(){
-        $DBConnection = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+        $DBConnection = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
         $nama_toko = $_POST['nama_toko'];
         $deskripsi = $_POST['deskripsi'];
         $slogan = $_POST['slogan'];

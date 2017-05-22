@@ -40,7 +40,7 @@
                       </tr>
                    </thead>
                     <?php
-                        $db = pg_connect("host=localhost port=5432 dbname=abdallachair user=postgres password=abdall4");
+                        $db = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
                         $user_email = $_SESSION['email'];
 
                         $query = "SELECT DISTINCT P.kode_produk, P.nama, P.harga, P.deskripsi, PP.nominal

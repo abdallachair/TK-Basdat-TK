@@ -44,7 +44,7 @@
                               </tr>
                        </thead>
                        <?php
-                        $db = pg_connect('host=localhost dbname=farhanramadhan user=postgres password=gold28197'); 
+                        $db = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
                         $user_email = $_SESSION['email'];
                         $query = "SELECT P.nama, LI.berat, LI.kuantitas, LI.sub_total, LI.harga, P.kode_produk
                             FROM TOKOKEREN.PRODUK P, TOKOKEREN.LIST_ITEM LI

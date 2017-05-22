@@ -9,7 +9,7 @@ function loginUser($email, $pass){
 			$_SESSION['loginError'] = "Email dan Password harus diisi!";
 		}
 		else{
-			$conn = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+			$conn = pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
 			//disesuaikan querynya
 			$query_email = "SELECT email FROM TOKOKEREN.PENGGUNA WHERE email='".$email."' and password='".$pass."' ";
 			$result_email = pg_query($conn, $query_email); 
@@ -50,7 +50,7 @@ function loginUser($email, $pass){
 						$_SESSION['role'] = 'pelanggan';
 					}
 				}
-				//header("Location: index.php");
+				header("Location: index.php");
 				
 			}
 			else{

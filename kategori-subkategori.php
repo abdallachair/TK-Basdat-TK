@@ -20,7 +20,7 @@
 	}
 
 	function tambahKategori($id_kat, $nama_kat){
-		$conn = pg_connect("host=localhost port=5432 dbname=farhanramadhan user=postgres password=gold28197");
+		pg_connect("host=dbpg.cs.ui.ac.id dbname=b217 user=b217 password=bdb1722016");
 		$valid = true;
 
 		$q_ada_kat = "SELECT * FROM TOKOKEREN.KATEGORI_UTAMA WHERE kode = '".$id_kat."'";
